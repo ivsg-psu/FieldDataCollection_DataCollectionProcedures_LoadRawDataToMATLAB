@@ -145,6 +145,7 @@ Identifiers.SourceBagFileName =''; % This is filled in automatically for each fi
 if ~isnan(str2double(scenarioString(1))) ...
         || strcmp(scenarioString,'BaseMap')...
         || strcmp(scenarioString,'ReflectivityObjectTests')...
+        || contains(scenarioString,'SC') ....  
         || contains(scenarioString,'Scenario')
         
     % Location for Test Track base station
@@ -316,6 +317,16 @@ switch scenarioString
         if strcmp(validDateStrings{1},dateString)
             Identifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         end
+    case 'PittsburghToSC'
+        Identifiers.WorkZoneDescriptor = 'PittsburghToSC'; % Can be one of the 20 descriptors, see key
+        Identifiers.Treatment = 'PittsburghToSC'; % Can be one of 9 options, see key
+        Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+        validDateStrings = {'2024-10-16'};
+    case 'SCtoPittsburgh'
+        Identifiers.WorkZoneDescriptor = 'SCtoPittsburgh'; % Can be one of the 20 descriptors, see key
+        Identifiers.Treatment = 'SCtoPittsburgh'; % Can be one of 9 options, see key
+        Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+        validDateStrings = {'2024-10-16'};
     otherwise
         warning('on','backtrace');
         warning('Unknown scenario given: %s',scenarioString);
