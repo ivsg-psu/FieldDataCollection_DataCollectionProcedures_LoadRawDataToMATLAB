@@ -142,7 +142,10 @@ end
 Identifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
 Identifiers.SourceBagFileName =''; % This is filled in automatically for each file
 
-if ~isnan(str2double(scenarioString(1))) || strcmp(scenarioString,'BaseMap')
+if ~isnan(str2double(scenarioString(1))) ...
+        || strcmp(scenarioString,'BaseMap')...
+        || strcmp(scenarioString,'ReflectivityObjectTests')...
+        
     % Location for Test Track base station
     setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.86368573');
     setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-77.83592832');
@@ -167,7 +170,14 @@ elseif strcmp(scenarioString,'PA51Aliquippa')
     setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','223.294');
     Identifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
 else
-    error('Unknown site: %s',scenarioString);    
+    warning('on','backtrace');
+    warning('Unknown site: %s. Defaulting to test track intialization.',scenarioString);    
+
+    % Location for Test Track base station
+    setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.86368573');
+    setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-77.83592832');
+    setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','344.189');
+    Identifiers.ProjectStage = 'TestTrack'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
 end
 
 
@@ -182,7 +192,7 @@ Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring 
 Identifiers.WorkZoneScenario = scenarioString; % Can be one of the ~20 scenarios, see key
 
 switch scenarioString
-    case 'BaseMap'
+    case {'BaseMap','ReflectivityObjectTests'}
         Identifiers.WorkZoneDescriptor = 'BaseMap'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PreCalibration'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
