@@ -145,6 +145,7 @@ Identifiers.SourceBagFileName =''; % This is filled in automatically for each fi
 if ~isnan(str2double(scenarioString(1))) ...
         || strcmp(scenarioString,'BaseMap')...
         || strcmp(scenarioString,'ReflectivityObjectTests')...
+        || contains(scenarioString,'Scenario')
         
     % Location for Test Track base station
     setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.86368573');
@@ -192,102 +193,107 @@ Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring 
 Identifiers.WorkZoneScenario = scenarioString; % Can be one of the ~20 scenarios, see key
 
 switch scenarioString
-    case {'BaseMap','ReflectivityObjectTests'}
+    case 'BaseMap'
         Identifiers.WorkZoneDescriptor = 'BaseMap'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PreCalibration'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-08-05','2024-08-12','2024-08-13'};    
-    case '1.1'
+        validDateStrings = {'2024-08-05','2024-08-12','2024-08-13'}; 
+    case 'ReflectivityObjectTests'
+        Identifiers.WorkZoneDescriptor = 'BaseMap'; % Can be one of the 20 descriptors, see key
+        Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
+        Identifiers.AggregationType = 'PostCalibration'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+        validDateStrings = {'2024-12-18','2024-12-19'}; 
+    case {'1.1', 'Scenario 1.1'}
         Identifiers.WorkZoneDescriptor = 'ShoulderWorkWithMinorEncroachment'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '1.2'
+        validDateStrings = {'2024-11-26'};
+    case {'1.2', 'Scenario 1.2'}
         Identifiers.WorkZoneDescriptor = 'RoadClosureWithDetour'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '1.3'
+        validDateStrings = {'2024-12-03','2024-12-04'};
+    case {'1.3', 'Scenario 1.3'}
         Identifiers.WorkZoneDescriptor = 'SelfRegulatingLaneShiftIntoOpposingLane'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '1.4'
+        validDateStrings = {'2024-11-15'};
+    case {'1.4', 'Scenario 1.4'}
         Identifiers.WorkZoneDescriptor = 'SelfRegulatingLaneShiftIntoCenterOfTurnLane'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '1.5'
+        validDateStrings = {'2024-11-25'};
+    case {'1.5', 'Scenario 1.5'}
         Identifiers.WorkZoneDescriptor = 'WorkInCenterTurnLane'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '1.6'
+        validDateStrings = {'2024-11-26'};
+    case {'1.6', 'Scenario 1.6'}
         Identifiers.WorkZoneDescriptor = 'WorkInRightLaneOfUndividedHighway'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-09-17'};
-    case '2.1'
+    case {'2.1', 'Scenario 2.1'}
         Identifiers.WorkZoneDescriptor = 'RoadClosureWithDetourAndNumberedTrafficRoute'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-07-10','2024-07-11'};
-    case '2.2'
+    case {'2.2', 'Scenario 2.2'}
         Identifiers.WorkZoneDescriptor = 'SingleLaneApproachWithSelfRegulatingStopControl'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-07-10','2024-07-11'};
-    case '2.3'
+    case {'2.3', 'Scenario 2.3'}
         Identifiers.WorkZoneDescriptor = 'LaneShiftToTemporaryRoadway'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-04-19'};
-    case '2.4'
+        validDateStrings = {'2024-04-19','2024-12-13'};
+    case {'2.4', 'Scenario 2.4'}
         Identifiers.WorkZoneDescriptor = 'SingleLaneApproachWithTemporarySignals'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '3.1'
+        validDateStrings = {'2024-04-18'};
+    case {'3.1', 'Scenario 3.1'}
         Identifiers.WorkZoneDescriptor = 'MovingLaneClosure'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
-        validDateStrings = {'2024-07-10','2024-07-11'};
-    case '4.1a'
+        validDateStrings = {'2024-07-10','2024-07-11','2024-11-26'};
+    case {'4.1a', 'Scenario 4.1a'}
         Identifiers.WorkZoneDescriptor = 'WorkInRightLane'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-08-14','2024-08-15'};
-    case '4.1b'
+    case {'4.1b', 'Scenario 4.1b'}
         Identifiers.WorkZoneDescriptor = 'WorkInRightLanePennTurnpike'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-10-24'};
-    case '4.2'
+    case {'4.2', 'Scenario 4.2'}
         Identifiers.WorkZoneDescriptor = 'WorkInRightLaneNearExitRamp'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-02-01'};        
-    case '4.3'
+    case {'4.3', 'Scenario 4.3'}
         Identifiers.WorkZoneDescriptor = 'WorkInEntranceRampWithStopControl'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-02-06','2024-08-15'};
-    case '5.1a'
+    case {'5.1a', 'Scenario 5.1a'}
         Identifiers.WorkZoneDescriptor = 'WorkInRightLaneMobileWorkzone'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-09-04'};
-    case '5.1b'
+    case {'5.1b', 'Scenario 5.1b'}
         Identifiers.WorkZoneDescriptor = 'WorkInRightLaneMobileWorkzonePennTurnpike'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-07-10','2024-07-11'};
-    case '5.2'
+    case {'5.2', 'Scenario 5.2'}
         Identifiers.WorkZoneDescriptor = 'SingleLaneApproachWithTemporarySignals'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
         validDateStrings = {'2024-09-13'};
-    case '6.1'
+    case {'6.1', 'Scenario 6.1'}
         Identifiers.WorkZoneDescriptor = 'LongTermShoulderUse'; % Can be one of the 20 descriptors, see key
         Identifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
         Identifiers.AggregationType = 'PostRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
