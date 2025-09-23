@@ -334,15 +334,16 @@ switch scenarioString
 end
 
 % Make sure the date string is valid
-if ~any(strcmp(dateString,validDateStrings))
-    warning('on','backtrace');
-    warning('Invalid date string, %s, given for scenario: %s. Expecting one of:', dateString, scenarioString);    
-    for ith_valid = 1:length(validDateStrings)
-        fprintf(1,'\t%s\n',validDateStrings{ith_valid});
+if ~isempty(dateString)
+    if ~any(strcmp(dateString,validDateStrings))
+        warning('on','backtrace');
+        warning('Invalid date string, %s, given for scenario: %s. Expecting one of:', dateString, scenarioString);
+        for ith_valid = 1:length(validDateStrings)
+            fprintf(1,'\t%s\n',validDateStrings{ith_valid});
+        end
+        error('Unknown scenario date given. Unable to continue.');
     end
-    error('Unknown scenario date given. Unable to continue.');
 end
-
 
 %% Plot the results (for debugging)?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

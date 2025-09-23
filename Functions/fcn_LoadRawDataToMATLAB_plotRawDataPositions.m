@@ -244,8 +244,9 @@ if (1==flag_do_plots)
 
         % Save the image to file?
         if 1==saveFlags.flag_saveImages
-            imageName = cat(2,'mapping_van_',rawDataCellArray{1}.Identifiers.WorkZoneScenario);
             imageDirectory = saveFlags.flag_saveImages_directory;
+            destinationLastFileSep = find(imageDirectory==filesep,1,'last');
+            imageName = imageDirectory(destinationLastFileSep+1:end);
             fcn_INTERNAL_saveImages(imageName, imageDirectory, saveFlags.flag_forceImageOverwrite);
         end
 
