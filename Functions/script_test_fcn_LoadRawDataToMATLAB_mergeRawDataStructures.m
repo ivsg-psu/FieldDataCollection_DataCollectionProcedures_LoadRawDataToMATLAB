@@ -1,4 +1,4 @@
-% script_test_fcn_DataClean_mergeRawDataStructures.m
+% script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures.m
 % tests fcn_DataClean_mergeRawDataStructures.m
 
 % Revision history
@@ -22,8 +22,7 @@ setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
 
 %%%%
 % Load test data
-exampleDatafile = fullfile(cd,'Data','ExampleData_fromLoadRawDataFromDirectories.mat');
-load(exampleDatafile,'rawDataCellArray');
+load('ExampleData_fromLoadRawDataFromDirectories.mat','rawDataCellArray');
 % 
 % 
 % % Choose data folder and bag name, read before running the script

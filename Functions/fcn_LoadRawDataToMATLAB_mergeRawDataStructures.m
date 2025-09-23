@@ -1,11 +1,11 @@
 function [mergedRawDataCellArray, uncommonFieldsCellArray]  = fcn_LoadRawDataToMATLAB_mergeRawDataStructures(rawDataCellArray, varargin)
-% fcn_DataClean_mergeRawDataStructures
+% fcn_LoadRawDataToMATLAB_mergeRawDataStructures
 % given a cell array of rawData files where the bag files may be in
 % sequence, finds the files in sequence and creates merged data structures.
 %
 % FORMAT:
 %
-%      [mergedRawDataCellArray, uncommonFieldsCellArray] = fcn_DataClean_mergeRawDataStructures(...
+%      [mergedRawDataCellArray, uncommonFieldsCellArray] = fcn_LoadRawDataToMATLAB_mergeRawDataStructures(...
 %      rawDataCellArray, (thresholdTimeNearby), (fid), (figNum))
 %
 % INPUTS:
@@ -42,23 +42,26 @@ function [mergedRawDataCellArray, uncommonFieldsCellArray]  = fcn_LoadRawDataToM
 %
 % DEPENDENCIES:
 %
-%      fcn_DataClean_pullDataFromFieldAcrossAllSensors
-%      fcn_DataClean_stitchStructures
+%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors
+%      fcn_LoadRawDataToMATLAB_stitchStructures
 %      fcn_geometry_fillColorFromNumberOrName
-%      fcn_DataClean_plotRawData
+%      fcn_LoadRawDataToMATLAB_plotRawData
 %      fcn_plotRoad_plotLL
 %
 % EXAMPLES:
 %
-%     See the script: script_test_fcn_DataClean_mergeRawDataStructures
+%     See the script: script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures
 %     for a full test suite.
 %
 % This function was written on 2024_09_15 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
 % Revision history
+% As: fcn_DataClean_mergeRawDataStructures
 % 2024_09_15 - Sean Brennan, sbrennan@psu.edu
 % -- wrote the code originally
+% 2025_09_23 - Sean Brennan, sbrennan@psu.edu
+% -- renamed to fcn_LoadRawDataToMATLAB_mergeRawDataStructures
 
 %% Debugging and Input checks
 % Check if flag_max_speed set. This occurs if the figNum variable input
@@ -230,11 +233,11 @@ if fid>0
 
     % Show details
     fprintf(fid,'\nSUMMARY OF FILES FOUND:\n');
-    Nheader = 50;
-    Nfields = 20;
+    Nheader = 45;
+    Nfields = 15;
     fieldStrings{1} = 'NUMBER:';
-    fieldStrings{2} = 'TIME_START: (sec)';
-    fieldStrings{3} = 'TIME_END: (sec)';
+    fieldStrings{2} = 'TIME_START: (s)';
+    fieldStrings{3} = 'TIME_END: (s)';
     fcn_INTERNAL_printFields(fid, 'BAG FILE:',fieldStrings,Nheader,Nfields)
     t_smallest = min([earliestTimeGPS latestTimeGPS],[],'all');
     for ith_dataSet = 1:NdataSets
@@ -275,7 +278,7 @@ for ith_merged = 1:NmergedFiles
     % Produce a name for this merge sequence. Names are inhereted from the
     % _0 file.
     mergeName = sequenceNames{thisMergedIndex};
-    shortMergedName = mergeName(1:end-2); % Cut off the '_0' at end
+    [~,shortMergedName] = fcn_INTERNAL_findSequenceNumber(mergeName);
     shortMergedNames{ith_merged} = shortMergedName;
 
     % Build up the merge list. Start by initializing the variables for this
@@ -374,9 +377,9 @@ for ith_mergedData = 1:NmergedFiles
     clear cellArrayOfStructures bagFileNames
     NfilesToMerge = length(indiciesToMerge);
     cellArrayOfStructures{NfilesToMerge} = struct; %#ok<AGROW>
-    bagFileNames{NfilesToMerge} = ''; %#ok<AGROW>
+    bagFileNames = cell(NfilesToMerge,1); 
     for ith_dataFile = 1:NfilesToMerge
-        bagFileNames{ith_dataFile} = rawDataCellArray{indiciesToMerge(ith_dataFile)}.Identifiers.SourceBagFileName;
+        bagFileNames{ith_dataFile,1} = rawDataCellArray{indiciesToMerge(ith_dataFile)}.Identifiers.SourceBagFileName;
         if fid>0
             fprintf(fid,'\tAdding: %s\n',bagFileNames{ith_dataFile});
         end
@@ -471,13 +474,22 @@ end % Ends main function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%§
 
 %% fcn_INTERNAL_findSequenceNumber
-function lastPart = fcn_INTERNAL_findSequenceNumber(nameString)
-if ~contains(nameString,'_')
+function [lastPart, firstString] = fcn_INTERNAL_findSequenceNumber(nameString)
+if endsWith(nameString,'.bag')
+    nameStringNoBagExtension = nameString(1:end-4);
+else
+    nameStringNoBagExtension = nameString;
+end
+    
+if ~contains(nameStringNoBagExtension,'_')
     lastPart = nan;
 else
-    stringLeft = nameString;
-    while contains(stringLeft,'_')
-        stringLeft = extractAfter(stringLeft,'_');
+    indexLastUnderscore = find(nameStringNoBagExtension=='_',1,'last');
+    if indexLastUnderscore<length(nameStringNoBagExtension)
+        stringLeft = nameStringNoBagExtension(indexLastUnderscore+1:end);
+        firstString = nameStringNoBagExtension(1:indexLastUnderscore-1);
+    else
+        error('Merge encountered a bag with an underscore as the last character. Unable to process this to extract numbering after underscore.');
     end
     lastPart = str2double(stringLeft);
 end

@@ -13,7 +13,8 @@ function fcn_LoadRawDataToMATLAB_saveRawDataMatFiles(rawDataCellArray, directory
 %      fields filled for each ROS topic
 %
 %      directoryList: a structure array of directory locations where the
-%      mat files will be saved.
+%      mat files will be saved. The structure should have one entry per
+%      rawDataCellArray.
 %
 %      (OPTIONAL INPUTS)
 %
@@ -150,8 +151,17 @@ for ith_rawData = 1:length(directoryList)
         fcn_DebugTools_makeDirectory(directoryName);
     end
 
-    bagName = rawDataCellArray{ith_rawData}.Identifiers.SourceBagFileName;
+    % Is this a MAT file created from merging? If so, use the merge name
+    if isfield(rawDataCellArray{1}.Identifiers,'mergedName')
+        bagName = rawDataCellArray{ith_rawData}.Identifiers.mergedName;
+    else
+        bagName = rawDataCellArray{ith_rawData}.Identifiers.SourceBagFileName;
+    end
+
     % Make sure bagName is good
+    if iscell(bagName) 
+        bagName = bagName{1};
+    end
     if contains(bagName,'.')
         bagName_clean = extractBefore(bagName,'.');
     else
