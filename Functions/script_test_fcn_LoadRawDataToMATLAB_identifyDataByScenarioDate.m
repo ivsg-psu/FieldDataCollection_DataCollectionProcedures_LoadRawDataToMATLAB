@@ -1,11 +1,23 @@
 % script_test_fcn_DataClean_identifyDataByScenarioDate.m
 % tests fcn_DataClean_identifyDataByScenarioDate.m
 
-% Revision history
-% 2024_11_07 - sbrennan@psu.edu
-% -- wrote the code originally by copying out of
-% script_mainDataClean_loadAndSaveAllSitesRawData
+% REVISION HISTORY
+% 
+% As: script_test_fcn_DataClean_identifyDataByScenarioDate
+% 
+% 2024_11_07 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally by copying out of
+%   % script_mainDataClean_loadAndSaveAllSitesRawData
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
 
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 
 %% Set up the workspace
@@ -41,21 +53,21 @@ testingConditions = {
 fid = 0;
 for ith_test = 1:length(testingConditions(:,1))
 
-    fig_num = ith_test;
-    if ~isempty(findobj('Number',fig_num))
-        figure(fig_num);
+    figNum = ith_test;
+    if ~isempty(findobj('Number',figNum))
+        figure(figNum);
         clf;
     end
 
     scenarioString = testingConditions{ith_test,2};
     dateString     = testingConditions{ith_test,1};   
-    Identifiers = fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate(scenarioString, dateString, fid, fig_num);
+    Identifiers = fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate(scenarioString, dateString, fid, figNum);
 
     % Check output
     assert(isstruct(Identifiers));
 
     % Put a dot at the base station
-    fcn_plotRoad_plotLL(([]), ([]), (fig_num));
+    fcn_plotRoad_plotLL(([]), ([]), (figNum));
     title(scenarioString);
     subtitle(dateString);
 end
@@ -89,21 +101,21 @@ testingConditions = {
 fid = 1;
 for ith_test = 1:length(testingConditions(:,1))
 
-    fig_num = ith_test;
-    if ~isempty(findobj('Number',fig_num))
-        figure(fig_num);
+    figNum = ith_test;
+    if ~isempty(findobj('Number',figNum))
+        figure(figNum);
         clf;
     end
 
     scenarioString = testingConditions{ith_test,2};
     dateString     = testingConditions{ith_test,1};   
-    Identifiers = fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate(scenarioString, dateString, fid, fig_num);
+    Identifiers = fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate(scenarioString, dateString, fid, figNum);
 
     % Check output
     assert(isstruct(Identifiers));
 
     % Put a dot at the base station
-    fcn_plotRoad_plotLL(([]), ([]), (fig_num));
+    fcn_plotRoad_plotLL(([]), ([]), (figNum));
     title(scenarioString);
     subtitle(dateString);
 end

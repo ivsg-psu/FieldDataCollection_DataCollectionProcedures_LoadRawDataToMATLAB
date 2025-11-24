@@ -33,50 +33,93 @@ function rawdata = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_LiDARs(dataFolder
 % This function was written on 2023_06_19 by S. Brennan
 % Questions or comments? sbrennan@psu.edu 
 
-% Revision history
+% REVISION HISTORY
+% 
 % As: fcn_DataClean_LiDARs
+%
 % 2023_06_16 - Xinyu Cao
-% -- wrote the code originally as a script, using data from
+% - Wrote the code originally as a script, using data from
 % mapping_van_2023-06-05-1Lap as starter, the main part of the code will be
 % functionalized as the function fcn_DataClean_loadRawDataFromFile The
 % result of the code will be a structure store raw data from bag file
-% 2023_06_19 - S. Brennan
-% -- first functionalization of the code
-% 2023_06_22 - S. Brennan
-% -- fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
-% -- to correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
-% 2023_06_22 - S. Brennan
+% 
+% 2023_06_19 by Sean Brennan, sbrennan@psu.edu
+% - First functionalization of the code
+% 
+% 2023_06_22 by Sean Brennan, sbrennan@psu.edu
+% - Fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
+% - to correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
+% 
+% 2023_06_22 by Sean Brennan, sbrennan@psu.edu
 % AGAIN - someone reverted the edits
-% -- fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
-% -- to correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
+% - Fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
+% - to correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
+% 
 % 2023_06_26 - X. Cao
-% -- modified fcn_DataClean_loadRawDataFromFile_Diagnostic
-% -- The old diagnostic topics 'diagnostic_trigger' and
+% - modified fcn_DataClean_loadRawDataFromFile_Diagnostic
+% - The old diagnostic topics 'diagnostic_trigger' and
 % 'diagnostic_encoder' are replaced with 'Trigger_diag' and 'Encoder_diag'
-% -- modified fcn_DataClean_loadRawDataFromFile_SparkFun_GPS
-% -- each sparkfun gps has three topics, sparkfun_gps_GGA, sparkfun_gps_VTG
+% - modified fcn_DataClean_loadRawDataFromFile_SparkFun_GPS
+% - each sparkfun gps has three topics, sparkfun_gps_GGA, sparkfun_gps_VTG
 % and sparkfun_gps_GST. 
-% 2023_07_04 - S. Brennan
-% -- added FID to fprint to allow printing to file
-% -- moved loading print statements to this file, not subfiles
+% 
+% 2023_07_04 by Sean Brennan, sbrennan@psu.edu
+% - Added FID to fprint to allow printing to file
+% - moved loading print statements to this file, not subfiles
+% 
 % 2023_07_02 - X. Cao
-% -- added varagin to choose whether load LiDAR data
-% 2025_09_20: sbrennan@psu.edu
-% * In fcn_LoadRawDataToMATLAB_loadRawDataFromFile_LiDARs
-% -- Renamed function to fcn_LoadRawDataToMATLAB_loadRawDataFromFile_LiDARs
+% - Added varagin to choose whether load LiDAR data
+% 
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_LoadRawDataToMATLAB_loadRawDataFromFile_LiDARs
+%   % * Renamed function to fcn_LoadRawDataToMATLAB_loadRawDataFromFile_LiDARs
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 
-flag_do_debug = 1;  % Flag to show the results for debugging
-flag_do_plots = 0;  % % Flag to plot the final results
-flag_check_inputs = 1; % Flag to perform input checking
 
-if flag_do_debug
-    st = dbstack; %#ok<*UNRCH>
-    fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
+%% Debugging and Input checks
+
+% Check if flag_max_speed set. This occurs if the figNum variable input
+% argument (varargin) is given a number of -1, which is not a valid figure
+% number.
+MAX_NARGIN = 3; % The largest Number of argument inputs to the function
+flag_max_speed = 0; % The default. This runs code with all error checking
+if (nargin==MAX_NARGIN && isequal(varargin{end},-1))
+    flag_do_debug = 0; % Flag to plot the results for debugging
+    flag_check_inputs = 0; % Flag to perform input checking
+    flag_max_speed = 1;
+else
+    % Check to see if we are externally setting debug mode to be "on"
+    flag_do_debug = 0; % Flag to plot the results for debugging
+    flag_check_inputs = 1; % Flag to perform input checking
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS");
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS);
+    end
 end
 
+% flag_do_debug = 1;
 
-%% check input arguments
+if flag_do_debug % If debugging is on, print on entry/exit to the function
+    st = dbstack; %#ok<*UNRCH>
+    fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
+    debug_figNum = 999978; %#ok<NASGU>
+else
+    debug_figNum = []; %#ok<NASGU>
+end
+
+%% check input arguments?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   _____                   _
 %  |_   _|                 | |
@@ -88,34 +131,28 @@ end
 %              |_|
 % See: http://patorjk.com/software/taag/#p=display&f=Big&t=Inputs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 if isempty(fid)
     fid = 1;
 end
 
-% if nargin <= 3
-%     dataFolder = fullfile(pwd, 'LargeData',date, bagFolderName);
-% else
-%     laneName = varargin{1};
-%     dataFolder = fullfile(pwd, 'LargeData', date,laneName,bagFolderName);
-% end
+if 0==flag_max_speed
+    if flag_check_inputs
+        % Are there the right number of inputs?
+        narginchk(2,MAX_NARGIN);
 
-if flag_check_inputs
-    % Are there the right number of inputs?
-    narginchk(2,3);
-        
-    % Check if dataFolder is a directory. If directory is not there, warn
-    % the user.
-    try
-        fcn_DebugTools_checkInputsToFunctions(dataFolder, 'DoesDirectoryExist');
-    catch ME
-        warning(['It appears that data was not pushed into a folder: ' ...
-            '\\DataCleanClassLibrary\LargeData ' ...
-            'which is the folder where large data is imported for processing. ' ...
-            'Note that this folder is too large to include in the code repository, ' ...
-            'so it must be copied over from a data storage location. Within IVSG, ' ...
-            'this storage location is the OndeDrive folder called GitHubMirror.']);
-        rethrow(ME)
+        % Check if dataFolder is a directory. If directory is not there, warn
+        % the user.
+        try
+            fcn_DebugTools_checkInputsToFunctions(dataFolder, 'DoesDirectoryExist');
+        catch ME
+            warning(['It appears that data was not pushed into a folder: ' ...
+                '\\DataCleanClassLibrary\LargeData ' ...
+                'which is the folder where large data is imported for processing. ' ...
+                'Note that this folder is too large to include in the code repository, ' ...
+                'so it must be copied over from a data storage location. Within IVSG, ' ...
+                'this storage location is the OndeDrive folder called GitHubMirror.']);
+            rethrow(ME)
+        end
     end
 end
 
@@ -185,7 +222,7 @@ for file_idx = 1:num_files
 
         if (any([contains(topic_name,'sick_lms500/scan') contains(topic_name,'sick_lms_5xx/scan')])) && flag_do_load_SICK
 
-            SickLiDAR = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_sickLIDAR(full_file_path,datatype,fid);
+            SickLiDAR = fcn_LoadRawDataToMATLAB_loadRawFromFile_sickLIDAR(full_file_path,datatype,fid);
             rawdata.Lidar_Sick_Rear = SickLiDAR;
             % disp('Ignore for 2023-11-15')
 

@@ -44,14 +44,28 @@ function fcn_LoadRawDataToMATLAB_saveRawDataMatFiles(rawDataCellArray, directory
 % This function was written on 2025_09_20 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
-% 2025_09_20 - Sean Brennan, sbrennan@psu.edu
-% -- wrote the code originally using 
+% REVISION HISTORY:
+% 
+% As: fcn_LoadRawDataToMATLAB_saveRawDataMatFiles
+%  
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally using 
 %    script_test_fcn_DataClean_loadRawDataFromDirectories as a starter
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -76,9 +90,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 

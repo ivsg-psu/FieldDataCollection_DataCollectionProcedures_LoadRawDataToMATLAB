@@ -1,9 +1,23 @@
 % script_test_fcn_DataClean_loadMatDataFromDirectories.m
 % tests fcn_DataClean_loadMatDataFromDirectories.m
 
-% Revision history
-% 2024_09_13 - sbrennan@psu.edu
-% -- wrote the code originally, using Laps_checkZoneType as starter
+% REVISION HISTORY
+% 
+% As: script_test_fcn_DataClean_loadMatDataFromDirectories
+% 
+% 2024_09_13 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally, using Laps_checkZoneType as starter
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Set up the workspace
 close all

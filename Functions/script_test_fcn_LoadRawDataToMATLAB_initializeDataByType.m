@@ -1,13 +1,29 @@
 % script_test_fcn_LoadRawDataToMATLAB_initializeDataByType.m
 % tests fcn_LoadRawDataToMATLAB_initializeDataByType.m
 
-% Revision history
-% As: script_test_fcn_DataClean_initializeDataByType
-% 2023_06_12 - sbrennan@psu.edu
-% -- wrote the code originally, using Laps_checkZoneType as starter
-% 2025_09_20: sbrennan@psu.edu
+% REVISION HISTORY
+% 
+% As: script_test_fcn_Data+Clean_initializeDataByType
+% 
+% 2023_06_12 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally, using Laps_checkZoneType as starter
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
+% 
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
 % * In script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
-% -- Renamed function to script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
+% - Renamed function to script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 
 %% Set up the workspace

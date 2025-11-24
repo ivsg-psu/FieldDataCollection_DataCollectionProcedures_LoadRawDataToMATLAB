@@ -1,12 +1,12 @@
 function rawData  = fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile(bagFolderString, Identifiers, varargin)
 % fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile
 % imports raw data from mapping van bag files, and
-% if a figure number is given, plots a summary 
+% if a figure number is given, plots a summary
 %
 % FORMAT:
 %
 %      rawData = fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile(...
-%      bagFolderString, Identifiers, (bagName), (fid), (Flags), (fig_num))
+%      bagFolderString, Identifiers, (bagName), (fid), (Flags), (figNum))
 %
 % INPUTS:
 %
@@ -14,9 +14,9 @@ function rawData  = fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile(bagFolder
 %      sub-directory
 %
 %      Identifiers: a required structure indicating the labels to attach to
-%      the files that are being loaded. The Identifiers structure has 
+%      the files that are being loaded. The Identifiers structure has
 %      the following format:
-%              
+%
 %             clear Identifiers
 %             Identifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
 %             Identifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
@@ -50,8 +50,8 @@ function rawData  = fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile(bagFolder
 %           Flags.flag_select_scan_duration = 0; % Lets user specify scans from Velodyne
 %           Flags.flag_do_load_GST = 0; % Load GPS GST sentence
 %           Flags.flag_do_load_VTG = 0; % Load GPS VTG sentence
-% 
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed.
 %
@@ -73,69 +73,99 @@ function rawData  = fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile(bagFolder
 % This function was written on 2025_09_19 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
+% REVISION HISTORY
+%
 % As: fcn_DataClean_loadMappingVanDataFromFile
-% 2023_06_19 - Xinyu Cao, the main part of the code will be
-% functionalized as the function fcn_DataClean_loadrawDataFromFile The
-% result of the code will be a structure store raw data from bag file
-% 2023_06_19 - S. Brennan
-% -- first functionalization of the code
-% 2023_06_22 - S. Brennan
-% -- fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
-% -- to correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
-% 2023_06_22 - S. Brennan
+%
+% 2023_06_19 - Xinyu Cao,
+% - The main part of the code will be
+%   % functionalized as the function fcn_DataClean_loadrawDataFromFile The
+%   % result of the code will be a structure store raw data from bag file
+%
+% 2023_06_19 by Sean Brennan, sbrennan@psu.edu
+% - First functionalization of the code
+%
+% 2023_06_22 by Sean Brennan, sbrennan@psu.edu
+% - Fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
+% - To correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
+%
+% 2023_06_22 by Sean Brennan, sbrennan@psu.edu
 % AGAIN - someone reverted the edits
-% -- fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
-% -- to correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
+% - Fixed fcn_DataClean_loadRawDataFromFile_SickLidar filename
+% - To correct: fcn_DataClean_loadRawDataFromFile_sickLIDAR
+%
 % 2023_06_26 - X. Cao
-% -- modified fcn_DataClean_loadRawDataFromFile_Diagnostic
-% -- The old diagnostic topics 'diagnostic_trigger' and
-% 'diagnostic_encoder' are replaced with 'Trigger_diag' and 'Encoder_diag'
-% -- modified fcn_DataClean_loadRawDataFromFile_SparkFun_GPS
-% -- each sparkfun gps has three topics, sparkfun_gps_GGA, sparkfun_gps_VTG
+% - Modified fcn_DataClean_loadRawDataFromFile_Diagnostic
+% - The old diagnostic topics 'diagnostic_trigger' and
+%   % 'diagnostic_encoder' are replaced with 'Trigger_diag' and 'Encoder_diag'
+% - modified fcn_DataClean_loadRawDataFromFile_SparkFun_GPS
+% - each sparkfun gps has three topics, sparkfun_gps_GGA, sparkfun_gps_VTG
 % and sparkfun_gps_GST.
-% 2023_07_04 - S. Brennan
-% -- added FID to fprint to allow printing to file
-% -- moved loading print statements to this file, not subfiles
+%
+% 2023_07_04 by Sean Brennan, sbrennan@psu.edu
+% - Added FID to fprint to allow printing to file
+% - Moved loading print statements to this file, not subfiles
+%
 % 2023_07_02 - X. Cao
-% -- added varagin to choose whether load LiDAR data
-% 2024_08_29 - S. Brennan
-% -- added debug headers
-% -- added varagin for the FID input
-% -- added fig_num input (to allow max_speed mode)
-% -- fixed input argument checking area to be more clean
-% 2024_09_05 - S. Brennan
-% -- added automated image summary output
-% 2024_09_06 - S. Brennan
-% -- moved image output back out of the code
-% -- added subPathStrings output
-% 2024_09_27 - S. Brennan
-% -- fixed bad sensor names during loading
+% - Added varagin to choose whether load LiDAR data
+%
+% 2024_08_29 by Sean Brennan, sbrennan@psu.edu
+% - Added debug headers
+% - Added varagin for the FID input
+% - Added figNum input (to allow max_speed mode)
+% - Fixed input argument checking area to be more clean
+%
+% 2024_09_05 by Sean Brennan, sbrennan@psu.edu
+% - Added automated image summary output
+%
+% 2024_09_06 by Sean Brennan, sbrennan@psu.edu
+% - Moved image output back out of the code
+% - Added subPathStrings output
+%
+% 2024_09_27 by Sean Brennan, sbrennan@psu.edu
+% - Fixed bad sensor names during loading
+%
 % 2024_10_10 - X. Cao
-% -- add flag_do_load_GST and flag_do_load_VTG to let user decide whether they want to
-%    load GPS GST and VTG sentences
-% -- comment out load cameras functions, still need to be tested
+% - Add flag_do_load_GST and flag_do_load_VTG to let user decide whether they want to
+%   % load GPS GST and VTG sentences
+% - Comment out load cameras functions, still need to be tested
+%
 % 2024_10_28 - X. Cao
-% -- add load IMU_Ouster_Front to the function
-% 2025_09_20: sbrennan@psue.edu
+% - Add load IMU_Ouster_Front to the function
+%
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
 % * In fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile
-% -- Renamed function to fcn_LoadRawDataToMATLAB_initializeDataByType
-% -- Cleaned up docstrings in header
+% - Renamed function to fcn_LoadRawDataToMATLAB_initializeDataByType
+% - Cleaned up docstrings in header
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+% - Renamed variables for clarity
+%   % * from topic_+name to topicName
+
+
+% TO-DO:
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 
 %% Debugging and Input checks
-
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
+MAX_NARGIN = 6; % The largest Number of argument inputs to the function
 flag_max_speed = 0;
-if (nargin==6 && isequal(varargin{end},-1))
-    flag_do_debug = 0; % % % % Flag to plot the results for debugging
+if (nargin==MAX_NARGIN && isequal(varargin{end},-1))
+    flag_do_debug = 0; %     % Flag to plot the results for debugging
     flag_check_inputs = 0; % Flag to perform input checking
     flag_max_speed = 1;
 else
     % Check to see if we are externally setting debug mode to be "on"
-    flag_do_debug = 0; % % % % Flag to plot the results for debugging
+    flag_do_debug = 0; %     % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
     MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS");
     MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG");
@@ -150,11 +180,10 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 3445467; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
-
 
 %% check input arguments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,7 +201,7 @@ end
 if 0 == flag_max_speed
     if flag_check_inputs == 1
         % Are there the right number of inputs?
-        narginchk(2,6);
+        narginchk(2,MAX_NARGIN);
 
         % Check if bagFolderString is a directory. If directory is not there, warn
         % the user.
@@ -191,6 +220,7 @@ if 0 == flag_max_speed
 
     end
 end
+
 
 % Does user want to specify bagName?
 bagName = [];
@@ -223,7 +253,7 @@ if 5 <= nargin
     temp = varargin{3};
     if ~isempty(temp)
         Flags = temp;
-        
+
         % try
         %     temp = Flags.flag_select_scan_duration; %#ok<NASGU>
         % catch
@@ -242,12 +272,12 @@ if 5 <= nargin
 end
 
 
-% Does user want to specify fig_num?
-flag_do_plots = 0;
-if (0==flag_max_speed) &&  (6<=nargin)
+% Does user want to show the plots?
+flag_do_plots = 0; % Default is to NOT show plots
+if (0==flag_max_speed) && (MAX_NARGIN == nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp;
+        figNum = temp;
         flag_do_plots = 1;
     end
 end
@@ -289,7 +319,7 @@ rawData.Identifiers = Identifiers;
 if (1==flag_do_plots)
 
     % Plot the base station
-    fcn_plotRoad_plotLL([],[],fig_num);
+    fcn_plotRoad_plotLL([],[],figNum);
 
     % % Test the function
     % clear plotFormat
@@ -300,7 +330,7 @@ if (1==flag_do_plots)
     % plotFormat.Color = fcn_geometry_fillColorFromNumberOrName(2);
 
 
-    fcn_LoadRawDataToMATLAB_plotRawData(rawData, (bagName), ([]), ([]), (fig_num))
+    fcn_LoadRawDataToMATLAB_plotRawData(rawData, (bagName), ([]), ([]), (figNum))
     h_legend = legend('Base station',bagName);
     set(h_legend,'Interpreter','none')
 
@@ -344,7 +374,7 @@ num_files = length(file_list);
 % Initialize an empty structure
 rawData = struct;
 
-if fid
+if 1==fid
     fprintf(fid,'Loading data from files from folder: \n\t%s\n',bagFolderString);
 end
 
@@ -364,243 +394,240 @@ for file_idx = 1:num_files
     % will be 1.
     if file_list(file_idx).isdir ~= 1
         % Get the file name
-        file_name = file_list(file_idx).name;
+        thisFileName = file_list(file_idx).name;
 
         % Remove the extension?
-        file_name_noext = extractBefore(file_name,'.');
+        file_name_noext = extractBefore(thisFileName,'.');
 
-        topic_name = strrep(file_name_noext,'_slash_','/');
+        topicName = strrep(file_name_noext,'_slash_','/');
 
 
         % Find the type of data for this topic
-        datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
+        datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName);
 
         % Tell the user what we are doing
-        if fid
-            fprintf(fid,'\t Loading file: %s, with topic name: %s, with datatype: %s \n',file_name, topic_name,datatype);
+        if 1==fid
+            fprintf(fid,'\t Loading file: %s, with topic name: %s, with datatype: %s \n',thisFileName, topicName,datatype);
         end
 
-        full_file_path = fullfile(bagFolderString,file_name);
+        thisFullFIlePath = fullfile(bagFolderString,thisFileName);
         % topic name is used to decide the sensor
         %         topic sicm_lms500/sick_time
 
-        if (any([contains(topic_name,'sick_lms500/scan') contains(topic_name,'sick_lms_5xx/scan')])) && flag_do_load_SICK
-
-            SickLiDAR = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_sickLIDAR(full_file_path,datatype,fid);
+        if (any([contains(topicName,'sick_lms500/scan') contains(topicName,'sick_lms_5xx/scan')])) && flag_do_load_SICK
+            error('Need to add test case')
+            SickLiDAR = fcn_LoadRawDataToMATLAB_loadRawFromFile_LidarSICK(thisFullFIlePath,datatype,fid);
             rawData.Lidar_Sick_Rear = SickLiDAR;
             % disp('Ignore for 2023-11-15')
 
-        elseif contains(topic_name, 'Bin1')
-            Hemisphere_DGPS = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Hemisphere(full_file_path,datatype,fid);
+        elseif contains(topicName, 'Bin1')
+            error('Need to add test case')
+            Hemisphere_DGPS = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Hemisphere(thisFullFIlePath,datatype,fid);
             rawData.GPS_Hemisphere_SensorPlatform = Hemisphere_DGPS;
 
-        elseif contains(topic_name, 'GPS_Novatel')
-
-
-            GPS_Novatel = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Novatel_GPS(full_file_path,datatype,fid);
-
+        elseif contains(topicName, 'GPS_Novatel')
+            error('Need to add test case')
+            GPS_Novatel = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Novatel_GPS(thisFullFIlePath,datatype,fid);
             rawData.GPS_Novatel_SensorPlatform = GPS_Novatel;
 
-        elseif contains(topic_name, 'Garmin_GPS')
-
-
-            GPS_Garmin = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Garmin_GPS(full_file_path,datatype,fid);
+        elseif contains(topicName, 'Garmin_GPS')
+            error('Need to add test case')
+            GPS_Garmin = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Garmin_GPS(thisFullFIlePath,datatype,fid);
             rawData.GPS_Garmin_TopCenter = GPS_Garmin;
 
-        elseif contains(topic_name, 'Novatel_IMU')
-
-            Novatel_IMU = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_Novatel(full_file_path,datatype,fid);
+        elseif contains(topicName, 'Novatel_IMU')
+            error('Need to add test case')
+            Novatel_IMU = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_Novatel(thisFullFIlePath,datatype,fid);
             rawData.IMU_Novatel_TopCenter = Novatel_IMU;
 
-        elseif contains(topic_name, 'parseEncoder')
-
-            parseEncoder = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_parse_Encoder(full_file_path,datatype,fid);
+        elseif contains(topicName, 'parseEncoder')
+            parseEncoder = fcn_LoadRawDataToMATLAB_loadRawFromFile_Encoder(thisFullFIlePath,datatype,fid);
             rawData.Encoder_Raw = parseEncoder;
 
-        elseif contains(topic_name, 'imu/data_raw')
-
-            adis_IMU_dataraw = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'imu/data_raw')
+            error('Need to add test case')
+            adis_IMU_dataraw = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.IMU_adis_dataraw = adis_IMU_dataraw;
 
-
-        elseif contains(topic_name, 'imu/rpy/filtered')
-
-            adis_IMU_filtered_rpy = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'imu/rpy/filtered')
+            error('Need to add test case')
+            adis_IMU_filtered_rpy = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.IMU_adis_filtered_rpy = adis_IMU_filtered_rpy;
 
-        elseif contains(topic_name, 'imu/data')
-
-            adis_IMU_data = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'imu/data')
+            error('Need to add test case')
+            adis_IMU_data = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.IMU_adis_data = adis_IMU_data;
 
-        elseif contains(topic_name, 'imu/mag')
-
-            adis_IMU_mag = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'imu/mag')
+            error('Need to add test case')
+            adis_IMU_mag = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.IMU_adis_mag = adis_IMU_mag;
 
-        elseif contains(topic_name, 'adis_msg')
-
-            adis_msg = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'adis_msg')
+            error('Need to add test case')
+            adis_msg = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.adis_msg = adis_msg;
 
-
-        elseif contains(topic_name, 'adis_temp')
-
-            adis_temp = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'adis_temp')
+            error('Need to add test case')
+            adis_temp = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.adis_temp = adis_temp;
 
-        elseif contains(topic_name, 'adis_press')
-
-            adis_press = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ADIS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'adis_press')
+            error('Need to add test case')
+            adis_press = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ADIS(thisFullFIlePath,datatype,fid,topicName);
             rawData.adis_press = adis_press;
 
-
-        elseif contains(topic_name,'parseTrigger')
-
-            parseTrigger = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_parse_Trigger(full_file_path,datatype,fid);
+        elseif contains(topicName,'parseTrigger')
+            parseTrigger = fcn_LoadRawDataToMATLAB_loadRawFromFile_Trigger(thisFullFIlePath,datatype,fid);
             rawData.Trigger_Raw = parseTrigger;
 
-        elseif contains(topic_name, 'GPS_SparkFun_RearLeft_GGA')
-
-            SparkFun_GPS_RearLeft_GGA = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearLeft_GGA')
+            SparkFun_GPS_RearLeft_GGA = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_LeftRear_GGA = SparkFun_GPS_RearLeft_GGA;
 
-        elseif contains(topic_name, 'GPS_SparkFun_RearLeft_VTG') && flag_do_load_VTG
-
-            SparkFun_GPS_RearLeft_VTG = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearLeft_VTG') && flag_do_load_VTG
+            error('Need to add test case')
+            SparkFun_GPS_RearLeft_VTG = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.Velocity_Estimate_SparkFun_LeftRear = SparkFun_GPS_RearLeft_VTG;
 
-        elseif contains(topic_name, 'GPS_SparkFun_RearLeft_GST') && flag_do_load_GST
-
-            SparkFun_GPS_RearLeft_GST = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearLeft_GST') && flag_do_load_GST
+            error('Need to add test case')
+            SparkFun_GPS_RearLeft_GST = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_LeftRear_GST = SparkFun_GPS_RearLeft_GST;
 
-        elseif contains(topic_name, 'GPS_SparkFun_RearLeft_PVT')
-            SparkFun_GPS_RearLeft_PVT = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearLeft_PVT')
+            error('Need to add test case')
+            SparkFun_GPS_RearLeft_PVT = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_LeftRear_PVT = SparkFun_GPS_RearLeft_PVT;
 
-
-        elseif contains(topic_name, 'GPS_SparkFun_RearRight_GGA')
-            sparkfun_gps_rear_right_GGA = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearRight_GGA')
+            sparkfun_gps_rear_right_GGA = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_RightRear_GGA = sparkfun_gps_rear_right_GGA;
 
-            
-
-        elseif contains(topic_name, 'GPS_SparkFun_RearRight_VTG') && flag_do_load_VTG
-            sparkfun_gps_rear_right_VTG = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearRight_VTG') && flag_do_load_VTG
+            error('Need to add test case')
+            sparkfun_gps_rear_right_VTG = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.Velocity_Estimate_SparkFun_RightRear  = sparkfun_gps_rear_right_VTG;
 
-        elseif contains(topic_name, 'GPS_SparkFun_RearRight_GST') && flag_do_load_GST
-            sparkfun_gps_rear_right_GST = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearRight_GST') && flag_do_load_GST
+            error('Need to add test case')
+            sparkfun_gps_rear_right_GST = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_RightRear_GST = sparkfun_gps_rear_right_GST;
 
-        elseif contains(topic_name, 'GPS_SparkFun_RearRight_PVT')
-            SparkFun_GPS_RearRight_PVT = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_RearRight_PVT')
+            error('Need to add test case')
+            SparkFun_GPS_RearRight_PVT = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_RightRear_PVT = SparkFun_GPS_RearRight_PVT;
 
-        elseif contains(topic_name, 'Trigger_diag')
-            diagnostic_trigger = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Diagnostic(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'Trigger_diag')           
+            diagnostic_trigger = fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic(thisFullFIlePath,datatype,topicName, fid);
             rawData.Diag_Trigger = diagnostic_trigger;
 
-        elseif contains(topic_name, 'Encoder_diag')
-            diagnostic_encoder = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Diagnostic(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'Encoder_diag')
+            diagnostic_encoder = fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic(thisFullFIlePath,datatype,topicName, fid);
             rawData.Diag_Encoder = diagnostic_encoder;
 
-        elseif contains(topic_name, 'GPS_SparkFun_Front_GGA')
-            SparkFun_GPS_Front_GGA = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_Front_GGA')
+            SparkFun_GPS_Front_GGA = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_Front_GGA = SparkFun_GPS_Front_GGA;
 
-        elseif contains(topic_name, 'GPS_SparkFun_Front_PVT')
-            SparkFun_GPS_Front_PVT = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_Front_PVT')
+            error('Need to test')
+            SparkFun_GPS_Front_PVT = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_Front_PVT = SparkFun_GPS_Front_PVT;
 
-        elseif contains(topic_name, 'GPS_SparkFun_Front_VTG') && flag_do_load_VTG
-            SparkFun_GPS_Front_VTG = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_Front_VTG') && flag_do_load_VTG
+            error('Need to test')
+            SparkFun_GPS_Front_VTG = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.Velocity_Estimate_SparkFun_Front = SparkFun_GPS_Front_VTG;
 
-
-        elseif contains(topic_name, 'GPS_SparkFun_Front_GST') && flag_do_load_GST
-            SparkFun_GPS_Front_GST = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_Front_GST') && flag_do_load_GST
+            error('Need to test')
+            SparkFun_GPS_Front_GST = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_Front_GST = SparkFun_GPS_Front_GST;
 
-
-        elseif contains(topic_name, 'GPS_SparkFun_Temp_GGA')
-            SparkFun_GPS_Temp_GGA = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Sparkfun_GPS(full_file_path,datatype,fid,topic_name);
+        elseif contains(topicName, 'GPS_SparkFun_Temp_GGA')
+            error('Need to test')
+            SparkFun_GPS_Temp_GGA = fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun(thisFullFIlePath, datatype,topicName, fid);
             rawData.GPS_SparkFun_Temp_GGA = SparkFun_GPS_Temp_GGA;
 
-            %             elseif contains(topic_name, 'DIAG_SparkFun_RearLeft')
-            %                 sparkfun_gps_diag_rear_left = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Diagnostic(full_file_path,datatype,fid,topic_name);
+            %             elseif contains(topicName, 'DIAG_SparkFun_RearLeft')
+            %                 sparkfun_gps_diag_rear_left = fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic(thisFullFIlePath,datatype,topicName, fid);
             %                 rawData.Diag_GPS_SparkFun_LeftRear = sparkfun_gps_diag_rear_left;
             %
-            %             elseif contains(topic_name, 'DIAG_SparkFun_RearRight')
-            %                 sparkfun_gps_diag_rear_right = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Diagnostic(full_file_path,datatype,fid,topic_name);
+            %             elseif contains(topicName, 'DIAG_SparkFun_RearRight')
+            %                 sparkfun_gps_diag_rear_right = fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic(thisFullFIlePath,datatype,topicName, fid);
             %                 rawData.Diag_GPS_SparkFun_RightRear = sparkfun_gps_diag_rear_right;
 
 
-            %             elseif contains(topic_name,'ntrip_info')
+            %             elseif contains(topicName,'ntrip_info')
             %                 ntrip_info = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_NTRIP(full_file_path,datatype,fid);
             %                 rawData.ntrip_info = ntrip_info;
             %           Comment out due to format error with detectImportOptions
-            %             elseif (contains(topic_name,'rosout') && ~contains(topic_name,'agg'))
+            %             elseif (contains(topicName,'rosout') && ~contains(topicName,'agg'))
             %
             %                 ROSOut = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_ROSOut(full_file_path,datatype,fid);
             %                 rawData.ROSOut = ROSOut;
 
-        elseif contains(topic_name,'tf')
-            transform_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Transform(full_file_path,datatype,fid);
+        elseif contains(topicName,'tf')
+            error('Need to test')
+            transform_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Transform(thisFullFIlePath,datatype,fid);
             rawData.Transform = transform_struct;
 
-        elseif (contains(topic_name,'velodyne_packets')) && (flag_do_load_Velodyne)
-
+        elseif (contains(topicName,'velodyne_packets')) && (flag_do_load_Velodyne)
+            error('Need to test')
             if flag_select_scan_duration
-                Velodyne_lidar_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_velodyneLIDAR(full_file_path,datatype,fid,flag_select_scan_duration);
+                Velodyne_lidar_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_velodyneLIDAR(thisFullFIlePath,datatype,fid,flag_select_scan_duration);
             else
-                Velodyne_lidar_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_velodyneLIDAR(full_file_path,datatype,fid);
+                Velodyne_lidar_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_velodyneLIDAR(thisFullFIlePath,datatype,fid);
             end
-            
+
 
             rawData.Lidar_Velodyne_Rear = Velodyne_lidar_struct;
 
-        elseif (contains(topic_name,'ousterO1/imu'))
-            ousterOS1_imu_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_Ouster(full_file_path,datatype,fid);
+        elseif (contains(topicName,'ousterO1/imu'))
+            error('Need to test')
+            ousterOS1_imu_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_IMU_Ouster(thisFullFIlePath,datatype,fid);
             rawData.IMU_Ouster_Front = ousterOS1_imu_struct;
 
-        % 
-        % 
-        % elseif contains(topic_name,'/rear_left_camera/image_rect_color/compressed') && (flag_do_load_cameras)
-        %     rear_left_camera_folder = 'images/rear_left_camera/';
-        %     Camera_Rear_Left_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
-        %     rawData.Camera_Rear_Left = Camera_Rear_Left_struct;
-        % 
-        % elseif contains(topic_name,'/rear_center_camera/image_rect_color/compressed') && (flag_do_load_cameras)
-        %     rear_center_camera_folder = 'images/rear_center_camera/';
-        %     Camera_Rear_Center_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
-        %     rawData.Camera_Rear_Center = Camera_Rear_Center_struct;
-        % 
-        % elseif contains(topic_name,'/rear_right_camera/image_rect_color/compressed') && (flag_do_load_cameras)
-        %     rear_right_camera_folder = 'images/rear_right_camera/';
-        %     Camera_Rear_Right_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
-        %     rawData.Camera_Rear_Right = Camera_Rear_Right_struct;
-        % 
-        % elseif contains(topic_name,'/front_left_camera/image_rect_color/compressed') && (flag_do_load_cameras)
-        %     front_left_camera_folder = 'images/front_left_camera/';
-        %     Camera_Front_Left_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
-        %     rawData.Camera_Front_Left = Camera_Front_Left_struct;
-        % 
-        % elseif contains(topic_name,'/front_center_camera/image_rect_color/compressed') && (flag_do_load_cameras)
-        %     front_center_camera_folder = 'images/front_center_camera/';
-        %     Camera_Front_Center_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
-        %     rawData.Camera_Front_Center = Camera_Front_Center_struct;
-        % 
-        % elseif contains(topic_name,'/front_right_camera/image_rect_color/compressed') && (flag_do_load_cameras)
-        %     front_right_camera_folder = 'images/front_right_camera/';
-        %     Camera_Front_Right_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
-        %     rawData.Camera_Front_Right = Camera_Front_Right_struct;
+            %
+            %
+            % elseif contains(topicName,'/rear_left_camera/image_rect_color/compressed') && (flag_do_load_cameras)
+            %     rear_left_camera_folder = 'images/rear_left_camera/';
+            %     Camera_Rear_Left_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
+            %     rawData.Camera_Rear_Left = Camera_Rear_Left_struct;
+            %
+            % elseif contains(topicName,'/rear_center_camera/image_rect_color/compressed') && (flag_do_load_cameras)
+            %     rear_center_camera_folder = 'images/rear_center_camera/';
+            %     Camera_Rear_Center_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
+            %     rawData.Camera_Rear_Center = Camera_Rear_Center_struct;
+            %
+            % elseif contains(topicName,'/rear_right_camera/image_rect_color/compressed') && (flag_do_load_cameras)
+            %     rear_right_camera_folder = 'images/rear_right_camera/';
+            %     Camera_Rear_Right_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
+            %     rawData.Camera_Rear_Right = Camera_Rear_Right_struct;
+            %
+            % elseif contains(topicName,'/front_left_camera/image_rect_color/compressed') && (flag_do_load_cameras)
+            %     front_left_camera_folder = 'images/front_left_camera/';
+            %     Camera_Front_Left_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
+            %     rawData.Camera_Front_Left = Camera_Front_Left_struct;
+            %
+            % elseif contains(topicName,'/front_center_camera/image_rect_color/compressed') && (flag_do_load_cameras)
+            %     front_center_camera_folder = 'images/front_center_camera/';
+            %     Camera_Front_Center_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
+            %     rawData.Camera_Front_Center = Camera_Front_Center_struct;
+            %
+            % elseif contains(topicName,'/front_right_camera/image_rect_color/compressed') && (flag_do_load_cameras)
+            %     front_right_camera_folder = 'images/front_right_camera/';
+            %     Camera_Front_Right_struct = fcn_LoadRawDataToMATLAB_loadRawDataFromFile_Cameras(file_path,datatype,fid);
+            %     rawData.Camera_Front_Right = Camera_Front_Right_struct;
 
 
         else
-            if fid
-                fprintf(fid,'\t\tWARNING: Topic not processed: %s\n',topic_name);
+            if 1==fid
+                fprintf(fid,'\t\tWARNING: Topic not processed: %s\n',topicName);
             end
 
         end

@@ -28,7 +28,7 @@ function [stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStr
 %
 % FORMAT:
 %
-%      [stitchedStructure, uncommonFields] = fcn_DataClean_stitchStructures(cellArrayOfStructures, (fid), (fig_num))
+%      [stitchedStructure, uncommonFields] = fcn_DataClean_stitchStructures(cellArrayOfStructures, (fid), (figNum))
 %
 % INPUTS:
 %
@@ -39,9 +39,9 @@ function [stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStr
 %      fid: the fileID where to print. Default is 1, to print results to
 %      the console.
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
-%      up code to maximize speed. When used recursively, fig_num can be a
+%      up code to maximize speed. When used recursively, figNum can be a
 %      string to specify the "parent" input.
 %
 % OUTPUTS:
@@ -64,46 +64,61 @@ function [stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStr
 % This function was written on 2024_09_11 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
-% 2024_09_11 - Sean Brennan, sbrennan@psu.edu
-% -- wrote the code originally as a script
-% 2024_09_15 - Sean Brennan, sbrennan@psu.edu
-% -- added fid input for debugging
+% REVISION HISTORY:
+% 
+% 2024_09_11 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally as a script
+% 
+% 2024_09_15 by Sean Brennan, sbrennan@psu.edu
+% - Added fid input for debugging
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
-flag_max_speed = 0;
-if (nargin==3 && isequal(varargin{end},-1))
-    flag_do_debug = 0; % % % % Flag to plot the results for debugging
+MAX_NARGIN = 3; % The largest Number of argument inputs to the function
+flag_max_speed = 0; % The default. This runs code with all error checking
+if (nargin==MAX_NARGIN && isequal(varargin{end},-1))
+    flag_do_debug = 0; % Flag to plot the results for debugging
     flag_check_inputs = 0; % Flag to perform input checking
     flag_max_speed = 1;
 else
     % Check to see if we are externally setting debug mode to be "on"
-    flag_do_debug = 0; % % % % Flag to plot the results for debugging
+    flag_do_debug = 0; % Flag to plot the results for debugging
     flag_check_inputs = 1; % Flag to perform input checking
-    MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS");
-    MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG = getenv("MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG");
-    if ~isempty(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG)
-        flag_do_debug = str2double(MATLABFLAG_DATACLEAN_FLAG_DO_DEBUG);
-        flag_check_inputs  = str2double(MATLABFLAG_DATACLEAN_FLAG_CHECK_INPUTS);
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS");
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS);
     end
 end
 
 % flag_do_debug = 1;
 
-if flag_do_debug
+if flag_do_debug % If debugging is on, print on entry/exit to the function
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
-
-%% check input arguments
+%% check input arguments?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   _____                   _
 %  |_   _|                 | |
@@ -115,11 +130,14 @@ end
 %              |_|
 % See: http://patorjk.com/software/taag/#p=display&f=Big&t=Inputs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-if 0 == flag_max_speed
-    if flag_check_inputs == 1
+if 0==flag_max_speed
+    if flag_check_inputs
         % Are there the right number of inputs?
-        narginchk(1,3);
+        narginchk(1,MAX_NARGIN);
+
+        % % Check the input_path to be sure it has 2 or 3 columns, minimum 2 rows
+        % % or more
+        % fcn_DebugTools_checkInputsToFunctions(input_path, '2or3column_of_numbers',[2 3]);
     end
 end
 
@@ -132,13 +150,13 @@ if 2 <= nargin
     end
 end
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
 parentString = '(root)';
 if (0==flag_max_speed) &&  (3<=nargin)
     temp = varargin{end};
     if ~isempty(temp) && (~isstring(temp)||~ischar(temp))
-        fig_num = temp; %#ok<NASGU>
+        figNum = temp; %#ok<NASGU>
         flag_do_plots = 1;
     else
         parentString = '(root)';

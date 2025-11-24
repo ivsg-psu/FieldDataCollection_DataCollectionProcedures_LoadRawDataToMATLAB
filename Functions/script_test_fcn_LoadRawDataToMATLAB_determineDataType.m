@@ -1,79 +1,322 @@
 % script_test_fcn_LoadRawDataToMATLAB_determineDataType.m
 % tests fcn_LoadRawDataToMATLAB_determineDataType.m
 
-% Revision history
-% 2025_09_20 - sbrennan@psu.edu
-% -- wrote the code originally using
-%    % script_test_fcn_LoadRawDataToMATLAB_determineDataType as a starter
+% REVISION HISTORY
+% 
+% As: script_test_fcn_DataClean_determineDataType
+% 
+% 2021_08_01
+% - First written by S. Brennan 
+%
+% 2025_07_11 by Sean Brennan, sbrennan@psu.edu, sbrennan@psu.edu
+% - Updated script testing to standard form
+% 
+% 2025_09_28 by Sean Brennan, sbrennan@psu.edu
+% - Started formatting script into standard form
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+% - Fixed test cases
+% - Renamed topic+_name to topicName
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 %% Set up the workspace
 close all
 
-
-%% Check assertions for basic path operations and function testing
+%% Code demos start here
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                              _   _                 
-%      /\                     | | (_)                
-%     /  \   ___ ___  ___ _ __| |_ _  ___  _ __  ___ 
-%    / /\ \ / __/ __|/ _ \ '__| __| |/ _ \| '_ \/ __|
-%   / ____ \\__ \__ \  __/ |  | |_| | (_) | | | \__ \
-%  /_/    \_\___/___/\___|_|   \__|_|\___/|_| |_|___/
-%                                                    
-%                                                    
-% See: https://patorjk.com/software/taag/#p=display&f=Big&t=Assertions
+%
+%   _____                              ____   __    _____          _
+%  |  __ \                            / __ \ / _|  / ____|        | |
+%  | |  | | ___ _ __ ___   ___  ___  | |  | | |_  | |     ___   __| | ___
+%  | |  | |/ _ \ '_ ` _ \ / _ \/ __| | |  | |  _| | |    / _ \ / _` |/ _ \
+%  | |__| |  __/ | | | | | (_) \__ \ | |__| | |   | |___| (_) | (_| |  __/
+%  |_____/ \___|_| |_| |_|\___/|___/  \____/|_|    \_____\___/ \__,_|\___|
+%
+%
+% See: https://patorjk.com/software/taag/#p=display&f=Big&t=Demos%20Of%20Code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures start with 1
 
-%% Basic test - 'Bin1' is 'gps'
-topic_name = '/Bin1';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
+close all;
+fprintf(1,'Figure: 1XXXXXX: DEMO cases\n');
+
+%% DEMO case: 'Bin1' is 'gps'
+figNum = 10001;
+titleString = sprintf('DEMO case: ''Bin1'' is ''gps');
+fprintf(1,'Figure %.0f: %s\n',figNum, titleString);
+figure(figNum); clf;
+close(figNum);
+
+topicName = '/Bin1';
+
+% Call the function
+datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName, (figNum));
+
+% sgtitle(titleString, 'Interpreter','none');
+
+% Check variable types
+assert(ischar(datatype));
+
+% Check variable sizes
+assert(length(datatype)>1);
+
+% Check variable values
 assert(strcmp(datatype,'gps'));
 
-%% Basic test - 'GPS_fix' is 'gps'
-topic_name = '/GPS_fix';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
+% Make sure plot opened up
+% assert(isequal(get(gcf,'Number'),figNum));
+
+% Make sure plot did NOT open up
+figHandles = get(groot, 'Children');
+assert(~any(figHandles==figNum));
+
+
+%% Test cases start here. These are very simple, usually trivial
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  _______ ______  _____ _______ _____
+% |__   __|  ____|/ ____|__   __/ ____|
+%    | |  | |__  | (___    | | | (___
+%    | |  |  __|  \___ \   | |  \___ \
+%    | |  | |____ ____) |  | |  ____) |
+%    |_|  |______|_____/   |_| |_____/
+%
+%
+%
+% See: https://patorjk.com/software/taag/#p=display&f=Big&t=TESTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures start with 2
+
+close all;
+fprintf(1,'Figure: 2XXXXXX: TEST mode cases\n');
+
+%% TEST cases: X is Y testing
+XandYStrings = {
+    '/diagnostic_encoder','diagnostic';
+    '/diagnostic_trigger','diagnostic';
+    '/Bin1', 'gps';
+    '/GPS_fix','gps';
+    '/adis_msg','imu';
+    '/adis_press','imu';
+    '/adis_press','imu';
+    '/imu/data','imu';
+    '/imu/data_raw','imu';
+    '/imu/mag','imu';
+    };
+
+for ith_test = 1:size(XandYStrings,1)
+    figNum = 20000+ith_test;
+    topicName = XandYStrings{ith_test,1};
+    expectedOutput = XandYStrings{ith_test,2};
+    titleString = sprintf('TEST case: %s is %s', topicName, expectedOutput);
+    fprintf(1,'Figure %.0f: %s\n',figNum, titleString);
+    figure(figNum); clf;
+    close(figNum);
+
+    % Call the function
+    datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName, (figNum));
+
+    % sgtitle(titleString, 'Interpreter','none');
+
+    % Check variable types
+    assert(ischar(datatype));
+
+    % Check variable sizes
+    assert(length(datatype)>1);
+
+    % Check variable values
+    assert(strcmp(datatype,expectedOutput));
+
+    % Make sure plot opened up
+    % assert(isequal(get(gcf,'Number'),figNum));
+
+    % Make sure plot did NOT open up
+    figHandles = get(groot, 'Children');
+    assert(~any(figHandles==figNum));
+end
+
+
+
+%% Fast Mode Tests
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  ______        _     __  __           _        _______        _
+% |  ____|      | |   |  \/  |         | |      |__   __|      | |
+% | |__ __ _ ___| |_  | \  / | ___   __| | ___     | | ___  ___| |_ ___
+% |  __/ _` / __| __| | |\/| |/ _ \ / _` |/ _ \    | |/ _ \/ __| __/ __|
+% | | | (_| \__ \ |_  | |  | | (_) | (_| |  __/    | |  __/\__ \ |_\__ \
+% |_|  \__,_|___/\__| |_|  |_|\___/ \__,_|\___|    |_|\___||___/\__|___/
+%
+%
+% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Fast%20Mode%20Tests
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures start with 8
+
+close all;
+fprintf(1,'Figure: 8XXXXXX: FAST mode cases\n');
+
+%% Basic example - NO FIGURE
+figNum = 80001;
+fprintf(1,'Figure: %.0f: FAST mode, empty figNum\n',figNum);
+figure(figNum); close(figNum);
+
+topicName = '/Bin1';
+
+% Call the function
+datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName, ([]));
+
+% sgtitle(titleString, 'Interpreter','none');
+
+% Check variable types
+assert(ischar(datatype));
+
+% Check variable sizes
+assert(length(datatype)>1);
+
+% Check variable values
 assert(strcmp(datatype,'gps'));
 
-%% Basic test - 'adis_msg' is 'imu'
-topic_name = '/adis_msg';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'imu'));
+% Make sure plot did NOT open up
+figHandles = get(groot, 'Children');
+assert(~any(figHandles==figNum));
 
-%% Basic test - 'adis_press' is 'imu'
-topic_name = '/adis_press';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'imu'))
 
-%% Basic test - 'adis_temp' is 'imu'
-topic_name = '/adis_press';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'imu'))
+%% Basic fast mode - NO FIGURE, FAST MODE
+figNum = 80002;
+fprintf(1,'Figure: %.0f: FAST mode, figNum=-1\n',figNum);
+figure(figNum); close(figNum);
 
-%% Basic test - 'diagnostic_encoder' is 'diagnostic'
-topic_name = '/diagnostic_encoder';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'diagnostic'))
+topicName = '/Bin1';
 
-%% Basic test - 'diagnostic_trigger' is 'diagnostic'
-topic_name = '/diagnostic_trigger';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'diagnostic'))
+% Call the function
+datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName, (-1));
 
-%% Basic test - 'imu/data' is 'imu'
-topic_name = '/imu/data';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'imu'))
+% sgtitle(titleString, 'Interpreter','none');
 
-%% Basic test - 'imu/data_raw' is 'imu'
-topic_name = '/imu/data_raw';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'imu'))
+% Check variable types
+assert(ischar(datatype));
 
-%% Basic test - 'imu/mag' is 'imu'
-topic_name = '/imu/mag';
-datatype = fcn_LoadRawDataToMATLAB_determineDataType(topic_name);
-assert(strcmp(datatype,'imu'))
+% Check variable sizes
+assert(length(datatype)>1);
+
+% Check variable values
+assert(strcmp(datatype,'gps'));
+
+
+% Make sure plot did NOT open up
+figHandles = get(groot, 'Children');
+assert(~any(figHandles==figNum));
+
+
+%% Compare speeds of pre-calculation versus post-calculation versus a fast variant
+figNum = 80003;
+fprintf(1,'Figure: %.0f: FAST mode comparisons\n',figNum);
+figure(figNum);
+close(figNum);
+
+topicName = '/Bin1';
+
+
+Niterations = 100;
+
+% Do calculation without pre-calculation
+tic;
+for ith_test = 1:Niterations
+    % Call the function
+    datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName, ([]));
+end
+slow_method = toc;
+
+% Do calculation with pre-calculation, FAST_MODE on
+tic;
+for ith_test = 1:Niterations
+    % Call the function
+    datatype = fcn_LoadRawDataToMATLAB_determineDataType(topicName, (-1));
+end
+fast_method = toc;
+
+% Make sure plot did NOT open up
+figHandles = get(groot, 'Children');
+assert(~any(figHandles==figNum));
+
+% Plot results as bar chart
+figure(373737);
+clf;
+hold on;
+
+X = categorical({'Normal mode','Fast mode'});
+X = reordercats(X,{'Normal mode','Fast mode'}); % Forces bars to appear in this exact order, not alphabetized
+Y = [slow_method fast_method ]*1000/Niterations;
+bar(X,Y)
+ylabel('Execution time (Milliseconds)')
+
+
+% Make sure plot did NOT open up
+figHandles = get(groot, 'Children');
+assert(~any(figHandles==figNum));
+
+
+%% BUG cases
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  ____  _    _  _____
+% |  _ \| |  | |/ ____|
+% | |_) | |  | | |  __    ___ __ _ ___  ___  ___
+% |  _ <| |  | | | |_ |  / __/ _` / __|/ _ \/ __|
+% | |_) | |__| | |__| | | (_| (_| \__ \  __/\__ \
+% |____/ \____/ \_____|  \___\__,_|___/\___||___/
+%
+% See: http://patorjk.com/software/taag/#p=display&v=0&f=Big&t=BUG%20cases
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% All bug case figures start with the number 9
+
+% close all;
+
+%% BUG
 
 %% Fail conditions
 if 1==0
-    %% ERROR for ...
+    %
+
 end
+
+
+%% Functions follow
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   ______                _   _
+%  |  ____|              | | (_)
+%  | |__ _   _ _ __   ___| |_ _  ___  _ __  ___
+%  |  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+%  | |  | |_| | | | | (__| |_| | (_) | | | \__ \
+%  |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+%
+% See: https://patorjk.com/software/taag/#p=display&f=Big&t=Functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%§
+
+
+% %% fcn_INTERNAL_loadExampleData
+% function [seed_points, V, C] = fcn_INTERNAL_loadExampleData
+%
+%
+% % pull halton set
+% halton_points = haltonset(2);
+% points_scrambled = scramble(halton_points,'RR2'); % scramble values
+%
+% % pick values from halton set
+% Halton_range = [1801 1901];
+% low_pt = Halton_range(1,1);
+% high_pt = Halton_range(1,2);
+% seed_points = points_scrambled(low_pt:high_pt,:);
+% [V,C] = voronoin(seed_points);
+% % V = V.*stretch;
+% end % Ends fcn_INTERNAL_loadExampleData
+  

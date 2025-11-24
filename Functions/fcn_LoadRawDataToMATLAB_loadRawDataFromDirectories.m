@@ -83,10 +83,22 @@ function [rawDataCellArray, only_directory_filelist] = fcn_LoadRawDataToMATLAB_l
 % This function was written on 2025_09_19 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
-% 2025_09_19 - Sean Brennan, sbrennan@psu.edu
-% -- wrote the code originally using 
+% REVISION HISTORY
+% 
+% 2025_09_19 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally using 
 %    script_test_fcn_DataClean_loadRawDataFromDirectories as a starter
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Debugging and Input checks
 % Check if flag_max_speed set. This occurs if the figNum variable input
@@ -204,7 +216,6 @@ if (0==flag_max_speed) && (MAX_NARGIN == nargin)
     temp = varargin{end};
     if ~isempty(temp) % Did the user NOT give an empty figure number?
         figNum = temp;
-        figure(figNum);
         flag_do_plots = 1;
     end
 end
@@ -265,8 +276,8 @@ if (1==flag_do_plots)
 
     % List what will be plotted, and the figure numbers
     clear plotFlags
-    plotFlags.fig_num_plotAllRawTogether = figNum;
-    plotFlags.fig_num_plotAllRawIndividually = [];
+    plotFlags.figNum_plotAllRawTogether = figNum;
+    plotFlags.figNum_plotAllRawIndividually = [];
 
     % Call function
     fcn_LoadRawDataToMATLAB_plotRawDataPositions(rawDataCellArray, (saveFlags), (plotFlags))

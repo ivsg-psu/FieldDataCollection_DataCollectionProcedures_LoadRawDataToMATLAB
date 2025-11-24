@@ -143,25 +143,60 @@ function [dataStructure, time_corruption_type_string] = fcn_LoadRawDataToMATLAB_
 % This function was written on 2023_06_19 by S. Brennan
 % Questions or comments? sbrennan@psu.edu 
 
-% Revision history:
+% REVISION HISTORY:
 %     
-% 2023_06_19: sbrennan@psu.edu
-% -- wrote the code originally 
-% 2024_11_07: sbrennan@psu.edu
-% -- fixed bug where time start was different for different sensors. Fixed
-% by adding variable to record start time --> nowTime
-
-% TO DO
+% 2023_06_19 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
 % 
+% 2024_11_07 by Sean Brennan, sbrennan@psu.edu
+% - Fixed bug where time start was different for different sensors. Fixed
+%   %  by adding variable to record start time --> nowTime
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
 
-flag_do_plots = 0;  % % Flag to plot the final results
-flag_check_inputs = 1; % Flag to perform input checking
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 
+%% Debugging and Input checks
 
+% Check if flag_max_speed set. This occurs if the figNum variable input
+% argument (varargin) is given a number of -1, which is not a valid figure
+% number.
+MAX_NARGIN = 2; % The largest Number of argument inputs to the function
+flag_max_speed = 0; % The default. This runs code with all error checking
+if (nargin==MAX_NARGIN && isequal(varargin{end},-1))
+    flag_do_debug = 0; % Flag to plot the results for debugging
+    flag_check_inputs = 0; % Flag to perform input checking
+    flag_max_speed = 1;
+else
+    % Check to see if we are externally setting debug mode to be "on"
+    flag_do_debug = 0; % Flag to plot the results for debugging
+    flag_check_inputs = 1; % Flag to perform input checking
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS");
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS);
+    end
+end
 
+% flag_do_debug = 1;
 
-%% check input arguments
+if flag_do_debug % If debugging is on, print on entry/exit to the function
+    st = dbstack; %#ok<*UNRCH>
+    fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
+    debug_figNum = 999978; %#ok<NASGU>
+else
+    debug_figNum = []; %#ok<NASGU>
+end
+
+%% check input arguments?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   _____                   _
 %  |_   _|                 | |
@@ -173,14 +208,38 @@ flag_check_inputs = 1; % Flag to perform input checking
 %              |_|
 % See: http://patorjk.com/software/taag/#p=display&f=Big&t=Inputs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-if flag_check_inputs
-    % Are there the right number of inputs?
-    if nargin < 0 || nargin > 2
-        error('Incorrect number of input arguments')
+if 0==flag_max_speed
+    if flag_check_inputs
+        % Are there the right number of inputs?
+        narginchk(0,MAX_NARGIN);
+        % % Check the input_path to be sure it has 2 or 3 columns, minimum 2 rows
+        % % or more
+        % fcn_DebugTools_checkInputsToFunctions(input_path, '2or3column_of_numbers',[2 3]);
     end
-
 end
+
+
+% % % Does user want to specify directoryQuery?
+% % directoryQuery = '*.*'; % Default is search only current directory
+% % if 3 >= nargin
+% %     temp = varargin{1};
+% %     if ~isempty(temp) % Did the user NOT give an empty value?
+% %        directoryQuery = temp;
+% %     end
+% % end
+% 
+% % Does user want to show the plots?
+% flag_do_plots = 0; % Default is to NOT show plots
+% if (0==flag_max_speed) && (MAX_NARGIN == nargin) 
+%     temp = varargin{end};
+%     if ~isempty(temp) % Did the user NOT give an empty figure number?
+%         figNum = temp;
+%         flag_do_plots = 1;
+%     end
+% end
+% 
+
+
 
 % Does user want to corrupt the data?
 % Set default flags:
@@ -199,6 +258,7 @@ end
 
 % Does the user want to specify the fid?
 fid = 0; % Do not print by default
+flag_do_plots = 0;
 if 2 == nargin
     temp = varargin{end};
     if ~isempty(temp)

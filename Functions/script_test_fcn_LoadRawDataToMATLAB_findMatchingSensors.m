@@ -1,11 +1,28 @@
-% script_test_fcn_DataClean_findMatchingSensors.m
-% tests fcn_DataClean_findMatchingSensors.m
+% script_test_fcn_LoadRawDataToMATLAB_findMatchingSensors.m
+% tests fcn_LoadRawDataToMATLAB_findMatchingSensors.m
 
-% Revision history
-% 2023_06_26 - sbrennan@psu.edu
-% -- wrote the code originally
-% 2024_09_27 - sbrennan@psu.edu
-% -- added better examples
+% REVISION HISTORY
+%
+% As: script_test_fcn_Data+Clean_stitchStructures
+% 
+% 2023_06_26 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2024_09_27 by Sean Brennan, sbrennan@psu.edu
+% - Added better examples
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Set up the workspace
 close all

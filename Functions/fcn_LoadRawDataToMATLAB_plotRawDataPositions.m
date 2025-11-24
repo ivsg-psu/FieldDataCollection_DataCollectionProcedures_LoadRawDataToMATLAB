@@ -35,11 +35,11 @@ function fcn_LoadRawDataToMATLAB_plotRawDataPositions(rawDataCellArray, varargin
 %      generated, and sets up code to maximize speed. The structure has the
 %      following format:
 %
-%         plotFlags.fig_num_plotAllRawTogether = 1111; % This is the figure
+%         plotFlags.figNum_plotAllRawTogether = 1111; % This is the figure
 %         where all the bag files are plotted together. Set to [] to NOT
 %         plot results all together.
 %
-%         plotFlags.fig_num_plotAllRawIndividually = []; % This is the
+%         plotFlags.figNum_plotAllRawIndividually = []; % This is the
 %         number starting the count for all the figures that open,
 %         individually, for each bag file after it is loaded. The figure
 %         number is incremented for each plot. Set to [] to NOT
@@ -64,14 +64,24 @@ function fcn_LoadRawDataToMATLAB_plotRawDataPositions(rawDataCellArray, varargin
 % This function was written on 2025_09_20 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
-% 2025_09_20 - Sean Brennan, sbrennan@psu.edu
-% -- wrote the code originally using 
-%    script_test_fcn_DataClean_loadRawDataFromDirectories as a starter
+% REVISION HISTORY:
+% 
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+%   % * used script_test_fcn_DataClean_loadRawDataFromDirectories as a starter
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -96,9 +106,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 
@@ -136,8 +146,8 @@ end
 
 % Does user want to specify plotFlags?
 % Set defaults
-plotFlags.fig_num_plotAllRawTogether = 1111;
-plotFlags.fig_num_plotAllRawIndividually = [];
+plotFlags.figNum_plotAllRawTogether = 1111;
+plotFlags.figNum_plotAllRawIndividually = [];
 flag_do_plots = 1;
 if (0==flag_max_speed) &&  (3<=nargin)
     temp = varargin{end};
@@ -190,9 +200,9 @@ if (1==flag_do_plots)
     end
 
     %% Plot all of them together?
-    if ~isempty(plotFlags.fig_num_plotAllRawTogether)
-        fig_num_plotAllRawTogether = plotFlags.fig_num_plotAllRawTogether;
-        figure(fig_num_plotAllRawTogether);
+    if ~isempty(plotFlags.figNum_plotAllRawTogether)
+        figNum_plotAllRawTogether = plotFlags.figNum_plotAllRawTogether;
+        figure(figNum_plotAllRawTogether);
         clf;
 
         % Test the function
@@ -217,13 +227,13 @@ if (1==flag_do_plots)
             end
             plotFormat.Color = fcn_geometry_fillColorFromNumberOrName(ith_rawData);
             colorMap = plotFormat.Color;
-            fcn_LoadRawDataToMATLAB_plotRawData(rawDataCellArray{ith_rawData}, (bagName), (plotFormat), (colorMap), (fig_num_plotAllRawTogether))
+            fcn_LoadRawDataToMATLAB_plotRawData(rawDataCellArray{ith_rawData}, (bagName), (plotFormat), (colorMap), (figNum_plotAllRawTogether))
             legend_entries{ith_rawData} = bagName;
 
         end
 
         % Plot the base station
-        fcn_plotRoad_plotLL([],[],fig_num_plotAllRawTogether);
+        fcn_plotRoad_plotLL([],[],figNum_plotAllRawTogether);
         legend_entries{end} = 'Base Station';
 
         h_legend = legend(legend_entries);
@@ -256,21 +266,21 @@ if (1==flag_do_plots)
 
 
     %% Plot all individually, and save all images and mat files
-    if ~isempty(plotFlags.fig_num_plotAllRawIndividually)
-        fig_num_plotAllRawIndividually = plotFlags.fig_num_plotAllRawIndividually;
+    if ~isempty(plotFlags.figNum_plotAllRawIndividually)
+        figNum_plotAllRawIndividually = plotFlags.figNum_plotAllRawIndividually;
 
 
         for ith_rawData = 1:length(rawDataCellArray)
-            fig_num = fig_num_plotAllRawIndividually -1 +ith_rawData;
-            figure(fig_num);
+            figNum = figNum_plotAllRawIndividually -1 +ith_rawData;
+            figure(figNum);
             clf;
 
             % Plot the base station
-            fcn_plotRoad_plotLL([],[],fig_num);
+            fcn_plotRoad_plotLL([],[],figNum);
 
             % Plot the data
             bagName = rawDataCellArray{ith_rawData}.Identifiers.SourceBagFileName;
-            fcn_LoadRawDataToMATLAB_plotRawData(rawDataCellArray{ith_rawData}, (bagName), ([]), ([]), (fig_num))
+            fcn_LoadRawDataToMATLAB_plotRawData(rawDataCellArray{ith_rawData}, (bagName), ([]), ([]), (figNum))
 
             pause(0.1);
 

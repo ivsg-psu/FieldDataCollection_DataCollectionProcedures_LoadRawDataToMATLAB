@@ -49,10 +49,10 @@ function rawDataCellArray  = fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories(
 %      generated, and sets up code to maximize speed. The structure has the
 %      following format:
 %
-%         plotFlags.fig_num_plotAllMatTogether = 1111; % This is the figure
+%         plotFlags.figNum_plotAllMatTogether = 1111; % This is the figure
 %         where all the mat files are plotted together
 %
-%         plotFlags.fig_num_plotAllMatIndividually = 2222; % This is the
+%         plotFlags.figNum_plotAllMatIndividually = 2222; % This is the
 %         number starting the count for all the figures that open,
 %         individually, for each mat file after it is loaded.
 %
@@ -77,9 +77,21 @@ function rawDataCellArray  = fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories(
 % This function was written on 2024_09_13 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
-% 2024_09_13 - Sean Brennan, sbrennan@psu.edu
-% -- wrote the code originally
+% REVISION HISTORY:
+% 
+% 2024_09_13 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Debugging and Input checks
 % Check if flag_max_speed set. This occurs if the figNum variable input
@@ -285,8 +297,8 @@ if (1==flag_do_plots)
 
     % List what will be plotted, and the figure numbers
     clear plotFlags
-    plotFlags.fig_num_plotAllRawTogether = figNum;
-    plotFlags.fig_num_plotAllRawIndividually = [];
+    plotFlags.figNum_plotAllRawTogether = figNum;
+    plotFlags.figNum_plotAllRawIndividually = [];
 
     % Call function
     fcn_LoadRawDataToMATLAB_plotRawDataPositions(rawDataCellArray, (saveFlags), (plotFlags))

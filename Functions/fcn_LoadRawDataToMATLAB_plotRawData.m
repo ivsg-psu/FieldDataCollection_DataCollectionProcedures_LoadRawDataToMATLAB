@@ -5,7 +5,7 @@ function fcn_LoadRawDataToMATLAB_plotRawData(rawData, varargin)
 %
 % FORMAT:
 %
-%      fcn_LoadRawDataToMATLAB_plotRawData(rawData, (bagName), (plotFormat), (colorMap), (fig_num))
+%      fcn_LoadRawDataToMATLAB_plotRawData(rawData, (bagName), (plotFormat), (colorMap), (figNum))
 %
 % INPUTS:
 %
@@ -44,7 +44,7 @@ function fcn_LoadRawDataToMATLAB_plotRawData(rawData, varargin)
 %      to use the 'turbo' colormap in the range from green at start, red at
 %      end, with 20 colors.
 %
-%      fig_num: a figure number to plot results. If set to -1, skips any
+%      figNum: a figure number to plot results. If set to -1, skips any
 %      input checking or debugging, no figures will be generated, and sets
 %      up code to maximize speed.
 %
@@ -64,19 +64,31 @@ function fcn_LoadRawDataToMATLAB_plotRawData(rawData, varargin)
 % This function was written on 2024_09_12 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
+% REVISION HISTORY:
+%
 % As: fcn_DataClean_plotRawData
-% 2024_09_12 - S. Brennan
-% -- wrote the code originally 
-% 2025_09_20: sbrennan@psu.edu
-% * In fcn_LoadRawDataToMATLAB_plotRawData
-% -- Renamed function to fcn_LoadRawDataToMATLAB_plotRawData
+% 
+% 2024_09_12 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+% 
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_LoadRawDataToMATLAB_plotRawData
+%   % * Renamed function to fcn_LoadRawDataToMATLAB_plotRawData
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 
 
 %% Debugging and Input checks
 
-% Check if flag_max_speed set. This occurs if the fig_num variable input
+% Check if flag_max_speed set. This occurs if the figNum variable input
 % argument (varargin) is given a number of -1, which is not a valid figure
 % number.
 flag_max_speed = 0;
@@ -101,9 +113,9 @@ end
 if flag_do_debug
     st = dbstack; %#ok<*UNRCH>
     fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
-    debug_fig_num = 999978; %#ok<NASGU>
+    debug_figNum = 999978; %#ok<NASGU>
 else
-    debug_fig_num = []; %#ok<NASGU>
+    debug_figNum = []; %#ok<NASGU>
 end
 
 
@@ -169,12 +181,12 @@ if (4<=nargin)
 end
 
 
-% Does user want to specify fig_num?
+% Does user want to specify figNum?
 flag_do_plots = 0;
 if (0==flag_max_speed) &&  (5<=nargin)
     temp = varargin{end};
     if ~isempty(temp)
-        fig_num = temp;
+        figNum = temp;
         flag_do_plots = 1;
     end
 end
@@ -219,10 +231,10 @@ if (1==flag_do_plots)
 
 
     if 1==0
-        h_animatedPlot = fcn_plotRoad_animatePlot('plotLL',0,[],LLdata, plotFormat,colorMapToUse,fig_num);
+        h_animatedPlot = fcn_plotRoad_animatePlot('plotLL',0,[],LLdata, plotFormat,colorMapToUse,figNum);
 
         for ith_time = 1:10:length(LLdata(:,1))
-            fcn_plotRoad_animatePlot('plotLL', ith_time, h_animatedPlot, LLdata, (plotFormat), (colorMapToUse), (fig_num));
+            fcn_plotRoad_animatePlot('plotLL', ith_time, h_animatedPlot, LLdata, (plotFormat), (colorMapToUse), (figNum));
             set(gca,'ZoomLevel',20,'MapCenter',LLdata(ith_time,1:2));
             pause(0.02);
         end
@@ -230,7 +242,7 @@ if (1==flag_do_plots)
         if ~isempty(LLdata)
             Npoints = length(LLdata(:,1));
             Idata = ((1:Npoints)-1)'/(Npoints-1);
-            fcn_plotRoad_plotLLI([LLdata Idata], (plotFormat), (colorMapToUse), (fig_num));
+            fcn_plotRoad_plotLLI([LLdata Idata], (plotFormat), (colorMapToUse), (figNum));
             set(gca,'MapCenterMode','auto','ZoomLevelMode','auto');
         end
     end

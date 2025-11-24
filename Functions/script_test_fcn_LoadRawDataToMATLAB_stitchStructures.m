@@ -1,18 +1,36 @@
-% script_test_fcn_DataClean_stitchStructures.m
-% tests fcn_DataClean_stitchStructures.m
+% script_test_fcn_LoadRawDataToMATLAB_stitchStructures.m.m
+% tests fcn_LoadRawDataToMATLAB_stitchStructures.m.m
 
-% Revision history
-% 2024_09_11 - sbrennan@psu.edu
-% -- wrote the code originally
-% 2024_09_18 - sbrennan@psu.edu
-% -- fixed typo in the function name!
+% REVISION HISTORY:
+% 
+% As: script_test_fcn_Data+Clean_stitchStructures
+%
+% 2024_09_11 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2024_09_18 by Sean Brennan, sbrennan@psu.edu
+% - Fixed typo in the function name!
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
+
 
 %% Set up the workspace
 close all
 
 
 %% Test 1: Basic example - merging level 1 fields that partially agree
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -38,7 +56,7 @@ clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -58,7 +76,7 @@ assert(isequal(stitchedStructure.a,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 assert(isequal(stitchedStructure.c,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 
 %% Test 2: Basic example - merging level 1 fields that have no overlap in field names
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -81,7 +99,7 @@ clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isempty(stitchedStructure))
@@ -95,7 +113,7 @@ assert(strcmp(uncommonFields{4},'c'));
 assert(strcmp(uncommonFields{5},'d'));
 
 %% Test 3: Basic example - merging level 1 fields that completely agree
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -122,7 +140,7 @@ clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -143,7 +161,7 @@ assert(isequal(stitchedStructure.d,[1*ones(1,5) 2*ones(1,3) 3*ones(1,3)]'))
 
 %% Test 4: Basic example - merging level 1 fields that have no overlap in vector types
 % Structure 1 is scalar, 2 is vector
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -161,7 +179,7 @@ s2.c = [2; 2];
 clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isempty(stitchedStructure))
@@ -174,7 +192,7 @@ assert(strcmp(uncommonFields{3},'c'));
 
 %% Test 5: Basic example - merging level 1 fields that have no overlap in vector types - Row disagreement
 % Structure 1 is vector, 2 is scalar
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -193,7 +211,7 @@ s2.c = 2;
 clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isempty(stitchedStructure))
@@ -207,7 +225,7 @@ assert(strcmp(uncommonFields{3},'c'));
 %% Test 6: Basic example - merging level 1 fields that have partial overlap in vector types - Column disagreement
 % Structure 1 is vector with 1 columns, 2 is vector with 2 columns, but "b"
 % overlaps
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -225,7 +243,7 @@ s2.c = [2 2; 2 2];
 clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(~isempty(stitchedStructure))
@@ -239,7 +257,7 @@ assert(strcmp(uncommonFields{2},'c'));
 %% Test 7: Basic example - merging level 1 fields that have partial overlap in vector types - Scalar disagreement
 % Structure 1 is vector with 1 columns, 2 is vector with 2 columns, but "b"
 % overlaps
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -257,7 +275,7 @@ s2.c = 2;
 clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(~isempty(stitchedStructure))
@@ -269,7 +287,7 @@ assert(strcmp(uncommonFields{1},'a'));
 assert(strcmp(uncommonFields{2},'c'));
 
 %% Test 8: Basic example - merging level 1 fields that completely agree, containing NaNs
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -292,7 +310,7 @@ s2.e = 3;
 clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -315,7 +333,7 @@ assert(isequal(stitchedStructure.e,3))
 
 
 %% Test 9: Basic example - merging level 1 fields that are strings
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -343,7 +361,7 @@ clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -363,7 +381,7 @@ assert(isequal(stitchedStructure.a,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 assert(strcmp(stitchedStructure.c,'test1'))
 
 %% Test 10: Basic example - merging level 1 fields that are string arrays with more than 1 row
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -391,7 +409,7 @@ clear cellArrayOfStructures
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -411,7 +429,7 @@ assert(isequal(stitchedStructure.a,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 assert(isequal(stitchedStructure.c,{'a';'b';'c';'d';'e';'f';'g'}));
 
 %% Test 101 Basic example - merging level 1 and 2 fields that partially agree on each level
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -440,7 +458,7 @@ s3.sub2.a = 3*ones(3,1);
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -468,7 +486,7 @@ assert(isequal(stitchedStructure.c,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 assert(isequal(stitchedStructure.sub1.a,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 
 %% Test 102: Basic example - merging level 1 and 2 fields that do not agree
-fig_num = [];
+figNum = [];
 
 fid = 1;
 
@@ -497,7 +515,7 @@ s3.sub2.a = 3*ones(3,1);
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))
@@ -523,7 +541,7 @@ assert(isequal(stitchedStructure.a,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 assert(isequal(stitchedStructure.c,[1*ones(1,3) 2*ones(1,3) 3*ones(1,3)]'))
 
 %% Test 901: Basic example - NOT verbose
-fig_num = [];
+figNum = [];
 
 fid = [];
 
@@ -552,7 +570,7 @@ s3.sub2.a = 3*ones(3,1);
 cellArrayOfStructures{1} = s1;
 cellArrayOfStructures{2} = s2;
 cellArrayOfStructures{3} = s3;
-[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (fig_num));
+[stitchedStructure, uncommonFields] = fcn_LoadRawDataToMATLAB_stitchStructures(cellArrayOfStructures, (fid), (figNum));
 
 % Check the output types
 assert(isstruct(stitchedStructure))

@@ -1,11 +1,11 @@
 function dataStructure = fcn_LoadRawDataToMATLAB_initializeDataByType(dataType,varargin)
-% fcn_DataClean_initializeDataByType
+% fcn_LoadRawDataToMATLAB_initializeDataByType
 % Creates an empty data structure that corresponds to a particular type of
 % sensor. 
 %
 % FORMAT:
 %
-%      dataStructure = fcn_DataClean_initializeDataByType(dataType)
+%      dataStructure = fcn_LoadRawDataToMATLAB_initializeDataByType(dataType)
 %
 % INPUTS:
 %
@@ -37,43 +37,78 @@ function dataStructure = fcn_LoadRawDataToMATLAB_initializeDataByType(dataType,v
 %
 % EXAMPLES:
 %
-%     See the script: script_test_fcn_DataClean_initializeDataByType
+%     See the script: script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
 %     for a full test suite.
 %
 % This function was first written on 2023_06_12 by S. Brennan
 % Questions or comments? sbrennan@psu.edu 
 
-% Revision history:
-% As: fcn_DataClean_initializeDataByType    
-% 2023_06_12: sbrennan@psu.edu
-% -- wrote the code originally 
-% 2023_06_16: xinyu cao
-% -- update ins datatype
-% -- add new datatype diagnostic, ntrip, rosout,and tf
-% 2023_06_21: sbrennan@psu.edu
-% -- renamed INS to IMU (since INS includes GPS, typically)
-% -- renamed event functions to sensor type, to disambiguate them, for
-%    example: TRIGGER_EventFunctions. Otherwise, searching for
-%    eventFunctions can cause different sensor types to become confused.
-% 2025_09_20: sbrennan@psu.edu
-% * In fcn_LoadRawDataToMATLAB_initializeDataByType
-% -- Renamed function to fcn_LoadRawDataToMATLAB_initializeDataByType
-
-% TO DO
+% REVISION HISTORY:
 % 
+% As: fcn_Data+Clean_initializeDataByType    
+% 
+% 2023_06_12 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally 
+% 
+% 2023_06_16: xinyu cao
+% - Update ins datatype
+% - Add new datatype diagnostic, ntrip, rosout,and tf
+% 
+% 2023_06_21 by Sean Brennan, sbrennan@psu.edu
+% - Renamed INS to IMU (since INS includes GPS, typically)
+% - Renamed event functions to sensor type, to disambiguate them, for
+%   % example: TRIGGER_EventFunctions. Otherwise, searching for
+%   % eventFunctions can cause different sensor types to become confused.
+% 
+% 2025_09_20 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_LoadRawDataToMATLAB_initializeDataByType
+%   % * Renamed function to fcn_LoadRawDataToMATLAB_initializeDataByType
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
 
-flag_do_debug = 0;  % Flag to show the results for debugging
-flag_do_plots = 0;  % % Flag to plot the final results
-flag_check_inputs = 1; % Flag to perform input checking
-fid = 1; % The default file ID destination for fprintf messages
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
-if flag_do_debug
-    st = dbstack; %#ok<*UNRCH>
-    fprintf(fid,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
+
+%% Debugging and Input checks
+
+% Check if flag_max_speed set. This occurs if the figNum variable input
+% argument (varargin) is given a number of -1, which is not a valid figure
+% number.
+MAX_NARGIN = 2; % The largest Number of argument inputs to the function
+flag_max_speed = 0; % The default. This runs code with all error checking
+if (nargin==MAX_NARGIN && isequal(varargin{end},-1))
+    flag_do_debug = 0; % Flag to plot the results for debugging
+    flag_check_inputs = 0; % Flag to perform input checking
+    flag_max_speed = 1;
+else
+    % Check to see if we are externally setting debug mode to be "on"
+    flag_do_debug = 0; % Flag to plot the results for debugging
+    flag_check_inputs = 1; % Flag to perform input checking
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS");
+    MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG = getenv("MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG");
+    if ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS) && ~isempty(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG)
+        flag_do_debug = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG);
+        flag_check_inputs  = str2double(MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS);
+    end
 end
 
+% flag_do_debug = 1;
 
-%% check input arguments
+if flag_do_debug % If debugging is on, print on entry/exit to the function
+    st = dbstack; %#ok<*UNRCH>
+    fprintf(1,'STARTING function: %s, in file: %s\n',st(1).name,st(1).file);
+    debug_figNum = 999978; %#ok<NASGU>
+else
+    debug_figNum = []; %#ok<NASGU>
+end
+
+%% check input arguments?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   _____                   _
 %  |_   _|                 | |
@@ -85,16 +120,37 @@ end
 %              |_|
 % See: http://patorjk.com/software/taag/#p=display&f=Big&t=Inputs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if 0==flag_max_speed
+    if flag_check_inputs
+        % Are there the right number of inputs?
+        narginchk(1,MAX_NARGIN);
 
-if flag_check_inputs
-    % Are there the right number of inputs?
-    if nargin < 1 || nargin > 2
-        error('Incorrect number of input arguments')
+        % % Check the input_path to be sure it has 2 or 3 columns, minimum 2 rows
+        % % or more
+        % fcn_DebugTools_checkInputsToFunctions(input_path, '2or3column_of_numbers',[2 3]);
     end
-        
-    % NOTE: zone types are checked below
-
 end
+
+
+% % Does user want to specify directoryQuery?
+% directoryQuery = '*.*'; % Default is search only current directory
+% if 3 >= nargin
+%     temp = varargin{1};
+%     if ~isempty(temp) % Did the user NOT give an empty value?
+%        directoryQuery = temp;
+%     end
+% end
+
+% Does user want to show the plots?
+flag_do_plots = 0; % Default is to NOT show plots
+if (0==flag_max_speed) && (MAX_NARGIN == nargin) 
+    temp = varargin{end};
+    if ~isempty(temp) % Did the user NOT give an empty figure number?
+        figNum = temp; %#ok<NASGU>
+        flag_do_plots = 1;
+    end
+end
+
 
 
 %% Main code starts here

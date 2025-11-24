@@ -1,9 +1,23 @@
 % script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures.m
-% tests fcn_DataClean_mergeRawDataStructures.m
+% tests fcn_LoadRawDataToMATLAB_mergeRawDataStructures.m
 
-% Revision history
-% 2024_09_15 - sbrennan@psu.edu
-% -- wrote the code originally, using Laps_checkZoneType as starter
+% REVISION HISTORY
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures
+%
+% 2024_09_15 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally, using Laps_checkZoneType as starter
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Set up the workspace
 close all
@@ -65,8 +79,8 @@ load('ExampleData_fromLoadRawDataFromDirectories.mat','rawDataCellArray');
 % saveFlags.flag_forceMATfileOverwrite = 1;
 % 
 % % List what will be plotted, and the figure numbers
-% plotFlags.fig_num_plotAllRawTogether = [];
-% plotFlags.fig_num_plotAllRawIndividually = [];
+% plotFlags.figNum_plotAllRawTogether = [];
+% plotFlags.figNum_plotAllRawIndividually = [];
 % 
 % % Call the data loading function
 % rawDataCellArray = fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories(rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (saveFlags), (plotFlags));

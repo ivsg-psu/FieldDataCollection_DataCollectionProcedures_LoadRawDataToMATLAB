@@ -1,10 +1,22 @@
 % script_test_fcn_LoadRawDataToMATLAB_plotRawDataPositions.m
 % tests fcn_LoadRawDataToMATLAB_plotRawDataPositions.m
 
-% Revision history
-% 2023_06_19 - sbrennan@psu.edu
-% -- wrote the code originally, using 
-%    script_test_fcn_DataClean_loadMappingVanDataFromFile as starter
+% REVISION HISTORY
+% 
+% 2023_06_19 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally, using 
+%    script_test_fcn_Data+Clean_loadMappingVanDataFromFile as starter
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Set up the workspace
 close all
@@ -60,7 +72,7 @@ clf;
 
 
 % Load test data
-exampleDatafile = fullfile(cd,'Data','ExampleData_fromLoadRawDataFromDirectories.mat');
+exampleDatafile = fullfile(pwd,'Data','ExampleData_fromLoadRawDataFromDirectories.mat');
 load(exampleDatafile,'rawDataCellArray');
 
 % List what will be saved
@@ -73,8 +85,8 @@ saveFlags.flag_forceImageOverwrite = 1;
 
 % List what will be plotted, and the figure numbers
 clear plotFlags
-plotFlags.fig_num_plotAllRawTogether = figNum;
-plotFlags.fig_num_plotAllRawIndividually = [];
+plotFlags.figNum_plotAllRawTogether = figNum;
+plotFlags.figNum_plotAllRawIndividually = [];
 
 % Call function
 fcn_LoadRawDataToMATLAB_plotRawDataPositions(rawDataCellArray, (saveFlags), (plotFlags))
@@ -99,8 +111,8 @@ saveFlags.flag_forceImageOverwrite = 1;
 
 % List what will be plotted, and the figure numbers
 clear plotFlags
-plotFlags.fig_num_plotAllRawTogether = [];
-plotFlags.fig_num_plotAllRawIndividually = figNum;
+plotFlags.figNum_plotAllRawTogether = [];
+plotFlags.figNum_plotAllRawIndividually = figNum;
 
 % Call function
 smallCellArray = cell(5,1);
@@ -128,8 +140,8 @@ saveFlags.flag_forceImageOverwrite = 1;
 
 % List what will be plotted, and the figure numbers
 clear plotFlags
-plotFlags.fig_num_plotAllRawTogether = figNum;
-plotFlags.fig_num_plotAllRawIndividually = [];
+plotFlags.figNum_plotAllRawTogether = figNum;
+plotFlags.figNum_plotAllRawIndividually = [];
 
 % Call function
 fcn_LoadRawDataToMATLAB_plotRawDataPositions({rawData}, (saveFlags), (plotFlags))

@@ -1,9 +1,25 @@
-% script_test_fcn_DataClean_fillTestDataStructure.m
-% tests fcn_DataClean_fillTestDataStructure.m
+% script_test_fcn_LoadRawDataToMATLAB_fillTestDataStructure.m
+% tests fcn_LoadRawDataToMATLAB_fillTestDataStructure.m
 
-% Revision history
-% 2023_06_19 - sbrennan@psu.edu
-% -- wrote the code originally
+% REVISION HISTORY:
+%
+% As: script_test_fcn_Data+Clean_fillTestDataStructure
+%
+% 2023_06_19 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Set up the workspace
 close all

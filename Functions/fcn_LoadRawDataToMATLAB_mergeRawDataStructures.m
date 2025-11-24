@@ -42,7 +42,7 @@ function [mergedRawDataCellArray, uncommonFieldsCellArray]  = fcn_LoadRawDataToM
 %
 % DEPENDENCIES:
 %
-%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors
+%      fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 %      fcn_LoadRawDataToMATLAB_stitchStructures
 %      fcn_geometry_fillColorFromNumberOrName
 %      fcn_LoadRawDataToMATLAB_plotRawData
@@ -56,12 +56,24 @@ function [mergedRawDataCellArray, uncommonFieldsCellArray]  = fcn_LoadRawDataToM
 % This function was written on 2024_09_15 by S. Brennan
 % Questions or comments? sbrennan@psu.edu
 
-% Revision history
+% REVISION HISTORY:
+%
 % As: fcn_DataClean_mergeRawDataStructures
-% 2024_09_15 - Sean Brennan, sbrennan@psu.edu
-% -- wrote the code originally
-% 2025_09_23 - Sean Brennan, sbrennan@psu.edu
-% -- renamed to fcn_LoadRawDataToMATLAB_mergeRawDataStructures
+% 
+% 2024_09_15 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% 2025_09_23 by Sean Brennan, sbrennan@psu.edu
+% - Renamed to fcn_LoadRawDataToMATLAB_mergeRawDataStructures
+%
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
 
 %% Debugging and Input checks
 % Check if flag_max_speed set. This occurs if the figNum variable input
@@ -203,7 +215,7 @@ latestTimeGPS   = nan(NdataSets,1);
 for ith_mergedData = 1:NdataSets
     % Get all the GPS_time data, keeping only first row from sensors that
     % have "GPS" in name
-    [dataArray,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(rawDataCellArray{ith_mergedData}, 'GPS_Time','GPS', 'first_row');
+    [dataArray,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(rawDataCellArray{ith_mergedData}, 'GPS_Time','GPS', 'first_row');
     if all(isempty([dataArray{:}]))
         mergedRawDataCellArray = cell(1,1);
         uncommonFieldsCellArray = cell(1,1);
@@ -215,7 +227,7 @@ for ith_mergedData = 1:NdataSets
 
     % Get all the GPS_time data, keeping only last row from sensors that
     % have "GPS" in name
-    [dataArray,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(rawDataCellArray{ith_mergedData}, 'GPS_Time','GPS', 'last_row');
+    [dataArray,~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(rawDataCellArray{ith_mergedData}, 'GPS_Time','GPS', 'last_row');
     latestTimeGPS(ith_mergedData,1) = max(cell2mat(dataArray));
 end
 
@@ -444,8 +456,8 @@ if (1==flag_do_plots)
 
     % List what will be plotted, and the figure numbers
     clear plotFlags
-    plotFlags.fig_num_plotAllRawTogether = figNum;
-    plotFlags.fig_num_plotAllRawIndividually = [];
+    plotFlags.figNum_plotAllRawTogether = figNum;
+    plotFlags.figNum_plotAllRawIndividually = [];
 
     % Call function
     fcn_LoadRawDataToMATLAB_plotRawDataPositions(mergedRawDataCellArray, (saveFlags), (plotFlags))  

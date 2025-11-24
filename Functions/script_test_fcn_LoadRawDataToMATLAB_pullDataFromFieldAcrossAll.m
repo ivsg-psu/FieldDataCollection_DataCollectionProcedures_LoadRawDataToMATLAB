@@ -1,9 +1,24 @@
-% script_test_fcn_DataClean_trimRepeatsFromField.m
-% tests fcn_DataClean_trimRepeatsFromField.m
+% script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll.m
+% tests fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll.m
 
-% Revision history
-% 2023_06_26 - sbrennan@psu.edu
-% -- wrote the code originally
+% REVISION HISTORY
+% As: script_test_fcn_Data+Clean_trimRepeatsFromField
+% 
+% 2023_06_26 by Sean Brennan, sbrennan@psu.edu
+% - Wrote the code originally
+% 
+% As: script_test_fcn_LoadRawDataToMATLAB_trimRepeatsFromField
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - Corrected script name
+% - Fixed rev history to be Markdown format
+% - Added TO+-DO list
+
+% TO-DO:
+% 
+% 2025_11_23 by Sean Brennan, sbrennan@psu.edu
+% - (add items here)
+
 
 %% Set up the workspace
 close all
@@ -25,7 +40,7 @@ entry_location = [];
 fid = [];
 
 % Call the function
-[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
+[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
 
 % Check that results are all cell arrays
 assert(iscell(dataArray))
@@ -46,7 +61,7 @@ entry_location = [];
 fid = [];
 
 % Call the function
-[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
+[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
 
 % Check that results are all cell arrays
 assert(iscell(dataArray))
@@ -67,7 +82,7 @@ entry_location = [];
 fid = [];
 
 % Call the function
-[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
+[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
 
 % Check that results are all cell arrays
 assert(iscell(dataArray))
@@ -88,7 +103,7 @@ entry_location = 'last_row';
 fid = 1;
 
 % Call the function
-[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
+[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
 
 % Check that results are all cell arrays
 assert(iscell(dataArray))
@@ -109,7 +124,7 @@ dataStructure = fcn_LoadRawDataToMATLAB_fillTestDataStructure;
 fid = 1;
 
 fprintf(1,'\nCASE 1: Demonstrating pulling centiseconds from every sensor, without being verbose: \n');
-[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds');
+[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds');
 
 % Print the result in nice table:
 fprintf(1,'\nHere is the result, as a table of centiseconds query over all sensors:\n');
@@ -141,7 +156,7 @@ fid = 1;
 
 fprintf(1,'\nCASE 2: Demonstrating pulling centiseconds from every sensor, being verbose: \n\n');
 
-[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds', [],[], fid);
+[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds', [],[], fid);
 
 % Print the result in nice table:
 fprintf(1,'Example table of centiseconds query over all sensors:\n');
@@ -174,7 +189,7 @@ fid = 1;
 
 fprintf(1,'\nCASE 3: Demonstrating pulling centiseconds from only GPS sensors, NOT verbose: \n\n');
 
-[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'centiSeconds','GPS');
+[data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'centiSeconds','GPS');
 
 % Print the result in nice table:
 fprintf(1,'\nThe results are now shown as a table of centiseconds query over just GPS sensors:\n');
@@ -208,14 +223,14 @@ end
 % Fill in the initial data
 dataStructure = fcn_LoadRawDataToMATLAB_fillTestDataStructure;
 
-data = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'goofybadname');
+data = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'goofybadname');
 assert(isempty(cell2mat(data)));
 
 %% Basic Example - pull first_row value from GPS_Time, for all sensors
 % Fill in the initial data
 dataStructure = fcn_LoadRawDataToMATLAB_fillTestDataStructure;
 
-[data, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','','first_row');
+[data, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','','first_row');
 
 assert(iscell(data));
 assert(length(data)==8);
@@ -224,7 +239,7 @@ assert(length(data)==8);
 % Fill in the initial data
 dataStructure = fcn_LoadRawDataToMATLAB_fillTestDataStructure;
 
-[data, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS','first_row');
+[data, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS','first_row');
 
 assert(iscell(data));
 assert(length(data)==3);
@@ -235,7 +250,7 @@ assert(length(data)==3);
 dataStructure = fcn_LoadRawDataToMATLAB_fillTestDataStructure;
 fid = 1;
 
-[data, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors(dataStructure, 'GPS_Time','GPS','last_row');
+[data, ~] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, 'GPS_Time','GPS','last_row');
 
 assert(iscell(data));
 assert(length(data)==3);
