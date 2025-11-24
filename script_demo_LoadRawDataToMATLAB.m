@@ -24,6 +24,10 @@
 % 2025_11_22 by Sean Brennan, sbrennan@psu.edu
 % - Started modifying rev lists to Markdown format
 % - Added auto-installer
+%
+% 2025_11_24 by Sean Brennan, sbrennan@psu.edu
+% - Complete review of allscripts and functions
+% (new release)
 
 % TO-DO:
 % 2025_11_22 by Sean Brennan, sbrennan@psu.edu
