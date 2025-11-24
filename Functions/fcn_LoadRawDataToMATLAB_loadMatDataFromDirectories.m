@@ -144,7 +144,9 @@ if 0==flag_max_speed
 
         % Check if rootdirs is a string. If so, convert it to a cell array
         if ~iscell(rootdirs) && (isstring(rootdirs) || ischar(rootdirs))
-            rootdirs{1} = rootdirs;
+            temp = cell(1,1);
+            temp{1} = rootdirs;
+            rootdirs = temp;
         end
 
         % Loop through all the directories and make sure they are there
