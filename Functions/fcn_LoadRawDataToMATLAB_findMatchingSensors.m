@@ -1,11 +1,11 @@
 function [matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(dataStructure, sensor_identifier_string, varargin)
 
-% fcn_DataClean_findMatchingSensors
+% fcn_LoadRawDataToMATLAB_findMatchingSensors
 % Finds which sensors have names that match a given query
 %
 % FORMAT:
 %
-%      matchedSensorNames = fcn_DataClean_findMatchingSensors(dataStructure, sensor_identifier_string, (fid))
+%      matchedSensorNames = fcn_LoadRawDataToMATLAB_findMatchingSensors(dataStructure, sensor_identifier_string, (fid))
 %
 % INPUTS:
 %
@@ -16,7 +16,8 @@ function [matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(data
 %      sensor_identifier_string = 'GPS', then all sensors whose names, when
 %      coverted to lower case, contain 'gps' will be queried. If there are
 %      only 3 sensors with 'gps' in their name, then the resulting
-%      dataArray and sensorNames will only have 3 entries.
+%      dataArray and sensorNames will only have 3 entries. If
+%      sensor_identifier_string is empty, returns all sensor names.
 % 
 %      (OPTIONAL INPUTS)
 %
@@ -34,7 +35,7 @@ function [matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(data
 %
 % EXAMPLES:
 %
-%     See the script: script_test_fcn_DataClean_findMatchingSensors
+%     See the script: script_test_fcn_LoadRawDataToMATLAB_findMatchingSensors
 %     for a full test suite.
 %
 % This function was written on 2023_07_04 by S. Brennan
@@ -54,6 +55,9 @@ function [matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(data
 % - Corrected script name
 % - Fixed rev history to be Markdown format
 % - Added TO+-DO list
+% 
+% 2025_11_25 by Sean Brennan, sbrennan@psu.edu
+% - Corrected references to _DataClean_ left over in docstrings
 
 % TO-DO:
 % 

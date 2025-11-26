@@ -20,7 +20,8 @@ function [dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcr
 %      sensor_identifier_string = 'GPS', then all sensors whose names, when
 %      coverted to lower case, contain 'gps' will be queried. If there are
 %      only 3 sensors with 'gps' in their name, then the resulting
-%      dataArray and sensorNames will only have 3 entries.
+%      dataArray and sensorNames will only have 3 entries. Default is
+%      empty, which returns all sensors.
 % 
 %      entry_location: a string specifying which element to keep, if the
 %      data is an array:
