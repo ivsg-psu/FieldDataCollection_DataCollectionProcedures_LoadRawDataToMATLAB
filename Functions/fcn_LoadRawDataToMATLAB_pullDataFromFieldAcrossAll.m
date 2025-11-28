@@ -5,13 +5,15 @@ function [dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcr
 %
 % FORMAT:
 %
-%      dataArray = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_string, (sensor_identifier_string), (entry_location), (fid), (figNum))
+%      [dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_string, (sensor_identifier_string), (entry_location), (fid), (figNum))
 %
 % INPUTS:
 %
 %      dataStructure: a data structure to be analyzed 
 %
-%      field_string: the field whose data is to be collected
+%      field_string: the field whose data is to be collected. Note: this
+%      cannot be empty or it returns empty values. If a field_string is given
+%      that is not in a sensor, it returns empty values.
 %
 %      (OPTIONAL INPUTS)
 %
@@ -77,6 +79,11 @@ function [dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcr
 % - Renamed file
 %   % * From fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAllSensors
 %   % * To: fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%
+% 2025_11_26 by Sean Brennan, sbrennan@psu.edu
+% - in fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%   % * Improved header docstrings to better explain expected outputs
+%   % * Especially for empty sensor type, was not clear what to expect
 
 % TO-DO:
 % 

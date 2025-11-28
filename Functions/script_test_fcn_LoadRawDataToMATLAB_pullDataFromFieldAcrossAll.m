@@ -255,6 +255,27 @@ fid = 1;
 assert(iscell(data));
 assert(length(data)==3);
 
+%% TEST case: 20001 - data from trimRepeatsFromField
+
+fullExampleFilePath = fullfile(cd,'Data','ExampleData_pullDataFromFieldAcrossAll.mat');
+load(fullExampleFilePath,'dataStructure','field_name','sensors_to_check');
+
+% [data,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_name,sensors_to_check);
+
+field_string = 'ROS_Time';
+sensor_identifier_string = [];
+entry_location = [];
+fid = 1;
+figNum = 1;
+[dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure, field_string, (sensor_identifier_string), (entry_location), (fid), (figNum));
+
+% Check that results are all cell arrays
+assert(iscell(dataArray))
+assert(iscell(sensorNames))
+
+% Assert they have same length
+assert(length(dataArray)==length(sensorNames))
+
 if 1==0 % BAD error cases start here
 
 

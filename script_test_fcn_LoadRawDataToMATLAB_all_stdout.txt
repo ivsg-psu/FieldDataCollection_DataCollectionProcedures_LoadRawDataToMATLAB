@@ -17695,3 +17695,1643 @@ Fields shared:
 Done script_test_fcn_LoadRawDataToMATLAB_stitchStructures
 __________
 
+<strong>Checking root folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Functions:
+</strong><strong></strong><strong>	Checking that there is 1 m-file in root folder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a demo file, script_demo_LoadRawDataToMATLAB.m: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a README.md file: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Functions subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Data subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Documents subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Installer subfolder: </strong><strong>PASSED.
+</strong><strong>	Checking that there is a Images subfolder: </strong><strong>PASSED.
+</strong><strong>Checking main demo file:
+	script_demo_LoadRawDataToMATLAB.m:
+</strong><strong>	Checking that main demo contains required strings: </strong><strong>	Checking that it contains "REVISION HISTORY": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "TO-DO": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_CHECK_INPUTS": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "MATLABFLAG_LOADRAWDATATOMATLAB_FLAG_DO_DEBUG": </strong><strong>PASSED.
+</strong><strong>	Checking that it contains "fcn_DebugTools_autoInstallRepos": </strong><strong>PASSED.
+</strong><strong>Checking functions folder:
+	C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Functions:
+</strong><strong>	Checking that functions folder contains no forbidden strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions folder contains no warning strings: </strong><strong>PASSED.
+</strong><strong>	Checking that all files in functions folder contains required strings: </strong><strong>PASSED.
+</strong><strong>	Checking that functions within functions folder contains function-required strings: </strong><strong>PASSED.
+</strong>
+SUMMARY OF FOUND FILES: 
+<strong>The following scripts were found that will be tested:
+</strong><strong>	There are 19 total testable functions in this repo:
+</strong>	script_test_fcn_LoadRawDataToMATLAB_determineDataType.m
+	script_test_fcn_LoadRawDataToMATLAB_fillTestDataStructure.m
+	script_test_fcn_LoadRawDataToMATLAB_findMatchingSensors.m
+	script_test_fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate.m
+	script_test_fcn_LoadRawDataToMATLAB_initializeDataByType.m
+	script_test_fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile.m
+	script_test_fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories.m
+	script_test_fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories.m
+	script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic.m
+	script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Encoder.m
+	script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun.m
+	script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_LidarSICK.m
+	script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Trigger.m
+	script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures.m
+	script_test_fcn_LoadRawDataToMATLAB_plotRawData.m
+	script_test_fcn_LoadRawDataToMATLAB_plotRawDataPositions.m
+	script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll.m
+	script_test_fcn_LoadRawDataToMATLAB_saveRawDataMatFiles.m
+	script_test_fcn_LoadRawDataToMATLAB_stitchStructures.m
+<strong>The following functions were found, but do not have a matching test scripts:
+</strong><strong>	fcn_LoadRawDataToMATLAB_loadRawDataFromFile_LiDARs.m
+</strong>
+STARTING TESTS:
+<strong>   
+</strong><strong>Testing script: 1 of 19, test_fcn_LoadRawDataToMATLAB_determineDataType
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_determineDataType
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: 'Bin1' is 'gps
+.Figure: 2XXXXXX: TEST mode cases
+.Figure 20001: TEST case: /diagnostic_encoder is diagnostic
+Figure 20002: TEST case: /diagnostic_trigger is diagnostic
+Figure 20003: TEST case: /Bin1 is gps
+Figure 20004: TEST case: /GPS_fix is gps
+Figure 20005: TEST case: /adis_msg is imu
+Figure 20006: TEST case: /adis_press is imu
+Figure 20007: TEST case: /adis_press is imu
+Figure 20008: TEST case: /imu/data is imu
+Figure 20009: TEST case: /imu/data_raw is imu
+Figure 20010: TEST case: /imu/mag is imu
+.Figure: 8XXXXXX: FAST mode cases
+.Figure: 80001: FAST mode, empty figNum
+.Figure: 80002: FAST mode, figNum=-1
+.Figure: 80003: FAST mode comparisons
+.. ...
+Done script_test_fcn_LoadRawDataToMATLAB_determineDataType
+__________
+
+<strong>   
+</strong><strong>Testing script: 2 of 19, test_fcn_LoadRawDataToMATLAB_fillTestDataStructure
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_fillTestDataStructure
+.The data structure for testDataStructure: 
+                   TRIGGER: [1×1 struct]
+    GPS_Sparkfun_RearRight: [1×1 struct]
+     GPS_Sparkfun_RearLeft: [1×1 struct]
+            GPS_Hemisphere: [1×1 struct]
+          ENCODER_RearLeft: [1×1 struct]
+         ENCODER_RearRight: [1×1 struct]
+                  IMU_ADIS: [1×1 struct]
+              LIDAR2D_Sick: [1×1 struct]
+.
+
+Demonstrating "verbose" mode by printing to console: 
+STARTING function: fcn_LoadRawDataToMATLAB_fillTestDataStructure, in file: fcn_LoadRawDataToMATLAB_fillTestDataStructure.m
+Filling fields on sensor: TRIGGER 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: mode 
+	Filling field: modeCount 
+	Filling field: adjone 
+	Filling field: adjtwo 
+	Filling field: adjthree 
+	Filling field: err_failed_mode_count 
+	Filling field: err_failed_checkInformation 
+	Filling field: err_failed_XI_format 
+	Filling field: err_trigger_unknown_error_occured 
+	Filling field: err_bad_uppercase_character 
+	Filling field: err_bad_lowercase_character 
+	Filling field: err_bad_three_adj_element 
+	Filling field: err_bad_first_element 
+	Filling field: err_bad_character 
+	Filling field: err_wrong_element_length 
+	Filling field: TRIGGER_EventFunctions 
+Filling fields on sensor: GPS_Sparkfun_RearRight 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: MessageID 
+	Filling field: Latitude 
+	Filling field: StdLat 
+	Filling field: Longitude 
+	Filling field: StdLon 
+	Filling field: Altitude 
+	Filling field: StdAlt 
+	Filling field: GeoSep 
+	Filling field: xEast 
+	Filling field: xEast_Sigma 
+	Filling field: yNorth 
+	Filling field: yNorth_Sigma 
+	Filling field: zUp 
+	Filling field: zUp_Sigma 
+	Filling field: velNorth 
+	Filling field: velNorth_Sigma 
+	Filling field: velEast 
+	Filling field: velEast_Sigma 
+	Filling field: velUp 
+	Filling field: velUp_Sigma 
+	Filling field: velMagnitude 
+	Filling field: velMagnitude_Sigma 
+	Filling field: numSatellites 
+	Filling field: DGPS_mode 
+	Filling field: Roll_deg 
+	Filling field: Roll_deg_Sigma 
+	Filling field: Pitch_deg 
+	Filling field: Pitch_deg_Sigma 
+	Filling field: Yaw_deg 
+	Filling field: Yaw_deg_Sigma 
+	Filling field: OneSigmaPos 
+	Filling field: HDOP 
+	Filling field: AgeOfDiff 
+	Filling field: StdDevResid 
+	Filling field: SpdOverGrndKmph 
+	Filling field: TrueTrack 
+	Filling field: GPS_EventFunctions 
+Filling fields on sensor: GPS_Sparkfun_RearLeft 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: MessageID 
+	Filling field: Latitude 
+	Filling field: StdLat 
+	Filling field: Longitude 
+	Filling field: StdLon 
+	Filling field: Altitude 
+	Filling field: StdAlt 
+	Filling field: GeoSep 
+	Filling field: xEast 
+	Filling field: xEast_Sigma 
+	Filling field: yNorth 
+	Filling field: yNorth_Sigma 
+	Filling field: zUp 
+	Filling field: zUp_Sigma 
+	Filling field: velNorth 
+	Filling field: velNorth_Sigma 
+	Filling field: velEast 
+	Filling field: velEast_Sigma 
+	Filling field: velUp 
+	Filling field: velUp_Sigma 
+	Filling field: velMagnitude 
+	Filling field: velMagnitude_Sigma 
+	Filling field: numSatellites 
+	Filling field: DGPS_mode 
+	Filling field: Roll_deg 
+	Filling field: Roll_deg_Sigma 
+	Filling field: Pitch_deg 
+	Filling field: Pitch_deg_Sigma 
+	Filling field: Yaw_deg 
+	Filling field: Yaw_deg_Sigma 
+	Filling field: OneSigmaPos 
+	Filling field: HDOP 
+	Filling field: AgeOfDiff 
+	Filling field: StdDevResid 
+	Filling field: SpdOverGrndKmph 
+	Filling field: TrueTrack 
+	Filling field: GPS_EventFunctions 
+Filling fields on sensor: GPS_Hemisphere 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: MessageID 
+	Filling field: Latitude 
+	Filling field: StdLat 
+	Filling field: Longitude 
+	Filling field: StdLon 
+	Filling field: Altitude 
+	Filling field: StdAlt 
+	Filling field: GeoSep 
+	Filling field: xEast 
+	Filling field: xEast_Sigma 
+	Filling field: yNorth 
+	Filling field: yNorth_Sigma 
+	Filling field: zUp 
+	Filling field: zUp_Sigma 
+	Filling field: velNorth 
+	Filling field: velNorth_Sigma 
+	Filling field: velEast 
+	Filling field: velEast_Sigma 
+	Filling field: velUp 
+	Filling field: velUp_Sigma 
+	Filling field: velMagnitude 
+	Filling field: velMagnitude_Sigma 
+	Filling field: numSatellites 
+	Filling field: DGPS_mode 
+	Filling field: Roll_deg 
+	Filling field: Roll_deg_Sigma 
+	Filling field: Pitch_deg 
+	Filling field: Pitch_deg_Sigma 
+	Filling field: Yaw_deg 
+	Filling field: Yaw_deg_Sigma 
+	Filling field: OneSigmaPos 
+	Filling field: HDOP 
+	Filling field: AgeOfDiff 
+	Filling field: StdDevResid 
+	Filling field: SpdOverGrndKmph 
+	Filling field: TrueTrack 
+	Filling field: GPS_EventFunctions 
+Filling fields on sensor: ENCODER_RearLeft 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: Mode 
+	Filling field: CountsPerRev 
+	Filling field: C1Counts 
+	Filling field: C2Counts 
+	Filling field: DeltaCounts 
+	Filling field: LastIndexCount 
+	Filling field: AngularVelocity 
+	Filling field: AngularVelocity_Sigma 
+	Filling field: ENCODER_EventFunctions 
+Filling fields on sensor: ENCODER_RearRight 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: Mode 
+	Filling field: CountsPerRev 
+	Filling field: C1Counts 
+	Filling field: C2Counts 
+	Filling field: DeltaCounts 
+	Filling field: LastIndexCount 
+	Filling field: AngularVelocity 
+	Filling field: AngularVelocity_Sigma 
+	Filling field: ENCODER_EventFunctions 
+Filling fields on sensor: IMU_ADIS 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: IMUStatus 
+	Filling field: XOrientation 
+	Filling field: XOrientation_Sigma 
+	Filling field: YOrientation 
+	Filling field: YOrientation_Sigma 
+	Filling field: ZOrientation 
+	Filling field: ZOrientation_Sigma 
+	Filling field: WOrientation 
+	Filling field: WOrientation_Sigma 
+	Filling field: Orientation_Sigma 
+	Filling field: XAccel 
+	Filling field: XAccel_Sigma 
+	Filling field: YAccel 
+	Filling field: YAccel_Sigma 
+	Filling field: ZAccel 
+	Filling field: ZAccel_Sigma 
+	Filling field: Accel_Sigma 
+	Filling field: XGyro 
+	Filling field: XGyro_Sigma 
+	Filling field: YGyro 
+	Filling field: YGyro_Sigma 
+	Filling field: ZGyro 
+	Filling field: ZGyro_Sigma 
+	Filling field: Gyro_Sigma 
+	Filling field: XMagnetic 
+	Filling field: XMagnetic_Sigma 
+	Filling field: YMagnetic 
+	Filling field: YMagnetic_Sigma 
+	Filling field: ZMagnetic 
+	Filling field: ZMagnetic_Sigma 
+	Filling field: Magnetic_Sigma 
+	Filling field: Pressure 
+	Filling field: Pressure_Sigma 
+	Filling field: Temperature 
+	Filling field: Temperature_Sigma 
+	Filling field: IMU_EventFunctions 
+Filling fields on sensor: LIDAR2D_Sick 
+	Filling field: GPS_Time 
+	Filling field: Trigger_Time 
+	Filling field: ROS_Time 
+	Filling field: centiSeconds 
+	Filling field: Npoints 
+	Filling field: Sick_Time 
+	Filling field: angle_min 
+	Filling field: angle_max 
+	Filling field: angle_increment 
+	Filling field: time_increment 
+	Filling field: scan_time 
+	Filling field: range_min 
+	Filling field: range_max 
+	Filling field: ranges 
+	Filling field: intensities 
+	Filling field: LIDAR2D_EventFunctions 
+ENDING function: fcn_LoadRawDataToMATLAB_fillTestDataStructure, in file: fcn_LoadRawDataToMATLAB_fillTestDataStructure.m
+
+The data structure for testDataStructure: 
+                   TRIGGER: [1×1 struct]
+    GPS_Sparkfun_RearRight: [1×1 struct]
+     GPS_Sparkfun_RearLeft: [1×1 struct]
+            GPS_Hemisphere: [1×1 struct]
+          ENCODER_RearLeft: [1×1 struct]
+         ENCODER_RearRight: [1×1 struct]
+                  IMU_ADIS: [1×1 struct]
+              LIDAR2D_Sick: [1×1 struct]
+.The data structure for testDataStructure: 
+                   TRIGGER: [1×1 struct]
+    GPS_Sparkfun_RearRight: [1×1 struct]
+     GPS_Sparkfun_RearLeft: [1×1 struct]
+            GPS_Hemisphere: [1×1 struct]
+          ENCODER_RearLeft: [1×1 struct]
+         ENCODER_RearRight: [1×1 struct]
+                  IMU_ADIS: [1×1 struct]
+              LIDAR2D_Sick: [1×1 struct]
+..
+Done script_test_fcn_LoadRawDataToMATLAB_fillTestDataStructure
+__________
+
+<strong>   
+</strong><strong>Testing script: 3 of 19, test_fcn_LoadRawDataToMATLAB_findMatchingSensors
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_findMatchingSensors
+......
+Done script_test_fcn_LoadRawDataToMATLAB_findMatchingSensors
+__________
+
+<strong>   
+</strong><strong>Testing script: 4 of 19, test_fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate
+..Filling in Identifiers for: 4.3
+Filling in Identifiers for: I376ParkwayPitt
+Filling in Identifiers for: I376ParkwayPitt
+Filling in Identifiers for: I376ParkwayPitt
+Filling in Identifiers for: BaseMap
+Filling in Identifiers for: BaseMap
+Filling in Identifiers for: BaseMap
+Filling in Identifiers for: 4.1a
+Filling in Identifiers for: 4.1a
+Filling in Identifiers for: 4.3
+Filling in Identifiers for: PA653Normalville
+Filling in Identifiers for: 5.1a
+Filling in Identifiers for: 5.2
+Filling in Identifiers for: 1.6
+Filling in Identifiers for: PA51Aliquippa
+Filling in Identifiers for: PA51Aliquippa
+Filling in Identifiers for: I376ParkwayPitt
+Filling in Identifiers for: 4.1b
+Filling in Identifiers for: 6.1
+..
+Done script_test_fcn_LoadRawDataToMATLAB_identifyDataByScenarioDate
+__________
+
+<strong>   
+</strong><strong>Testing script: 5 of 19, test_fcn_LoadRawDataToMATLAB_initializeDataByType
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
+..The data structure for: Trigger
+                             GPS_Time: NaN
+                         Trigger_Time: NaN
+                             ROS_Time: NaN
+                         centiSeconds: NaN
+                              Npoints: NaN
+                                 mode: NaN
+                            modeCount: NaN
+                               adjone: NaN
+                               adjtwo: NaN
+                             adjthree: NaN
+                err_failed_mode_count: NaN
+          err_failed_checkInformation: NaN
+                 err_failed_XI_format: NaN
+    err_trigger_unknown_error_occured: NaN
+          err_bad_uppercase_character: NaN
+          err_bad_lowercase_character: NaN
+            err_bad_three_adj_element: NaN
+                err_bad_first_element: NaN
+                    err_bad_character: NaN
+             err_wrong_element_length: NaN
+               TRIGGER_EventFunctions: {}
+The data structure for: GPS
+              GPS_Time: NaN
+          Trigger_Time: NaN
+              ROS_Time: NaN
+          centiSeconds: NaN
+               Npoints: NaN
+             MessageID: NaN
+              Latitude: NaN
+                StdLat: NaN
+             Longitude: NaN
+                StdLon: NaN
+              Altitude: NaN
+                StdAlt: NaN
+                GeoSep: NaN
+                 xEast: NaN
+           xEast_Sigma: NaN
+                yNorth: NaN
+          yNorth_Sigma: NaN
+                   zUp: NaN
+             zUp_Sigma: NaN
+              velNorth: NaN
+        velNorth_Sigma: NaN
+               velEast: NaN
+         velEast_Sigma: NaN
+                 velUp: NaN
+           velUp_Sigma: NaN
+          velMagnitude: NaN
+    velMagnitude_Sigma: NaN
+         numSatellites: NaN
+             DGPS_mode: NaN
+              Roll_deg: NaN
+        Roll_deg_Sigma: NaN
+             Pitch_deg: NaN
+       Pitch_deg_Sigma: NaN
+               Yaw_deg: NaN
+         Yaw_deg_Sigma: NaN
+           OneSigmaPos: NaN
+                  HDOP: NaN
+             AgeOfDiff: NaN
+           StdDevResid: NaN
+       SpdOverGrndKmph: NaN
+             TrueTrack: NaN
+    GPS_EventFunctions: {}
+The data structure for: IMU
+              GPS_Time: NaN
+          Trigger_Time: NaN
+              ROS_Time: NaN
+          centiSeconds: NaN
+               Npoints: NaN
+             IMUStatus: NaN
+          XOrientation: NaN
+    XOrientation_Sigma: NaN
+          YOrientation: NaN
+    YOrientation_Sigma: NaN
+          ZOrientation: NaN
+    ZOrientation_Sigma: NaN
+          WOrientation: NaN
+    WOrientation_Sigma: NaN
+     Orientation_Sigma: NaN
+                XAccel: NaN
+          XAccel_Sigma: NaN
+                YAccel: NaN
+          YAccel_Sigma: NaN
+                ZAccel: NaN
+          ZAccel_Sigma: NaN
+           Accel_Sigma: NaN
+                 XGyro: NaN
+           XGyro_Sigma: NaN
+                 YGyro: NaN
+           YGyro_Sigma: NaN
+                 ZGyro: NaN
+           ZGyro_Sigma: NaN
+            Gyro_Sigma: NaN
+             XMagnetic: NaN
+       XMagnetic_Sigma: NaN
+             YMagnetic: NaN
+       YMagnetic_Sigma: NaN
+             ZMagnetic: NaN
+       ZMagnetic_Sigma: NaN
+        Magnetic_Sigma: NaN
+              Pressure: NaN
+        Pressure_Sigma: NaN
+           Temperature: NaN
+     Temperature_Sigma: NaN
+    IMU_EventFunctions: {}
+The data structure for: Encoder
+                  GPS_Time: NaN
+              Trigger_Time: NaN
+                  ROS_Time: NaN
+              centiSeconds: NaN
+                   Npoints: NaN
+                      Mode: NaN
+              CountsPerRev: NaN
+                  C1Counts: NaN
+                  C2Counts: NaN
+               DeltaCounts: NaN
+            LastIndexCount: NaN
+           AngularVelocity: NaN
+     AngularVelocity_Sigma: NaN
+    ENCODER_EventFunctions: {}
+The data structure for: Diagnostic
+                               GPS_Time: NaN
+                           Trigger_Time: NaN
+                               ROS_Time: NaN
+                           centiSeconds: NaN
+                                Npoints: NaN
+                                    Seq: NaN
+                  err_failed_mode_count: NaN
+            err_failed_checkInformation: NaN
+                   err_failed_XI_format: NaN
+      err_trigger_unknown_error_occured: NaN
+            err_bad_uppercase_character: NaN
+            err_bad_lowercase_character: NaN
+              err_bad_three_adj_element: NaN
+                  err_bad_first_element: NaN
+                      err_bad_character: NaN
+               err_wrong_element_length: NaN
+       err_wrong_element_length_encoder: NaN
+              err_bad_element_structure: NaN
+                        err_failed_time: NaN
+    err_bad_uppercase_character_encoder: NaN
+    err_bad_lowercase_character_encoder: NaN
+              err_bad_character_encoder: NaN
+                              DGPS_mode: NaN
+                          numSatellites: NaN
+                          BaseStationID: NaN
+                                   HDOP: NaN
+                              AgeOfDiff: NaN
+                           NTRIP_Status: NaN
+              DIAGNOSTIC_EventFunctions: {}
+The data structure for: NTrip
+                GPS_Time: NaN
+            Trigger_Time: NaN
+                ROS_Time: NaN
+            centiSeconds: NaN
+                 Npoints: NaN
+               RTCM_Type: NaN
+           BaseStationID: NaN
+            NTRIP_Status: NaN
+    NTRIP_EventFunctions: {}
+The data structure for: ROSOut
+                 GPS_Time: NaN
+             Trigger_Time: NaN
+                 ROS_Time: NaN
+             centiSeconds: NaN
+                  Npoints: NaN
+                      Seq: NaN
+                     Name: NaN
+                      msg: NaN
+                     file: NaN
+                 function: NaN
+                     line: NaN
+                   topics: NaN
+    ROSOUT_EventFunctions: {}
+The data structure for: Transform
+                    GPS_Time: NaN
+                Trigger_Time: NaN
+                    ROS_Time: NaN
+                centiSeconds: NaN
+                     Npoints: NaN
+                XTranslation: NaN
+                YTranslation: NaN
+                ZTranslation: NaN
+                   XRotation: NaN
+                   YRotation: NaN
+                   ZRotation: NaN
+                   WRotation: NaN
+    TRANSFORM_EventFunctions: {}
+The data structure for: LIDAR2D
+                  GPS_Time: NaN
+              Trigger_Time: NaN
+                  ROS_Time: NaN
+              centiSeconds: NaN
+                   Npoints: NaN
+                 Sick_Time: NaN
+                 angle_min: NaN
+                 angle_max: NaN
+           angle_increment: NaN
+            time_increment: NaN
+                 scan_time: NaN
+                 range_min: NaN
+                 range_max: NaN
+                    ranges: NaN
+               intensities: NaN
+    LIDAR2D_EventFunctions: {}
+The data structure for: LIDAR3d
+                       Seq: NaN
+                  GPS_Time: NaN
+              Trigger_Time: NaN
+                  ROS_Time: NaN
+               Device_Time: NaN
+              centiSeconds: NaN
+                   Npoints: NaN
+                    Height: NaN
+                     Width: NaN
+              isbig_endian: NaN
+                point_step: NaN
+                  row_step: NaN
+                  is_dense: NaN
+                   MD5Hash: NaN
+                PointCloud: NaN
+                         X: NaN
+                         Y: NaN
+                         Z: NaN
+                 Intensity: NaN
+                      Ring: NaN
+               Time_Offset: NaN
+    LIDAR3D_EventFunctions: {}
+..
+Done script_test_fcn_LoadRawDataToMATLAB_initializeDataByType
+__________
+
+<strong>   
+</strong><strong>Testing script: 6 of 19, test_fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile
+...Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Load one bag file with defaults (no LIDARs)
+.Figure 10002: DEMO case: Load part of the bag file
+.Figure: 2XXXXXX: TEST mode cases
+.Figure 20001: TEST case: Two polytopes with clear space right down middle, edge 5 to 8 on polytope
+.Figure: 8XXXXXX: FAST mode cases
+.. ...
+Done script_test_fcn_LoadRawDataToMATLAB_loadMappingVanDataFromFile
+__________
+
+<strong>   
+</strong><strong>Testing script: 7 of 19, test_fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories
+..
+SEARCHING DIRECTORIES, searching for: mapping_van_*.mat
+Loading directory candidates from directory: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data
+	Candidates found in directory: 58
+Total candidates found: 58
+
+CONTENTS FOUND:
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-10\mapping_van_2024-07-10-19-41-49_0
+	mapping_van_2024-07-10-19-41-49_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-10\mapping_van_2024-07-10-19-43-47_1
+	mapping_van_2024-07-10-19-43-47_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-10\mapping_van_2024-07-10-19-45-44_2
+	mapping_van_2024-07-10-19-45-44_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-10\mapping_van_2024-07-10-19-47-41_3
+	mapping_van_2024-07-10-19-47-41_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-10\mapping_van_2024-07-10-19-49-38_4
+	mapping_van_2024-07-10-19-49-38_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-11-53-20_0
+	mapping_van_2024-07-11-11-53-20_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-11-55-17_1
+	mapping_van_2024-07-11-11-55-17_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-11-57-13_2
+	mapping_van_2024-07-11-11-57-13_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-11-59-10_3
+	mapping_van_2024-07-11-11-59-10_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-01-07_4
+	mapping_van_2024-07-11-12-01-07_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-03-04_5
+	mapping_van_2024-07-11-12-03-04_5.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-04-46_0
+	mapping_van_2024-07-11-12-04-46_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-06-43_1
+	mapping_van_2024-07-11-12-06-43_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-08-40_2
+	mapping_van_2024-07-11-12-08-40_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-10-37_3
+	mapping_van_2024-07-11-12-10-37_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-12-34_4
+	mapping_van_2024-07-11-12-12-34_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-26-03_0
+	mapping_van_2024-07-11-12-26-03_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-28-00_1
+	mapping_van_2024-07-11-12-28-00_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-29-57_2
+	mapping_van_2024-07-11-12-29-57_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-31-53_3
+	mapping_van_2024-07-11-12-31-53_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-33-50_4
+	mapping_van_2024-07-11-12-33-50_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-41-42_0
+	mapping_van_2024-07-11-12-41-42_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-43-39_1
+	mapping_van_2024-07-11-12-43-39_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-45-36_2
+	mapping_van_2024-07-11-12-45-36_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-47-33_3
+	mapping_van_2024-07-11-12-47-33_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-12-49-30_4
+	mapping_van_2024-07-11-12-49-30_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-05-37_0
+	mapping_van_2024-07-11-13-05-37_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-07-34_1
+	mapping_van_2024-07-11-13-07-34_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-09-30_2
+	mapping_van_2024-07-11-13-09-30_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-11-27_3
+	mapping_van_2024-07-11-13-11-27_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-13-24_4
+	mapping_van_2024-07-11-13-13-24_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-15-43_0
+	mapping_van_2024-07-11-13-15-43_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-17-40_1
+	mapping_van_2024-07-11-13-17-40_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-19-37_2
+	mapping_van_2024-07-11-13-19-37_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-21-33_3
+	mapping_van_2024-07-11-13-21-33_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-23-30_4
+	mapping_van_2024-07-11-13-23-30_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-25-27_5
+	mapping_van_2024-07-11-13-25-27_5.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-38-52_0
+	mapping_van_2024-07-11-13-38-52_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-40-49_1
+	mapping_van_2024-07-11-13-40-49_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-42-46_2
+	mapping_van_2024-07-11-13-42-46_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-44-43_3
+	mapping_van_2024-07-11-13-44-43_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-46-39_4
+	mapping_van_2024-07-11-13-46-39_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-48-30_0
+	mapping_van_2024-07-11-13-48-30_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-50-27_1
+	mapping_van_2024-07-11-13-50-27_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-52-24_2
+	mapping_van_2024-07-11-13-52-24_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-54-21_3
+	mapping_van_2024-07-11-13-54-21_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-13-56-18_4
+	mapping_van_2024-07-11-13-56-18_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-23-09_0
+	mapping_van_2024-07-11-14-23-09_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-25-06_1
+	mapping_van_2024-07-11-14-25-06_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-27-02_2
+	mapping_van_2024-07-11-14-27-02_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-28-59_3
+	mapping_van_2024-07-11-14-28-59_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-30-55_4
+	mapping_van_2024-07-11-14-30-55_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-34-05_0
+	mapping_van_2024-07-11-14-34-05_0.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-36-02_1
+	mapping_van_2024-07-11-14-36-02_1.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-37-59_2
+	mapping_van_2024-07-11-14-37-59_2.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-39-55_3
+	mapping_van_2024-07-11-14-39-55_3.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\2024-07-11\mapping_van_2024-07-11-14-41-52_4
+	mapping_van_2024-07-11-14-41-52_4.mat
+Folder: C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\output_of_saveRawDataMatFiles
+	mapping_van_2024-07-10-19-41-49_0.mat
+Loading file 1 of 58: mapping_van_2024-07-10-19-41-49_0.mat
+Loading file 2 of 58: mapping_van_2024-07-10-19-43-47_1.mat
+Loading file 3 of 58: mapping_van_2024-07-10-19-45-44_2.mat
+Loading file 4 of 58: mapping_van_2024-07-10-19-47-41_3.mat
+Loading file 5 of 58: mapping_van_2024-07-10-19-49-38_4.mat
+Loading file 6 of 58: mapping_van_2024-07-11-11-53-20_0.mat
+Loading file 7 of 58: mapping_van_2024-07-11-11-55-17_1.mat
+Loading file 8 of 58: mapping_van_2024-07-11-11-57-13_2.mat
+Loading file 9 of 58: mapping_van_2024-07-11-11-59-10_3.mat
+Loading file 10 of 58: mapping_van_2024-07-11-12-01-07_4.mat
+Loading file 11 of 58: mapping_van_2024-07-11-12-03-04_5.mat
+Loading file 12 of 58: mapping_van_2024-07-11-12-04-46_0.mat
+Loading file 13 of 58: mapping_van_2024-07-11-12-06-43_1.mat
+Loading file 14 of 58: mapping_van_2024-07-11-12-08-40_2.mat
+Loading file 15 of 58: mapping_van_2024-07-11-12-10-37_3.mat
+Loading file 16 of 58: mapping_van_2024-07-11-12-12-34_4.mat
+Loading file 17 of 58: mapping_van_2024-07-11-12-26-03_0.mat
+Loading file 18 of 58: mapping_van_2024-07-11-12-28-00_1.mat
+Loading file 19 of 58: mapping_van_2024-07-11-12-29-57_2.mat
+Loading file 20 of 58: mapping_van_2024-07-11-12-31-53_3.mat
+Loading file 21 of 58: mapping_van_2024-07-11-12-33-50_4.mat
+Loading file 22 of 58: mapping_van_2024-07-11-12-41-42_0.mat
+Loading file 23 of 58: mapping_van_2024-07-11-12-43-39_1.mat
+Loading file 24 of 58: mapping_van_2024-07-11-12-45-36_2.mat
+Loading file 25 of 58: mapping_van_2024-07-11-12-47-33_3.mat
+Loading file 26 of 58: mapping_van_2024-07-11-12-49-30_4.mat
+Loading file 27 of 58: mapping_van_2024-07-11-13-05-37_0.mat
+Loading file 28 of 58: mapping_van_2024-07-11-13-07-34_1.mat
+Loading file 29 of 58: mapping_van_2024-07-11-13-09-30_2.mat
+Loading file 30 of 58: mapping_van_2024-07-11-13-11-27_3.mat
+Loading file 31 of 58: mapping_van_2024-07-11-13-13-24_4.mat
+Loading file 32 of 58: mapping_van_2024-07-11-13-15-43_0.mat
+Loading file 33 of 58: mapping_van_2024-07-11-13-17-40_1.mat
+Loading file 34 of 58: mapping_van_2024-07-11-13-19-37_2.mat
+Loading file 35 of 58: mapping_van_2024-07-11-13-21-33_3.mat
+Loading file 36 of 58: mapping_van_2024-07-11-13-23-30_4.mat
+Loading file 37 of 58: mapping_van_2024-07-11-13-25-27_5.mat
+Loading file 38 of 58: mapping_van_2024-07-11-13-38-52_0.mat
+Loading file 39 of 58: mapping_van_2024-07-11-13-40-49_1.mat
+Loading file 40 of 58: mapping_van_2024-07-11-13-42-46_2.mat
+Loading file 41 of 58: mapping_van_2024-07-11-13-44-43_3.mat
+Loading file 42 of 58: mapping_van_2024-07-11-13-46-39_4.mat
+Loading file 43 of 58: mapping_van_2024-07-11-13-48-30_0.mat
+Loading file 44 of 58: mapping_van_2024-07-11-13-50-27_1.mat
+Loading file 45 of 58: mapping_van_2024-07-11-13-52-24_2.mat
+Loading file 46 of 58: mapping_van_2024-07-11-13-54-21_3.mat
+Loading file 47 of 58: mapping_van_2024-07-11-13-56-18_4.mat
+Loading file 48 of 58: mapping_van_2024-07-11-14-23-09_0.mat
+Loading file 49 of 58: mapping_van_2024-07-11-14-25-06_1.mat
+Loading file 50 of 58: mapping_van_2024-07-11-14-27-02_2.mat
+Loading file 51 of 58: mapping_van_2024-07-11-14-28-59_3.mat
+Loading file 52 of 58: mapping_van_2024-07-11-14-30-55_4.mat
+Loading file 53 of 58: mapping_van_2024-07-11-14-34-05_0.mat
+Loading file 54 of 58: mapping_van_2024-07-11-14-36-02_1.mat
+Loading file 55 of 58: mapping_van_2024-07-11-14-37-59_2.mat
+Loading file 56 of 58: mapping_van_2024-07-11-14-39-55_3.mat
+Loading file 57 of 58: mapping_van_2024-07-11-14-41-52_4.mat
+Loading file 58 of 58: mapping_van_2024-07-10-19-41-49_0.mat
+..
+Done script_test_fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories
+__________
+
+<strong>   
+</strong><strong>Testing script: 8 of 19, test_fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories
+........Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Example load of mapping_van_2024-07-1*
+. Figure: 2XXXXXX: TEST mode cases
+.Figure 20001: TEST case: Two polytopes with clear space right down middle, edge 5 to 8 on polytope
+.Figure: 8XXXXXX: FAST mode cases
+.....
+Done script_test_fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories
+__________
+
+<strong>   
+</strong><strong>Testing script: 9 of 19, test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Load one diagnostic file
+.Figure: 2XXXXXX: TEST mode cases
+.Figure 20001: DEMO case: Load Encoder_diag diagnostic file
+.Figure 20002: DEMO case: Load Trigger_diag diagnostic file
+.Figure: 8XXXXXX: FAST mode cases
+.Figure: 80001: FAST mode, empty figNum
+.Figure: 80002: FAST mode, figNum=-1
+.Figure: 80003: FAST mode comparisons
+. ....
+Done script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Diagnostic
+__________
+
+<strong>   
+</strong><strong>Testing script: 10 of 19, test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Encoder
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Encoder
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Load one encoder file
+.Figure: 2XXXXXX: TEST mode cases
+.Figure: 8XXXXXX: FAST mode cases
+.Figure: 80001: FAST mode, empty figNum
+.Figure: 80002: FAST mode, figNum=-1
+.Figure: 80003: FAST mode comparisons
+... ..
+Done script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Encoder
+__________
+
+<strong>   
+</strong><strong>Testing script: 11 of 19, test_fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Load GPS_SparkFun_Front_GGA file
+.Figure: 2XXXXXX: TEST mode cases
+.Figure 20001: TEST case: Load GPS_SparkFun_Front_GGA file
+.Figure 20002: TEST case: Load GPS_SparkFun_RearLeft_GGA file
+.Figure 20003: TEST case: Load GPS_SparkFun_RearRight_GGA file
+.Figure: 8XXXXXX: FAST mode cases
+.Figure: 80001: FAST mode, empty figNum
+.Figure: 80002: FAST mode, figNum=-1
+. Figure: 80003: FAST mode comparisons
+.....
+Done script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_GPSSparkfun
+__________
+
+<strong>   
+</strong><strong>Testing script: 12 of 19, test_fcn_LoadRawDataToMATLAB_loadRawFromFile_LidarSICK
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_LidarSICK
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Load one bag file with defaults (no LIDARs)
+.Figure 10002: DEMO case: Load part of the bag file
+.Figure: 2XXXXXX: TEST mode cases
+.Figure 20001: TEST case: Two polytopes with clear space right down middle, edge 5 to 8 on polytope
+.Figure: 8XXXXXX: FAST mode cases
+.... .
+Done script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_LidarSICK
+__________
+
+<strong>   
+</strong><strong>Testing script: 13 of 19, test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Trigger
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Trigger
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Load one encoder file
+.Figure: 2XXXXXX: TEST mode cases
+.Figure: 8XXXXXX: FAST mode cases
+.Figure: 80001: FAST mode, empty figNum
+.Figure: 80002: FAST mode, figNum=-1
+.Figure: 80003: FAST mode comparisons
+... ..
+Done script_test_fcn_LoadRawDataToMATLAB_loadRawFromFile_Trigger
+__________
+
+<strong>   
+</strong><strong>Testing script: 14 of 19, test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures
+.
+SUMMARY OF FILES FOUND:
+BAG FILE:                                     NUMBER:         TIME_START: (s) TIME_END: (s)   
+mapping_van_2024-07-10-19-41-49_0             0               0.00            116.10          
+mapping_van_2024-07-10-19-43-47_1             1               116.10          233.30          
+mapping_van_2024-07-10-19-45-44_2             2               233.30          350.30          
+mapping_van_2024-07-10-19-47-41_3             3               350.40          467.50          
+mapping_van_2024-07-10-19-49-38_4             4               467.60          530.50          
+mapping_van_2024-07-11-11-53-20_0             0               58290.70        58406.10        
+mapping_van_2024-07-11-11-55-17_1             1               58406.20        58522.80        
+mapping_van_2024-07-11-11-57-13_2             2               58522.90        58639.70        
+mapping_van_2024-07-11-11-59-10_3             3               58639.80        58756.60        
+mapping_van_2024-07-11-12-01-07_4             4               58756.70        58873.20        
+mapping_van_2024-07-11-12-03-04_5             5               58873.20        58897.50        
+mapping_van_2024-07-11-12-04-46_0             0               58977.50        59092.80        
+mapping_van_2024-07-11-12-06-43_1             1               59092.90        59209.60        
+mapping_van_2024-07-11-12-08-40_2             2               59209.70        59326.40        
+mapping_van_2024-07-11-12-10-37_3             3               59326.50        59443.10        
+mapping_van_2024-07-11-12-12-34_4             4               59443.20        59549.30        
+mapping_van_2024-07-11-12-26-03_0             0               60254.00        60369.30        
+mapping_van_2024-07-11-12-28-00_1             1               60369.40        60486.00        
+mapping_van_2024-07-11-12-29-57_2             2               60486.10        60602.80        
+mapping_van_2024-07-11-12-31-53_3             3               60602.90        60719.60        
+mapping_van_2024-07-11-12-33-50_4             4               60719.70        60830.90        
+mapping_van_2024-07-11-12-41-42_0             0               61193.50        61308.80        
+mapping_van_2024-07-11-12-43-39_1             1               61308.90        61425.70        
+mapping_van_2024-07-11-12-45-36_2             2               61425.80        61542.50        
+mapping_van_2024-07-11-12-47-33_3             3               61542.60        61659.20        
+mapping_van_2024-07-11-12-49-30_4             4               61659.20        61761.50        
+mapping_van_2024-07-11-13-05-37_0             0               62627.90        62743.20        
+mapping_van_2024-07-11-13-07-34_1             1               62743.20        62859.80        
+mapping_van_2024-07-11-13-09-30_2             2               62859.90        62976.60        
+mapping_van_2024-07-11-13-11-27_3             3               62976.70        63093.30        
+mapping_van_2024-07-11-13-13-24_4             4               63093.40        63202.90        
+mapping_van_2024-07-11-13-15-43_0             0               63234.10        63349.40        
+mapping_van_2024-07-11-13-17-40_1             1               63349.50        63466.10        
+mapping_van_2024-07-11-13-19-37_2             2               63466.20        63582.80        
+mapping_van_2024-07-11-13-21-33_3             3               63582.90        63699.50        
+mapping_van_2024-07-11-13-23-30_4             4               63699.60        63816.30        
+mapping_van_2024-07-11-13-25-27_5             5               63816.30        63823.60        
+mapping_van_2024-07-11-13-38-52_0             0               64623.80        64738.90        
+mapping_van_2024-07-11-13-40-49_1             1               64739.00        64855.60        
+mapping_van_2024-07-11-13-42-46_2             2               64855.70        64972.20        
+mapping_van_2024-07-11-13-44-43_3             3               64972.30        65088.90        
+mapping_van_2024-07-11-13-46-39_4             4               65089.00        65159.80        
+mapping_van_2024-07-11-13-48-30_0             0               65201.80        65317.10        
+mapping_van_2024-07-11-13-50-27_1             1               65317.20        65433.80        
+mapping_van_2024-07-11-13-52-24_2             2               65433.90        65550.50        
+mapping_van_2024-07-11-13-54-21_3             3               65550.60        65667.10        
+mapping_van_2024-07-11-13-56-18_4             4               65667.20        65764.30        
+mapping_van_2024-07-11-14-23-09_0             0               67279.90        67395.00        
+mapping_van_2024-07-11-14-25-06_1             1               67395.10        67511.60        
+mapping_van_2024-07-11-14-27-02_2             2               67511.70        67628.30        
+mapping_van_2024-07-11-14-28-59_3             3               67628.40        67745.00        
+mapping_van_2024-07-11-14-30-55_4             4               67745.10        67859.70        
+mapping_van_2024-07-11-14-34-05_0             0               67935.90        68051.30        
+mapping_van_2024-07-11-14-36-02_1             1               68051.40        68168.10        
+mapping_van_2024-07-11-14-37-59_2             2               68168.20        68284.80        
+mapping_van_2024-07-11-14-39-55_3             3               68284.90        68401.50        
+mapping_van_2024-07-11-14-41-52_4             4               68401.60        68493.60        
+
+MERGING group 1 of 11: mapping_van_2024-07-10-19-41-49_merged
+	Adding: mapping_van_2024-07-10-19-41-49_0
+	Adding: mapping_van_2024-07-10-19-43-47_1
+	Adding: mapping_van_2024-07-10-19-45-44_2
+	Adding: mapping_van_2024-07-10-19-47-41_3
+	Adding: mapping_van_2024-07-10-19-49-38_4
+
+MERGING group 2 of 11: mapping_van_2024-07-11-11-53-20_merged
+	Adding: mapping_van_2024-07-11-11-53-20_0
+	Adding: mapping_van_2024-07-11-11-55-17_1
+	Adding: mapping_van_2024-07-11-11-57-13_2
+	Adding: mapping_van_2024-07-11-11-59-10_3
+	Adding: mapping_van_2024-07-11-12-01-07_4
+	Adding: mapping_van_2024-07-11-12-03-04_5
+
+MERGING group 3 of 11: mapping_van_2024-07-11-12-04-46_merged
+	Adding: mapping_van_2024-07-11-12-04-46_0
+	Adding: mapping_van_2024-07-11-12-06-43_1
+	Adding: mapping_van_2024-07-11-12-08-40_2
+	Adding: mapping_van_2024-07-11-12-10-37_3
+	Adding: mapping_van_2024-07-11-12-12-34_4
+
+MERGING group 4 of 11: mapping_van_2024-07-11-12-26-03_merged
+	Adding: mapping_van_2024-07-11-12-26-03_0
+	Adding: mapping_van_2024-07-11-12-28-00_1
+	Adding: mapping_van_2024-07-11-12-29-57_2
+	Adding: mapping_van_2024-07-11-12-31-53_3
+	Adding: mapping_van_2024-07-11-12-33-50_4
+
+MERGING group 5 of 11: mapping_van_2024-07-11-12-41-42_merged
+	Adding: mapping_van_2024-07-11-12-41-42_0
+	Adding: mapping_van_2024-07-11-12-43-39_1
+	Adding: mapping_van_2024-07-11-12-45-36_2
+	Adding: mapping_van_2024-07-11-12-47-33_3
+	Adding: mapping_van_2024-07-11-12-49-30_4
+
+MERGING group 6 of 11: mapping_van_2024-07-11-13-05-37_merged
+	Adding: mapping_van_2024-07-11-13-05-37_0
+	Adding: mapping_van_2024-07-11-13-07-34_1
+	Adding: mapping_van_2024-07-11-13-09-30_2
+	Adding: mapping_van_2024-07-11-13-11-27_3
+	Adding: mapping_van_2024-07-11-13-13-24_4
+
+MERGING group 7 of 11: mapping_van_2024-07-11-13-15-43_merged
+	Adding: mapping_van_2024-07-11-13-15-43_0
+	Adding: mapping_van_2024-07-11-13-17-40_1
+	Adding: mapping_van_2024-07-11-13-19-37_2
+	Adding: mapping_van_2024-07-11-13-21-33_3
+	Adding: mapping_van_2024-07-11-13-23-30_4
+	Adding: mapping_van_2024-07-11-13-25-27_5
+
+MERGING group 8 of 11: mapping_van_2024-07-11-13-38-52_merged
+	Adding: mapping_van_2024-07-11-13-38-52_0
+	Adding: mapping_van_2024-07-11-13-40-49_1
+	Adding: mapping_van_2024-07-11-13-42-46_2
+	Adding: mapping_van_2024-07-11-13-44-43_3
+	Adding: mapping_van_2024-07-11-13-46-39_4
+
+MERGING group 9 of 11: mapping_van_2024-07-11-13-48-30_merged
+	Adding: mapping_van_2024-07-11-13-48-30_0
+	Adding: mapping_van_2024-07-11-13-50-27_1
+	Adding: mapping_van_2024-07-11-13-52-24_2
+	Adding: mapping_van_2024-07-11-13-54-21_3
+	Adding: mapping_van_2024-07-11-13-56-18_4
+
+MERGING group 10 of 11: mapping_van_2024-07-11-14-23-09_merged
+	Adding: mapping_van_2024-07-11-14-23-09_0
+	Adding: mapping_van_2024-07-11-14-25-06_1
+	Adding: mapping_van_2024-07-11-14-27-02_2
+	Adding: mapping_van_2024-07-11-14-28-59_3
+	Adding: mapping_van_2024-07-11-14-30-55_4
+
+MERGING group 11 of 11: mapping_van_2024-07-11-14-34-05_merged
+	Adding: mapping_van_2024-07-11-14-34-05_0
+	Adding: mapping_van_2024-07-11-14-36-02_1
+	Adding: mapping_van_2024-07-11-14-37-59_2
+	Adding: mapping_van_2024-07-11-14-39-55_3
+	Adding: mapping_van_2024-07-11-14-41-52_4
+..
+Done script_test_fcn_LoadRawDataToMATLAB_mergeRawDataStructures
+__________
+
+<strong>   
+</strong><strong>Testing script: 15 of 19, test_fcn_LoadRawDataToMATLAB_plotRawData
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_plotRawData
+.Figure: 1XXXXXX: DEMO cases
+.Figure 10001: DEMO case: Plotting with defaults
+.Figure 10002: DEMO case: Plotting with formats
+.Figure 10003: DEMO case: Plotting a color
+.Figure: 2XXXXXX: TEST mode cases
+.Figure: 8XXXXXX: FAST mode cases
+.... .
+Done script_test_fcn_LoadRawDataToMATLAB_plotRawData
+__________
+
+<strong>   
+</strong><strong>Testing script: 16 of 19, test_fcn_LoadRawDataToMATLAB_plotRawDataPositions
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_plotRawDataPositions
+........
+Done script_test_fcn_LoadRawDataToMATLAB_plotRawDataPositions
+__________
+
+<strong>   
+</strong><strong>Testing script: 17 of 19, test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+....
+Pulling data from field GPS_Time across all sensors:
+	 Loading data from sensor 1 of 8: GPS_SparkFun_Front_GGA
+	 Loading data from sensor 2 of 8: GPS_SparkFun_Front_VTG
+	 Loading data from sensor 3 of 8: GPS_SparkFun_LeftRear_GGA
+	 Loading data from sensor 4 of 8: GPS_SparkFun_LeftRear_GST
+	 Loading data from sensor 5 of 8: GPS_SparkFun_LeftRear_VTG
+	 Loading data from sensor 6 of 8: GPS_SparkFun_RightRear_GGA
+	 Loading data from sensor 7 of 8: GPS_SparkFun_RightRear_GST
+	 Loading data from sensor 8 of 8: GPS_SparkFun_RightRear_VTG
+...
+CASE 1: Demonstrating pulling centiseconds from every sensor, without being verbose: 
+
+Here is the result, as a table of centiseconds query over all sensors:
+Sensors:                  	 centiSeconds:
+TRIGGER                   	 100.000
+GPS_Sparkfun_RearRight    	 5.000
+GPS_Sparkfun_RearLeft     	 5.000
+GPS_Hemisphere            	 5.000
+ENCODER_RearLeft          	 1.000
+ENCODER_RearRight         	 1.000
+IMU_ADIS                  	 1.000
+LIDAR2D_Sick              	 10.000
+
+.
+CASE 2: Demonstrating pulling centiseconds from every sensor, being verbose: 
+
+
+Pulling data from field centiSeconds across all sensors:
+	 Loading data from sensor 1 of 8: TRIGGER
+	 Loading data from sensor 2 of 8: GPS_Sparkfun_RearRight
+	 Loading data from sensor 3 of 8: GPS_Sparkfun_RearLeft
+	 Loading data from sensor 4 of 8: GPS_Hemisphere
+	 Loading data from sensor 5 of 8: ENCODER_RearLeft
+	 Loading data from sensor 6 of 8: ENCODER_RearRight
+	 Loading data from sensor 7 of 8: IMU_ADIS
+	 Loading data from sensor 8 of 8: LIDAR2D_Sick
+Example table of centiseconds query over all sensors:
+Sensors:                  	 centiSeconds:
+TRIGGER                   	 100.000
+GPS_Sparkfun_RearRight    	 5.000
+GPS_Sparkfun_RearLeft     	 5.000
+GPS_Hemisphere            	 5.000
+ENCODER_RearLeft          	 1.000
+ENCODER_RearRight         	 1.000
+IMU_ADIS                  	 1.000
+LIDAR2D_Sick              	 10.000
+
+.
+CASE 3: Demonstrating pulling centiseconds from only GPS sensors, NOT verbose: 
+
+
+The results are now shown as a table of centiseconds query over just GPS sensors:
+Sensors:                  	 centiSeconds:
+GPS_Sparkfun_RearRight    	 5.000
+GPS_Sparkfun_RearLeft     	 5.000
+GPS_Hemisphere            	 5.000
+
+. ....
+================================================================================
+<strong>Error occurred in script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll/TESTCase_20001_DataFromTrimRepeatsFromField and it did not run to completion.</strong>
+    ---------
+    Error ID:
+    ---------
+    'MATLAB:load:couldNotReadFile'
+    --------------
+    Error Details:
+    --------------
+    Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+    Unable to find file or directory
+    'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Data\ExampleData_pullDataFromFieldAcrossAll.mat'.
+    Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll', 'C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Functions\script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll.m', 261)" style="font-weight:bold">script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll</a> (<a href="matlab: opentoline('C:\Users\snb10\Desktop\GitHubRepos\IVSG\FieldDataCollection\DataCollectionProcedures\LoadRawDataToMATLAB\Functions\script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll.m',261,0)">line 261</a>)
+    load(fullExampleFilePath,'dataStructure','field_name','sensors_to_check');
+================================================================================
+.
+Done script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+__________
+
+Failure Summary:
+
+     Name                                                                                                        Failed  Incomplete  Reason(s)
+    ===========================================================================================================================================
+     script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll/TESTCase_20001_DataFromTrimRepeatsFromField    X         X       Errored.
+<strong>   
+</strong><strong>Testing script: 18 of 19, test_fcn_LoadRawDataToMATLAB_saveRawDataMatFiles
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_saveRawDataMatFiles
+.......
+Done script_test_fcn_LoadRawDataToMATLAB_saveRawDataMatFiles
+__________
+
+<strong>   
+</strong><strong>Testing script: 19 of 19, test_fcn_LoadRawDataToMATLAB_stitchStructures
+
+</strong>Running script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+.
+TESTING (root)
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              e                              d                              f                              
+	Structure 1:        1                              1                              1                              1                              0                              0                              
+	Structure 2:        1                              0                              1                              0                              1                              0                              
+	Structure 3:        1                              0                              1                              1                              0                              1                              
+	Equality?           1                              0                              1                              0                              0                              0                              
+<strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field e is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field d is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field f is marked for deletion because it does not exist across all structures.
+</strong>
+.
+TESTING (root)
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              e                              c                              d                              
+	Structure 1:        1                              1                              1                              0                              0                              
+	Structure 2:        0                              0                              1                              1                              1                              
+	Structure 3:        1                              0                              0                              1                              1                              
+	Equality?           0                              0                              0                              0                              0                              
+<strong>	The field a is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field e is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field c is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field d is marked for deletion because it does not exist across all structures.
+</strong>
+..
+TESTING (root)
+CHECKING VECTOR DIMENSION AGREEMENT:
+Row dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        1                              1                              1                              
+	Equality?           0                              0                              0                              
+Column dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Scalar present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        0                              0                              0                              
+	Equality?           0                              0                              0                              
+Scalar equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        NaN                            NaN                            NaN                            
+	Equality?           0                              0                              0                              
+String present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+String equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Cell present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Cell equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Overall equality?: 
+	CommonField:        a                              b                              c                              
+	Equality?           0                              0                              0                              
+<strong>	The field a is marked for deletion because its vector size does not agree across structures.
+</strong><strong>	The field b is marked for deletion because its vector size does not agree across structures.
+</strong><strong>	The field c is marked for deletion because its vector size does not agree across structures.
+</strong>.
+TESTING (root)
+CHECKING VECTOR DIMENSION AGREEMENT:
+Row dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        0                              0                              0                              
+	Equality?           0                              0                              0                              
+Column dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Scalar present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        1                              1                              1                              
+	Equality?           0                              0                              0                              
+Scalar equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        NaN                            NaN                            NaN                            
+	Structure 2:        2                              2                              2                              
+	Equality?           0                              0                              0                              
+String present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+String equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Cell present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Cell equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Overall equality?: 
+	CommonField:        a                              b                              c                              
+	Equality?           0                              0                              0                              
+<strong>	The field a is marked for deletion because its vector size does not agree across structures.
+</strong><strong>	The field b is marked for deletion because its vector size does not agree across structures.
+</strong><strong>	The field c is marked for deletion because its vector size does not agree across structures.
+</strong>.
+TESTING (root)
+CHECKING VECTOR DIMENSION AGREEMENT:
+Row dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Column dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              2                              1                              
+	Structure 2:        2                              2                              2                              
+	Equality?           0                              1                              0                              
+Scalar present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Scalar equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        NaN                            NaN                            NaN                            
+	Structure 2:        NaN                            NaN                            NaN                            
+	Equality?           1                              1                              1                              
+String present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+String equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Cell present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Cell equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Overall equality?: 
+	CommonField:        a                              b                              c                              
+	Equality?           0                              1                              0                              
+<strong>	The field a is marked for deletion because its vector size does not agree across structures.
+</strong><strong>	The field c is marked for deletion because its vector size does not agree across structures.
+</strong>.
+TESTING (root)
+CHECKING VECTOR DIMENSION AGREEMENT:
+Row dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Column dimension test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Scalar present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           0                              1                              0                              
+Scalar equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        2                              1                              2                              
+	Equality?           0                              1                              0                              
+String present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+String equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Cell present? : 
+	CommonField:        a                              b                              c                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Cell equivalence test results: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Overall equality?: 
+	CommonField:        a                              b                              c                              
+	Equality?           0                              1                              0                              
+<strong>	The field a is marked for deletion because its vector size does not agree across structures.
+</strong><strong>	The field c is marked for deletion because its vector size does not agree across structures.
+</strong>..
+TESTING (root)
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              d                              e                              f                              
+	Structure 1:        1                              1                              1                              1                              1                              0                              
+	Structure 2:        1                              0                              1                              1                              0                              0                              
+	Structure 3:        1                              0                              1                              1                              1                              1                              
+	Equality?           1                              0                              1                              1                              0                              0                              
+<strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field e is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field f is marked for deletion because it does not exist across all structures.
+</strong>
+
+TESTING (root)
+CHECKING VECTOR DIMENSION AGREEMENT:
+Row dimension test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              0                              0                              
+	Structure 2:        1                              0                              0                              
+	Structure 3:        1                              0                              0                              
+	Equality?           1                              1                              1                              
+Column dimension test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Structure 3:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Scalar present? : 
+	CommonField:        a                              c                              d                              
+	Structure 1:        0                              1                              1                              
+	Structure 2:        0                              1                              1                              
+	Structure 3:        0                              1                              1                              
+	Equality?           1                              1                              0                              
+Scalar equivalence test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        NaN                            NaN                            2                              
+	Structure 2:        NaN                            NaN                            NaN                            
+	Structure 3:        NaN                            NaN                            NaN                            
+	Equality?           1                              1                              0                              
+String present? : 
+	CommonField:        a                              c                              d                              
+	Structure 1:        0                              1                              0                              
+	Structure 2:        0                              1                              1                              
+	Structure 3:        0                              1                              1                              
+	Equality?           1                              1                              0                              
+String equivalence test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              0                              
+	Structure 3:        1                              1                              0                              
+	Equality?           1                              1                              0                              
+Cell present? : 
+	CommonField:        a                              c                              d                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              0                              
+	Structure 3:        0                              0                              0                              
+	Equality?           1                              1                              1                              
+Cell equivalence test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Structure 3:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Overall equality?: 
+	CommonField:        a                              c                              d                              
+	Equality?           1                              1                              0                              
+<strong>	The field d is marked for deletion because its vector size does not agree across structures.
+</strong>. 
+TESTING (root)
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              d                              e                              f                              
+	Structure 1:        1                              1                              1                              1                              1                              0                              
+	Structure 2:        1                              0                              1                              1                              0                              0                              
+	Structure 3:        1                              0                              1                              1                              1                              1                              
+	Equality?           1                              0                              1                              1                              0                              0                              
+<strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field e is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field f is marked for deletion because it does not exist across all structures.
+</strong>
+
+TESTING (root)
+CHECKING VECTOR DIMENSION AGREEMENT:
+Row dimension test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              0                              
+	Structure 2:        1                              1                              0                              
+	Structure 3:        1                              1                              0                              
+	Equality?           1                              1                              1                              
+Column dimension test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Structure 3:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Scalar present? : 
+	CommonField:        a                              c                              d                              
+	Structure 1:        0                              0                              1                              
+	Structure 2:        0                              0                              1                              
+	Structure 3:        0                              0                              1                              
+	Equality?           1                              1                              0                              
+Scalar equivalence test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        NaN                            NaN                            2                              
+	Structure 2:        NaN                            NaN                            NaN                            
+	Structure 3:        NaN                            NaN                            NaN                            
+	Equality?           1                              1                              0                              
+String present? : 
+	CommonField:        a                              c                              d                              
+	Structure 1:        0                              0                              0                              
+	Structure 2:        0                              0                              1                              
+	Structure 3:        0                              0                              1                              
+	Equality?           1                              1                              0                              
+String equivalence test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              0                              
+	Structure 3:        1                              1                              0                              
+	Equality?           1                              1                              0                              
+Cell present? : 
+	CommonField:        a                              c                              d                              
+	Structure 1:        0                              1                              0                              
+	Structure 2:        0                              1                              0                              
+	Structure 3:        0                              1                              0                              
+	Equality?           1                              1                              1                              
+Cell equivalence test results: 
+	CommonField:        a                              c                              d                              
+	Structure 1:        1                              1                              1                              
+	Structure 2:        1                              1                              1                              
+	Structure 3:        1                              1                              1                              
+	Equality?           1                              1                              1                              
+Overall equality?: 
+	CommonField:        a                              c                              d                              
+	Equality?           1                              1                              0                              
+<strong>	The field d is marked for deletion because its vector size does not agree across structures.
+</strong>.
+TESTING (root)
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              sub1                           d                              e                              f                              sub2                           
+	Structure 1:        1                              1                              1                              1                              0                              0                              0                              0                              
+	Structure 2:        1                              0                              1                              1                              1                              0                              0                              0                              
+	Structure 3:        1                              0                              1                              1                              0                              1                              1                              1                              
+	Equality?           1                              0                              1                              1                              0                              0                              0                              0                              
+<strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field d is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field e is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field f is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field sub2 is marked for deletion because it does not exist across all structures.
+</strong>
+
+TESTING (root).sub1
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              
+	Structure 1:        1                              0                              
+	Structure 2:        1                              1                              
+	Equality?           1                              0                              
+<strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong>
+<strong>	The field sub1.b is marked as uncommon as all its subfields in the first structure do not match the subfields in the 2 structure.
+</strong>THE ABOVE OCCURRED WHEN TESTING (root)
+DURING SUBSTRUCTURE MERGING OF FIELD sub1 BETWEEN 1 AND 2
+
+TESTING (root).sub1
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              c                              
+	Structure 1:        1                              0                              
+	Structure 2:        1                              1                              
+	Equality?           1                              0                              
+<strong>	The field c is marked for deletion because it does not exist across all structures.
+</strong>
+<strong>	The field sub1.c is marked as uncommon as all its subfields in the first structure do not match the subfields in the 3 structure.
+</strong>THE ABOVE OCCURRED WHEN TESTING (root)
+DURING SUBSTRUCTURE MERGING OF FIELD sub1 BETWEEN 1 AND 3
+.
+TESTING (root)
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              sub1                           d                              e                              f                              sub2                           
+	Structure 1:        1                              1                              1                              1                              0                              0                              0                              0                              
+	Structure 2:        1                              0                              1                              1                              1                              0                              0                              0                              
+	Structure 3:        1                              0                              1                              1                              0                              1                              1                              1                              
+	Equality?           1                              0                              1                              1                              0                              0                              0                              0                              
+<strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field d is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field e is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field f is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field sub2 is marked for deletion because it does not exist across all structures.
+</strong>
+
+TESTING (root).sub1
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              0                              0                              
+	Structure 2:        0                              1                              1                              
+	Equality?           0                              0                              0                              
+<strong>	The field a is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field c is marked for deletion because it does not exist across all structures.
+</strong>
+<strong>	The field sub1.a is marked as uncommon as all its subfields in the first structure do not match the subfields in the 2 structure.
+</strong><strong>	The field sub1.b is marked as uncommon as all its subfields in the first structure do not match the subfields in the 2 structure.
+</strong><strong>	The field sub1.c is marked as uncommon as all its subfields in the first structure do not match the subfields in the 2 structure.
+</strong>THE ABOVE OCCURRED WHEN TESTING (root)
+DURING SUBSTRUCTURE MERGING OF FIELD sub1 BETWEEN 1 AND 2
+
+TESTING (root).sub1
+CHECKING FIELD NAME AGREEMENT:
+Fields shared: 
+	CommonField:        a                              b                              c                              
+	Structure 1:        1                              0                              0                              
+	Structure 2:        0                              1                              1                              
+	Equality?           0                              0                              0                              
+<strong>	The field a is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field b is marked for deletion because it does not exist across all structures.
+</strong><strong>	The field c is marked for deletion because it does not exist across all structures.
+</strong>
+...
+Done script_test_fcn_LoadRawDataToMATLAB_stitchStructures
+__________
+

@@ -28,6 +28,18 @@
 % 2025_11_24 by Sean Brennan, sbrennan@psu.edu
 % - Complete review of allscripts and functions
 % (new release)
+%
+% 2025_11_26 by Sean Brennan, sbrennan@psu.edu
+% - in fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%   % * Improved header docstrings to better explain expected outputs
+%   % * Especially for empty sensor type, was not clear what to expect
+%
+% 2025_11_27 by Sean Brennan, sbrennan@psu.edu
+% - worked on README.md (barely started)
+% - made this main script more clear by adding sections (not done)
+% - updated script_test_all_functions
+% - fixed minor bug where data file was missing in test script
+% (new release)
 
 % TO-DO:
 % 2025_11_22 by Sean Brennan, sbrennan@psu.edu
@@ -160,27 +172,47 @@ fprintf(1,['Welcome to the demo code for the LoadRawDataToMATLAB library! \n' ..
     '\t See: fcn_LoadRawDataToMATLAB_mergeRawDataStructures\n' ...
     ''])
 
-%%
-
+%% Data Loading Functions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   _____ _                 _        __  __                       ______                           _
-%  / ____(_)               | |      |  \/  |                     |  ____|                         | |
-% | (___  _ _ __ ___  _ __ | | ___  | \  / | ___ _ __ __ _  ___  | |__  __  ____ _ _ __ ___  _ __ | | ___  ___
-%  \___ \| | '_ ` _ \| '_ \| |/ _ \ | |\/| |/ _ \ '__/ _` |/ _ \ |  __| \ \/ / _` | '_ ` _ \| '_ \| |/ _ \/ __|
-%  ____) | | | | | | | |_) | |  __/ | |  | |  __/ | | (_| |  __/ | |____ >  < (_| | | | | | | |_) | |  __/\__ \
-% |_____/|_|_| |_| |_| .__/|_|\___| |_|  |_|\___|_|  \__, |\___| |______/_/\_\__,_|_| |_| |_| .__/|_|\___||___/
-%                    | |                              __/ |                                 | |
-%                    |_|                             |___/                                  |_|
-% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Simple%20Merge%20Examples
+%  _____        _
+% |  __ \      | |
+% | |  | | __ _| |_ __ _
+% | |  | |/ _` | __/ _` |
+% | |__| | (_| | || (_| |
+% |_____/ \__,_|\__\__,_|
+%
+%
+%  _                     _ _
+% | |                   | (_)
+% | |     ___   __ _  __| |_ _ __   __ _
+% | |    / _ \ / _` |/ _` | | '_ \ / _` |
+% | |___| (_) | (_| | (_| | | | | | (_| |
+% |______\___/ \__,_|\__,_|_|_| |_|\__, |
+%                                   __/ |
+%                                  |___/
+%  ______                _   _
+% |  ____|              | | (_)
+% | |__ _   _ _ __   ___| |_ _  ___  _ __  ___
+% |  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+% | |  | |_| | | | | (__| |_| | (_) | | | \__ \
+% |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Data%0ALoading%0AFunctions&x=none&v=0&h=4&w=80&we=false
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    
-%% Test 1: Simple merge using data from Site 1 - Pittsburgh 
-% Location for Pittsburgh, site 1
-setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.44181017');
-setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-79.76090840');
-setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
 
-%% Demonstrate data loading from LargeData, many bag files and several directories
+% DATA LOADING figures start with 1
+
+close all;
+fprintf(1,'Figure: 1XXXXXX: DATA LOADING functions\n');
+
+
+%% DEMO case: fcn_LoadRawDataToMATLAB_plotRawDataPositions
+
+figNum = 10001;
+titleString = sprintf('fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories');
+% Demonstrates plotting and plot saving of data
+% NOTE: can save plots by changing flags
+
+% Demonstrates data loading from LargeData, many bag files and several directories
 % Loads the data across 2 directories
 
 % Choose data folder and bag name, read before running the script
@@ -217,12 +249,107 @@ Flags = []; % Use defaults
 [rawDataCellArray, only_directory_filelist] = fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories(...
     rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (figNum));
 
+title('');
+sgtitle(titleString, 'Interpreter','none');
+
 % Show that we get a cell array of data with more than 1 entry
 assert(iscell(rawDataCellArray));
 assert(length(rawDataCellArray)>1);
 assert(length(rawDataCellArray)==length(only_directory_filelist));
 
-%% Demonstrate plotting and plot saving of the above data
+% Save results
+fullPathFileName = fullfile(pwd,'Images',cat(2,titleString,'.png'));
+saveas(gcf, fullPathFileName);
+fullPathFileName = fullfile(pwd,'Images',cat(2,titleString,'.fig'));
+saveas(gcf, fullPathFileName);
+
+%% DEMO case: fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories
+
+figNum = 10002;
+titleString = sprintf('fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories');
+% Demonstrates plotting and plot saving of data
+% NOTE: can save plots by changing flags
+
+% Demonstrate that can load the MAT files via queries
+
+
+% FORMAT:
+%
+%     rawDataCellArray = fcn_DataClean_loadMatDataFromDirectories(...
+%     rootdirs, (searchIdentifiers), (matQueryString), (fid), (plotFlags));
+
+
+clear searchIdentifiers
+searchIdentifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
+searchIdentifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
+searchIdentifiers.WorkZoneScenario = 'PA51Aliquippa'; % Can be one of the ~20 scenarios, see key
+searchIdentifiers.WorkZoneDescriptor = 'WorkInRightLaneMobileWorkzone'; % Can be one of the 20 descriptors, see key
+searchIdentifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
+searchIdentifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
+searchIdentifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+
+% Specify the bagQueryString
+matQueryString = 'mapping_van_*.mat'; % The more specific, the better to avoid accidental loading of wrong information
+%matQueryString = 'mapping_van_*_merged.mat'; % The more specific, the better to avoid accidental loading of wrong information
+
+% Spedify the fid
+fid = 1; % 1 --> print to console
+
+% List which directory/directories need to be loaded
+clear rootdirs
+rootdirs{1} = fullfile(cd,'Data'); % ,'2024-07-10');
+% rootdirs{2} = fullfile(cd,'LargeData','2024-07-11');
+
+% Call the function
+searchIdentifiers = [];
+rawDataCellArray = fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories(...
+    rootdirs, (searchIdentifiers), (matQueryString), (fid), (figNum));
+
+
+title('');
+sgtitle(titleString, 'Interpreter','none');
+
+assert(iscell(rawDataCellArray));
+% assert(length(rawDataCellArray2) == length(rawDataCellArray));
+
+
+% Save results
+fullPathFileName = fullfile(pwd,'Images',cat(2,titleString,'.png'));
+saveas(gcf, fullPathFileName);
+fullPathFileName = fullfile(pwd,'Images',cat(2,titleString,'.fig'));
+saveas(gcf, fullPathFileName);
+
+
+
+%% Plotting Functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  _____  _       _   _   _
+% |  __ \| |     | | | | (_)
+% | |__) | | ___ | |_| |_ _ _ __   __ _
+% |  ___/| |/ _ \| __| __| | '_ \ / _` |
+% | |    | | (_) | |_| |_| | | | | (_| |
+% |_|    |_|\___/ \__|\__|_|_| |_|\__, |
+%                                  __/ |
+%                                 |___/
+%  ______                _   _
+% |  ____|              | | (_)
+% | |__ _   _ _ __   ___| |_ _  ___  _ __  ___
+% |  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+% | |  | |_| | | | | (__| |_| | (_) | | | \__ \
+% |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Plotting%0AFunctions&x=none&v=0&h=4&w=80&we=false
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% DATA PLOTTING figures start with 2
+
+close all;
+fprintf(1,'Figure: 2XXXXXX: DATA PLOTTING functions\n');
+
+%% DEMO case: fcn_LoadRawDataToMATLAB_plotRawDataPositions
+
+figNum = 20001;
+titleString = sprintf('fcn_LoadRawDataToMATLAB_plotRawDataPositions');
+% Demonstrates plotting and plot saving of data
 % NOTE: can save plots by changing flags
 
 % List what will be saved
@@ -239,7 +366,51 @@ plotFlags.figNum_plotAllRawTogether = figNum;
 plotFlags.figNum_plotAllRawIndividually = [];
 
 % Call function to plot data, and save plots into file formats
-fcn_LoadRawDataToMATLAB_plotRawDataPositions(rawDataCellArray, (saveFlags), (plotFlags));
+fcn_LoadRawDataToMATLAB_plotRawDataPositions({rawDataCellArray{1}}, (saveFlags), (plotFlags));
+
+title('');
+sgtitle(titleString, 'Interpreter','none');
+
+
+% Save results
+fullPathFileName = fullfile(pwd,'Images',cat(2,titleString,'.png'));
+saveas(gcf, fullPathFileName);
+fullPathFileName = fullfile(pwd,'Images',cat(2,titleString,'.fig'));
+saveas(gcf, fullPathFileName);
+
+%% DATA SAVING Functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  _____        _
+% |  __ \      | |
+% | |  | | __ _| |_ __ _
+% | |  | |/ _` | __/ _` |
+% | |__| | (_| | || (_| |
+% |_____/ \__,_|\__\__,_|
+%
+%
+%   _____             _
+%  / ____|           (_)
+% | (___   __ ___   ___ _ __   __ _
+%  \___ \ / _` \ \ / / | '_ \ / _` |
+%  ____) | (_| |\ V /| | | | | (_| |
+% |_____/ \__,_| \_/ |_|_| |_|\__, |
+%                              __/ |
+%                             |___/
+%  ______                _   _
+% |  ____|              | | (_)
+% | |__ _   _ _ __   ___| |_ _  ___  _ __  ___
+% |  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+% | |  | |_| | | | | (__| |_| | (_) | | | \__ \
+% |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Data%0ASaving%0AFunctions&x=none&v=0&h=4&w=80&we=false
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% DATA SAVING figures start with 3
+
+close all;
+fprintf(1,'Figure: 3XXXXXX: DATA SAVING functions\n');
+
+
 
 %% Save results to a new directory (in Data)
 
@@ -264,15 +435,69 @@ saveFlags.flag_forceMATfileOverwrite = 1;
 % Call function
 fcn_LoadRawDataToMATLAB_saveRawDataMatFiles(rawDataCellArray, newDirectoryList, (saveFlags))
 
-%% Demonstrate that can load the MAT files via queries
+%% DATA MERGING Functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  _____        _
+% |  __ \      | |
+% | |  | | __ _| |_ __ _
+% | |  | |/ _` | __/ _` |
+% | |__| | (_| | || (_| |
+% |_____/ \__,_|\__\__,_|
+%
+%
+%  __  __                _
+% |  \/  |              (_)
+% | \  / | ___ _ __ __ _ _ _ __   __ _
+% | |\/| |/ _ \ '__/ _` | | '_ \ / _` |
+% | |  | |  __/ | | (_| | | | | | (_| |
+% |_|  |_|\___|_|  \__, |_|_| |_|\__, |
+%                   __/ |         __/ |
+%                  |___/         |___/
+%  ______                _   _
+% |  ____|              | | (_)
+% | |__ _   _ _ __   ___| |_ _  ___  _ __  ___
+% |  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+% | |  | |_| | | | | (__| |_| | (_) | | | \__ \
+% |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Data%0AMerging%0AFunctions&x=none&v=0&h=4&w=80&we=false
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% DATA MERGING figures start with 4
+
+close all;
+fprintf(1,'Figure: 4XXXXXX: DATA MERGING functions\n');
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   _____ _                 _        __  __                       ______                           _
+%  / ____(_)               | |      |  \/  |                     |  ____|                         | |
+% | (___  _ _ __ ___  _ __ | | ___  | \  / | ___ _ __ __ _  ___  | |__  __  ____ _ _ __ ___  _ __ | | ___  ___
+%  \___ \| | '_ ` _ \| '_ \| |/ _ \ | |\/| |/ _ \ '__/ _` |/ _ \ |  __| \ \/ / _` | '_ ` _ \| '_ \| |/ _ \/ __|
+%  ____) | | | | | | | |_) | |  __/ | |  | |  __/ | | (_| |  __/ | |____ >  < (_| | | | | | | |_) | |  __/\__ \
+% |_____/|_|_| |_| |_| .__/|_|\___| |_|  |_|\___|_|  \__, |\___| |______/_/\_\__,_|_| |_| |_| .__/|_|\___||___/
+%                    | |                              __/ |                                 | |
+%                    |_|                             |___/                                  |_|
+% See: http://patorjk.com/software/taag/#p=display&f=Big&t=Simple%20Merge%20Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                    
+%% Test 1: Simple merge using data from Site 1 - Pittsburgh 
+% Location for Pittsburgh, site 1
+setenv('MATLABFLAG_PLOTROAD_REFERENCE_LATITUDE','40.44181017');
+setenv('MATLABFLAG_PLOTROAD_REFERENCE_LONGITUDE','-79.76090840');
+setenv('MATLABFLAG_PLOTROAD_REFERENCE_ALTITUDE','327.428');
+
+%%%%
+% Load the data
+
 clear searchIdentifiers
-searchIdentifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
-searchIdentifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
-searchIdentifiers.WorkZoneScenario = 'PA51Aliquippa'; % Can be one of the ~20 scenarios, see key
-searchIdentifiers.WorkZoneDescriptor = 'WorkInRightLaneMobileWorkzone'; % Can be one of the 20 descriptors, see key
-searchIdentifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
-searchIdentifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
-searchIdentifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
+% searchIdentifiers.Project = 'PennDOT ADS Workzones'; % This is the project sponsoring the data collection
+% searchIdentifiers.ProjectStage = 'OnRoad'; % Can be 'Simulation', 'TestTrack', or 'OnRoad'
+% searchIdentifiers.WorkZoneScenario = 'PA51Aliquippa'; % Can be one of the ~20 scenarios, see key
+% searchIdentifiers.WorkZoneDescriptor = 'WorkInRightLaneMobileWorkzone'; % Can be one of the 20 descriptors, see key
+% searchIdentifiers.Treatment = 'BaseMap'; % Can be one of 9 options, see key
+% searchIdentifiers.DataSource = 'MappingVan'; % Can be 'MappingVan', 'AV', 'CV2X', etc. see key
+% searchIdentifiers.AggregationType = 'PreRun'; % Can be 'PreCalibration', 'PreRun', 'Run', 'PostRun', or 'PostCalibration'
 
 % Specify the bagQueryString
 matQueryString = 'mapping_van_*.mat'; % The more specific, the better to avoid accidental loading of wrong information
@@ -294,7 +519,7 @@ rawDataCellArray2 = fcn_LoadRawDataToMATLAB_loadMatDataFromDirectories(...
 % assert(length(rawDataCellArray2) == length(rawDataCellArray));
 
 
-%% Demonstrate merging of the above data
+%%%%% Demonstrate merging of the above data
 % Prepare for merging
 
 %%%%

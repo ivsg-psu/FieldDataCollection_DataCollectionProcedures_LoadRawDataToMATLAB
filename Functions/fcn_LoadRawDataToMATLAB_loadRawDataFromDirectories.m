@@ -7,7 +7,7 @@ function [rawDataCellArray, only_directory_filelist] = fcn_LoadRawDataToMATLAB_l
 %
 % FORMAT:
 %
-%      rawDataCellArray = fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories(...
+%      [rawDataCellArray, only_directory_filelist] = fcn_LoadRawDataToMATLAB_loadRawDataFromDirectories(...
 %      rootdirs, Identifiers, (bagQueryString), (fid), (Flags), (figNum))
 %
 % INPUTS:
@@ -93,6 +93,9 @@ function [rawDataCellArray, only_directory_filelist] = fcn_LoadRawDataToMATLAB_l
 % - Corrected script name
 % - Fixed rev history to be Markdown format
 % - Added TO+-DO list
+% 
+% 2025_11_27 by Sean Brennan, sbrennan@psu.edu
+% - Corrected docstrings where one of outputs was missing
 
 % TO-DO:
 % 

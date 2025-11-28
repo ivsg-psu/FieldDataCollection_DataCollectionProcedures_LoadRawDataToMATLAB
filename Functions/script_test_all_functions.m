@@ -93,7 +93,7 @@ fcn_DebugTools_cprintf('*blue','\tChecking that there is a demo file, %s: ', rep
 if exist(repoDemoNameString,'file')
     fcn_DebugTools_cprintf('*Green','PASSED.\n');
 else
-    fcn_DebugTools_cprintf('*Red','FAILED.\n');
+    fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
 end
 
 %% Check that "README.md" exists
@@ -103,7 +103,7 @@ fcn_DebugTools_cprintf('*blue','\tChecking that there is a README.md file: ');
 if exist(expectedNameString,'file')
     fcn_DebugTools_cprintf('*Green','PASSED.\n');
 else
-    fcn_DebugTools_cprintf('*Red','FAILED.\n');
+    fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
 end
 
 %% Checking existence of key folders
@@ -115,7 +115,7 @@ for ith_expectedFolder = 1:length(expectedFolders)
     if exist(expectedPath,'dir')
         fcn_DebugTools_cprintf('*Green','PASSED.\n');
     else
-        fcn_DebugTools_cprintf('*Red','FAILED.\n');
+        fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
     end
 end
 
@@ -146,15 +146,15 @@ for ith_string = 1:length(requiredStringsInMainDemo)
     if flagsStringWasFoundInFiles
         fcn_DebugTools_cprintf('*Green','PASSED.\n');
     else
-        fcn_DebugTools_cprintf('*Red','FAILED.\n');
+        fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
     end
 end
 
 
 %% Functions folder checks start here
-functionsFolder = fullfile(pwd,'Functions');
+fucntionsFolder = fullfile(pwd,'Functions');
 
-fcn_DebugTools_cprintf('*blue','Checking functions folder:\n\t%s:\n', functionsFolder);
+fcn_DebugTools_cprintf('*blue','Checking functions folder:\n\t%s:\n', fucntionsFolder);
 
 functionsDirectoryQueryAllFiles = fullfile(pwd,'Functions','*.*');
 % Use the following instead, if wish to do subdirectories
@@ -191,7 +191,7 @@ for ith_forbidden = 1:length(forbiddenStrings)
     flagsStringWasFoundInFiles = fcn_INTERNAL_removeFromList(flagsStringWasFoundInFilesRaw, fileListFunctionsFolderNoDirectoriesAllFiles,'script_test_all_functions');
     if sum(flagsStringWasFoundInFiles)>0
         flagAllGood = 0; %#ok<NASGU>
-        fcn_DebugTools_cprintf('*Red','FAILED.\n');
+        fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
         fcn_DebugTools_directoryStringQuery(fileListFunctionsFolderNoDirectoriesAllFiles, queryString, 1);
         error('A "%s" forbidden string was found in one of the functions or scripts - see listing above. This needs to be fixed before continuing the testing.',queryString);
     end
@@ -216,7 +216,7 @@ for ith_forbidden = 1:length(warningStrings)
     flagsStringWasFoundInFiles = fcn_INTERNAL_removeFromList(flagsStringWasFoundInFilesRaw, fileListFunctionsFolderNoDirectoriesAllFiles,'script_test_all_functions');
     if sum(flagsStringWasFoundInFiles)>0
         flagAllGood = 0;
-        fcn_DebugTools_cprintf('*Red','FAILED.\n');
+        fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
         fcn_DebugTools_directoryStringQuery(fileListFunctionsFolderNoDirectoriesAllFiles, queryString, 1);
         warning('A "%s" string was found in one of the functions or scripts - see listing above. This should be fixed to maintain compatibilty.',queryString);
     end
@@ -242,7 +242,7 @@ for ith_forbidden = 1:length(requiredStringsAllFiles)
     flagsStringWasFoundInFiles = flagsStringWasFoundInFilesRaw; % fcn_INTERNAL_removeFromList(flagsStringWasFoundInFilesRaw, fileListFunctionsFolderNoDirectories,'script_test_all_functions');
     if ~all(flagsStringWasFoundInFiles>0)
         flagAllGood = 0; %#ok<NASGU>
-        fcn_DebugTools_cprintf('*Red','FAILED.\n');
+        fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
         fcn_DebugTools_directoryStringQuery(fileListFunctionsFolderNoDirectoriesAllFiles, queryString, 1);
         error('A "%s" required string was NOT found in one of the functions or scripts - see listing above. This should be fixed to maintain compatibilty.',queryString);
     end
@@ -268,7 +268,7 @@ for ith_forbidden = 1:length(requiredStringsAllFunctions)
     flagsStringWasFoundInFiles = flagsStringWasFoundInFilesRaw; % fcn_INTERNAL_removeFromList(flagsStringWasFoundInFilesRaw, fileListFunctionsFolderNoDirectories,'script_test_all_functions');
     if ~all(flagsStringWasFoundInFiles>0)
         flagAllGood = 0; %#ok<NASGU>
-        fcn_DebugTools_cprintf('*Red','FAILED.\n');
+        fcn_DebugTools_cprintf('*Red','FAILED.\n', sumOfmFiles);
         fcn_DebugTools_directoryStringQuery(fileListFunctionsFolderNoDirectoriesFunctionsOnly, queryString, 1);
         error('A "%s" required string was NOT found in one of the functions or scripts - see listing above. This should be fixed to maintain compatibilty.',queryString);
     end
@@ -403,7 +403,7 @@ ylabel('Elapsed time to test (sec)');
 
 
 %% Check which files contain key strings?
-if 1==1
+if 1==0
     functionsFolder = fullfile(pwd,'Functions');
     fcn_DebugTools_cprintf('*blue','Searching and Replacing common naming errors in folder:\n\t%s\n', functionsFolder);
     badAndReplacementStrings = {
@@ -461,9 +461,9 @@ if 1==1
             fcn_DebugTools_cprintf('*Green','PASSED.\n');
         end
 
-        if 1==1
+        if 1==0
             %%%% WARNING - USE THIS WITH CAUTION! %%%%%%%%%%%%
-            if 1==1
+            if 1==0
                 if sum(flagsStringWasFoundInFilesRaw)>0
                     fcn_DebugTools_cprintf('*Red','\n\tINITIATING REPLACEMENT of %s with %s.\n', queryString, replacementString);
                     functionsDirectory = fullfile(pwd,'Functions');
