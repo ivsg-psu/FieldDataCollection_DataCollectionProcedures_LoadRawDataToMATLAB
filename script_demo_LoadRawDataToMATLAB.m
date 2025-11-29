@@ -40,6 +40,16 @@
 % - updated script_test_all_functions
 % - fixed minor bug where data file was missing in test script
 % (new release)
+%
+% 2025_11_29 by Sean Brennan, sbrennan@psu.edu
+% - In script_test_fcn_LoadRawDataToMATLAB_findMatchingSensors
+% - In script_test_fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%   % * Added a test case for the "non" sensor input in both scripts
+% - In fcn_LoadRawDataToMATLAB_findMatchingSensors
+% - In fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%   % * added 'non' prefix on input options to sensor_identifier_string, 
+%   % * this allows, for example, 'nonGPS' sensors
+% (new release)
 
 % TO-DO:
 % 2025_11_22 by Sean Brennan, sbrennan@psu.edu

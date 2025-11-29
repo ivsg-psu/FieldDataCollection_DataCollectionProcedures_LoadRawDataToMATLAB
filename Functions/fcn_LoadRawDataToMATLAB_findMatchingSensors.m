@@ -16,8 +16,10 @@ function [matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(data
 %      sensor_identifier_string = 'GPS', then all sensors whose names, when
 %      coverted to lower case, contain 'gps' will be queried. If there are
 %      only 3 sensors with 'gps' in their name, then the resulting
-%      dataArray and sensorNames will only have 3 entries. If
-%      sensor_identifier_string is empty, returns all sensor names.
+%      dataArray and sensorNames will only have 3 entries. Allows inputs
+%      with the keyword "non" in front of a sensor name, for example
+%      'nonGPS' which will give all sensors that do not have the term 'GPS'
+%      within. Default is empty, which returns all sensors.
 % 
 %      (OPTIONAL INPUTS)
 %
@@ -58,6 +60,11 @@ function [matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(data
 % 
 % 2025_11_25 by Sean Brennan, sbrennan@psu.edu
 % - Corrected references to _DataClean_ left over in docstrings
+%
+% 2025_11_29 by Sean Brennan, sbrennan@psu.edu
+% - in fcn_LoadRawDataToMATLAB_findMatchingSensors
+%   % * added 'non' prefix on input options to sensor_identifier_string, 
+%   % * this allows, for example, 'nonGPS' sensors
 
 % TO-DO:
 % 
@@ -155,8 +162,24 @@ flag_do_plots = 0; % Shut off plotting
 % Produce a list of all the sensors (each is a field in the structure)
 sensor_names = fieldnames(dataStructure); % Grab all the fields that are in dataStructure structure
 
+
+% Does the sensor_identifier_string start with 'non'?
+if length(sensor_identifier_string)>3 && strcmpi(sensor_identifier_string(1:3),'non')
+    flagFlipSelection = true;
+    sensor_identifier_string_true = sensor_identifier_string(4:end);
+else
+    flagFlipSelection = false;
+    sensor_identifier_string_true = sensor_identifier_string;
+end
+
+
 % Grab the list of matches
-matched_indicies = contains(lower(sensor_names),lower(sensor_identifier_string));
+matched_indicies = contains(lower(sensor_names),lower(sensor_identifier_string_true));
+
+if flagFlipSelection
+    matched_indicies = ~ matched_indicies;
+end
+
 Nsensors = sum(matched_indicies);
 
 % If there were no matches, just exit now

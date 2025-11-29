@@ -17,6 +17,10 @@
 % - Corrected script name
 % - Fixed rev history to be Markdown format
 % - Added TO+-DO list
+%
+% 2025_11_29 by Sean Brennan, sbrennan@psu.edu
+% - Added a test case for the "non" sensor input
+
 
 % TO-DO:
 % 
@@ -67,6 +71,25 @@ fid = '';
 assert(strcmp(matchedSensorNames{1},'cow1'));
 assert(strcmp(matchedSensorNames{2},'cow2'));
 assert(strcmp(matchedSensorNames{3},'cow3'));
+
+%% Basic call example - returns only fields that do NOT contain 'cow' in name, NOT verbose
+% Fill in some silly test data
+initial_test_structure = struct;
+initial_test_structure.cow1.sound = 'moo';
+initial_test_structure.cow2.sound = 'moo moo';
+initial_test_structure.cow3.sound = 'moo moo moo';
+initial_test_structure.pig1.sound  = 'oink';
+initial_test_structure.quiet_pig.weight  = 4;
+
+dataStructure = initial_test_structure;
+sensor_identifier_string = 'nonCOW'; % Using all-caps to show it is not case-sensitive
+fid = '';
+
+[matchedSensorNames] = fcn_LoadRawDataToMATLAB_findMatchingSensors(dataStructure, sensor_identifier_string, fid);
+
+assert(strcmp(matchedSensorNames{1},'pig1'));
+assert(strcmp(matchedSensorNames{2},'quiet_pig'));
+
 
 %% Empty call example - returns all sensors
 % Fill in some silly test data

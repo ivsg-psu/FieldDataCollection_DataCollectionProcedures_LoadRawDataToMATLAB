@@ -13,6 +13,9 @@
 % - Corrected script name
 % - Fixed rev history to be Markdown format
 % - Added TO+-DO list
+%
+% 2025_11_29 by Sean Brennan, sbrennan@psu.edu
+% - Added a test case for the "non" sensor input
 
 % TO-DO:
 % 
@@ -112,7 +115,26 @@ assert(iscell(sensorNames))
 % Assert they have same length
 assert(length(dataArray)==length(sensorNames))
 
+%% Example call 5 - pull out GPS_Time from only sensors that do NOT have "GPS" in name
 
+% Grab example data
+fullExampleFilePath = fullfile(cd,'Data','ExampleData_pullDataFromFieldAcrossAllSensors.mat');
+load(fullExampleFilePath,'dataStructure');
+
+field_string = 'GPS_Time';
+sensor_identifier_string = 'nonGPS';
+entry_location = [];
+fid = [];
+
+% Call the function
+[dataArray,sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll(dataStructure,field_string,(sensor_identifier_string), (entry_location), (fid));
+
+% Check that results are all cell arrays
+assert(iscell(dataArray))
+assert(iscell(sensorNames))
+
+% Assert they have same length
+assert(length(dataArray)==length(sensorNames))
 
 %%
 

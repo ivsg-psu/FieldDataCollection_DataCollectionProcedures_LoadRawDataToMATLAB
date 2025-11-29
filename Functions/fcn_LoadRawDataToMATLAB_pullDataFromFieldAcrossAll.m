@@ -22,8 +22,10 @@ function [dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcr
 %      sensor_identifier_string = 'GPS', then all sensors whose names, when
 %      coverted to lower case, contain 'gps' will be queried. If there are
 %      only 3 sensors with 'gps' in their name, then the resulting
-%      dataArray and sensorNames will only have 3 entries. Default is
-%      empty, which returns all sensors.
+%      dataArray and sensorNames will only have 3 entries. Allows inputs
+%      with the keyword "non" in front of a sensor name, for example
+%      'nonGPS' which will give all sensors that do not have the term 'GPS'
+%      within. Default is empty, which returns all sensors.
 % 
 %      entry_location: a string specifying which element to keep, if the
 %      data is an array:
@@ -84,6 +86,11 @@ function [dataArray, sensorNames] = fcn_LoadRawDataToMATLAB_pullDataFromFieldAcr
 % - in fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
 %   % * Improved header docstrings to better explain expected outputs
 %   % * Especially for empty sensor type, was not clear what to expect
+%
+% 2025_11_29 by Sean Brennan, sbrennan@psu.edu
+% - In fcn_LoadRawDataToMATLAB_pullDataFromFieldAcrossAll
+%   % * added 'non' prefix on input options to sensor_identifier_string, 
+%   % * this allows, for example, 'nonGPS' sensors
 
 % TO-DO:
 % 
@@ -221,7 +228,7 @@ end
 dataArray{Nsensors}        = [];
 
 if 0~=fid
-    fprintf(fid,'\nPulling data from field %s across all sensors:\n',field_string);
+    fprintf(fid,'\nPulling data from field %s across all %s sensors:\n',field_string, sensor_identifier_string);
 end
 
 % Loop through the fields, searching for ones that have sensor_identifier_string in their name
